@@ -1,0 +1,26 @@
+{
+    "latex-workshop.intellisense.package.enabled": true,
+    "latex-workshop.intellisense.unimathsymbols.enabled": true,
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "LaTeXmk - XeLaTeX",
+            "tools": [
+                "LaTeXmk - XeLaTeX"
+            ]
+        },
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "LaTeXmk - XeLaTeX",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "--shell-escape",
+                "-xelatex",
+                "%DOC%"
+            ]
+        },
+    ],
+}

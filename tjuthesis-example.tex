@@ -1,0 +1,76 @@
+% !TeX encoding = UTF-8
+% !TeX program = xelatex
+% !TeX spellcheck = en_US
+
+\documentclass[degree=bachelor]{tjuthesis}
+  % 学位 degree:
+  %   doctor | master | bachelor | postdoc
+  % 学位类型 degree-type:
+  %   academic（默认）| professional
+
+
+% 论文基本配置，加载宏包等全局配置
+\input{tjusetup.tex}
+
+
+\begin{document}
+
+% 封面
+\maketitle
+
+% 使用授权的说明
+% \copyrightpage
+% 将签字扫描后授权文件 scan-copyright.pdf 替换原始页面
+% \copyrightpage[scan-copyright.pdf]
+
+\frontmatter
+\input{data/abstract.tex}
+
+% 目录
+\tableofcontents
+
+% 符号对照表
+% \input{data/denotation}
+
+
+% 正文部分
+\mainmatter
+\input{data/chap01}
+\input{data/chap02}
+
+
+% 附录
+\appendix
+\input{data/appendix}
+% \input{data/appendix-survey}       % 本科生：外文资料的调研阅读报告
+% \input{data/appendix-translation}  % 本科生：外文资料的书面翻译
+
+
+% 其它部分
+\backmatter
+
+%% 本科生要求的几个索引。
+% \listoffigures    % 插图索引
+% \listoftables     % 表格索引
+
+% 参考文献
+% \bibliographystyle{thuthesis-numeric}      % 顺序编码制
+% \bibliographystyle{thuthesis-author-year}  % 著者-出版年制
+% \bibliographystyle{thuthesis-bachelor}     % 本科生参考文献的著录格式
+% \bibliography{ref/refs}
+
+% 致谢
+% \input{data/acknowledgements}
+
+% 声明
+% \statement
+% 将签字扫描后的声明文件 scan-statement.pdf 替换原始页面
+% \statement[scan-statement.pdf]
+
+% 个人简历
+% \input{data/resume}
+
+% 本科生的综合论文训练记录表（扫描版）
+% \record{scan-record.pdf}
+
+\end{document}
