@@ -9,7 +9,7 @@
 % -------------------- Preliminary Declarations --------------------
 
 \newcommand{\version}{0.0.0}
-\newcommand{\DocumentClass}{book}
+\newcommand{\DocumentClass}{article}
 
 % -------------------- Handle Options --------------------
 
@@ -25,7 +25,7 @@
 \RequirePackage{kvsetkeys}
 \RequirePackage{kvoptions}
 
-\LoadClass[a4paper, 12pt]{ctexbook}
+\LoadClass[a4paper, 12pt]{ctexart}
 
 \RequirePackage{etoolbox}
 
@@ -54,14 +54,30 @@
 % \fancyfoot[C]{}
 % \fancyfoot[R]{\footnotesize\AuthorStyle\@author}
 
-% 文献著录
+%
+\newcommand\frontmatter{%
+    \cleardoublepage
+    % \@mainmatterfalse
+    \pagenumbering{roman}}
 
-\usepackage[
+\newcommand\mainmatter{%
+    \cleardoublepage
+    % \@mainmattertrue
+    \pagenumbering{arabic}
+}
+
+\newcommand\backmatter{%
+    \clearpage
+}
+
+% 文献著录
+\usepackage[%
     backend=biber,style=gb7714-2015,gbalign=gb7714-2015,gbpub=false
     ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
 \bibliography{ref/refs}
 
+
 % 摘要
-\newenvironment{abstract}{\chapter*{\tju@abstract@name}}{}
+\renewenvironment{abstract}{\section*{\tju@abstract@name}}{}
 
 \endinput
