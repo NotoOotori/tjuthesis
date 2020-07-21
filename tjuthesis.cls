@@ -54,6 +54,13 @@
 % \fancyfoot[C]{}
 % \fancyfoot[R]{\footnotesize\AuthorStyle\@author}
 
+% 文献著录
+
+\usepackage[
+    backend=biber,style=gb7714-2015,gbalign=gb7714-2015,gbpub=false
+    ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
+\bibliography{ref/refs}
+
 % 摘要
 \newenvironment{abstract}{\chapter*{\tju@abstract@name}}{}
 
