@@ -54,7 +54,8 @@
 % \fancyfoot[C]{}
 % \fancyfoot[R]{\footnotesize\AuthorStyle\@author}
 
-%
+
+% 论文基本结构
 \newcommand\frontmatter{%
     \cleardoublepage
     % \@mainmatterfalse
@@ -69,6 +70,7 @@
 \newcommand\backmatter{%
     \clearpage
 }
+
 
 % 文献著录
 \usepackage[%
