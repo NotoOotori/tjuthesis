@@ -134,12 +134,19 @@
     },
     default = xits,
   },
+  cjk-font = {
+    name = cjk@font,
+    choices = {
+      windows,
+    },
+    default = windows,
+  },
 }
 
 
 % -------------------- Handle Options --------------------
 
-\newcommand{\tju@abstract@name}{摘要}
+\newcommand{\tju@abstract@name}{摘~要}
 
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{\DocumentClass}}
 \ProcessKeyvalOptions*
@@ -150,7 +157,7 @@
 \PassOptionsToPackage{quiet}{fontspec}
 
 
-\LoadClass[a4paper, zihao=5]{ctexart}
+\LoadClass[a4paper, zihao=5, fontset=none]{ctexart}
 
 
 % 引用必要宏包
@@ -304,6 +311,25 @@
 \tju@load@math@font
 \tju@option@hook{math-font}{\tju@load@math@font}
 
+\newcommand\tju@load@cjk@font@windows{%
+  \xeCJKsetup{EmboldenFactor=2}
+  \setCJKmainfont{SimSun}[
+    AutoFakeBold = true,
+    ItalicFont   = KaiTi,
+  ]%
+  \setCJKsansfont{SimHei}[AutoFakeBold]%
+  \setCJKmonofont{FangSong}%
+  \newCJKfontfamily\zhsong{SimSun}[AutoFakeBold]%
+  \newCJKfontfamily\zhhei{SimHei}[AutoFakeBold]%
+  \newCJKfontfamily\zhkai{KaiTi}%
+  \newCJKfontfamily\zhfs{FangSong}%
+}
+\newcommand\tju@load@cjk@font{%
+  \@nameuse{tju@load@cjk@font@\tju@cjk@font}%
+}
+\tju@load@cjk@font
+\tju@option@hook{cjk-font}{\tju@load@cjk@font}
+
 
 % 页面尺寸
 \geometry{
@@ -435,7 +461,20 @@
 
 
 % 摘要
-\renewenvironment{abstract}{\section*{\tju@abstract@name}}{}
+\renewenvironment{abstract}{%
+  \clearpage
+  \vskip 6pt
+  \begingroup
+    \xiaoer\centering\zhhei\bf\tju@title\par
+  \endgroup
+  \vskip 18pt
+  \begingroup
+    \sihao\centering\zhhei\tju@abstract@name\par
+  \endgroup
+  \vskip 9pt
+}{%
+  \clearpage
+}
 
 
 % 文献著录
