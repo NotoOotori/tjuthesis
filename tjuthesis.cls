@@ -219,15 +219,16 @@
 % 页面尺寸
 \geometry{
   top = 30mm,
-  bottom = 50mm,
+  bottom = 60mm,
   left = 45mm,
   right = 30mm,
 }
 
 
+% 装订线
 \RequirePackage{fancybox}
 \XeTeXcharclass`┊=1
-\fancyput(-0.75cm,-13cm){\parbox{1em}{\wuhao\baselineskip 15pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+\fancyput(-0.75cm,-12cm){\parbox{1em}{\wuhao\baselineskip 12pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
 
 
 % 页眉页脚
@@ -239,7 +240,7 @@
   \fancyhead[R]{\raisebox{2.5ex}{\zihao{4}{毕业设计（论文）}}}
   \renewcommand{\headrulewidth}{1pt}
   \setlength{\headsep}{30pt}
-  \setlength{\footskip}{40pt}
+  \setlength{\footskip}{20pt}
   \renewcommand{\footrulewidth}{0pt}
   \fancyfoot[C]{\xiaosi\thepage}
 }
