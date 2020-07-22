@@ -1,18 +1,29 @@
 % !TeX root = ../tjuthesis-example.tex
 
-\section{第一节的标题}
+\section{字体测试}
 
 \zhlipsum[1]
 
-\subsection{BibLaTeX 文献著录}
+\subsection{数学字体测试}
+
+这里有一些小写的希腊字母：
+\begin{equation}
+  \alpha \beta \gamma \delta \varepsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu \xi o \pi \rho \sigma \tau \upsilon \varphi \chi \psi \omega
+\end{equation}
+这里有一些大写的希腊字母，他们应该都是斜体：
+\begin{equation}
+  A B \Gamma \Delta E Z H \Theta I K \Lambda M N \Xi O \Pi P \Sigma T \Upsilon \varPhi X \Psi \Omega
+\end{equation}
+这里有一些其它字母，其中偏导算子和梯度算子应该是正体：
+\begin{equation}
+  \aleph \partial \nabla
+\end{equation}
+除此之外，数学模式中的数字和正文中的数字应该有相同的字体，我们将数学模式中的数字也设置为了Times New Roman字体，为此我们隐藏了fontspec宏包的警告。效果如下：
+\begin{equation}
+  1234567890\text{1234567890}
+\end{equation}
 
 \zhlipsum[1]
-
-我们先引用一下郑博文写的书\cite{rudin1976principleschinese3}.
-
-我们再引用一下张赫写的书\cite{rudin1976principleschinese}.
-
-最后我们看一下英文的参考文献\cite{rudin1976principles}.
 
 \subsection{第一节第二子节的标题}
 

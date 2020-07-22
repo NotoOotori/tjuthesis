@@ -100,7 +100,7 @@
     default = bachelor,
   },
 }
-% 其它设置
+%% 文档信息
 \tju@define@key{
   title = {
     default = {标题},
@@ -125,6 +125,17 @@
     default = {},
   },
 }
+%% 字体选项
+\tju@define@key{
+  math-font = {
+    name = math@font,
+    choices = {
+      xits,
+    },
+    default = xits,
+  },
+}
+
 
 % -------------------- Handle Options --------------------
 
@@ -135,17 +146,23 @@
 
 % -------------------- More Declarations --------------------
 
+% 不显示Warning (Times字体没有MathScript Style)
+\PassOptionsToPackage{quiet}{fontspec}
+
+
 \LoadClass[a4paper, zihao=5]{ctexart}
 
 
 % 引用必要宏包
 \RequirePackage{etoolbox}
 \RequirePackage{xparse}
-\RequirePackage{geometry}%
+\RequirePackage{geometry}
 \RequirePackage{fancyhdr}
 \RequirePackage{titletoc}
 \RequirePackage{notoccite}
 \RequirePackage{amsmath}
+% unicode-math should be loaded after any other packages that mess
+%   with the math functionality.
 \RequirePackage{unicode-math}
 \RequirePackage{graphicx}
 \RequirePackage[labelformat=simple]{subcaption}
@@ -214,6 +231,78 @@
   \clearpage
   \@mainmatterfalse
 }
+
+
+% 英文字体
+\setmainfont{Times New Roman}%
+
+\let\tju@font@family@xits\@empty
+\newcommand\tju@set@xits@names{%
+  \ifx\tju@font@family@xits\@empty
+    \IfFontExistsTF{XITSMath-Regular.otf}{%
+      \gdef\tju@font@family@xits{XITS}%
+      \gdef\tju@font@style@xits@rm{Regular}%
+      \gdef\tju@font@style@xits@bf{Bold}%
+      \gdef\tju@font@style@xits@it{Italic}%
+      \gdef\tju@font@style@xits@bfit{BoldItalic}%
+      \gdef\tju@font@name@xits@math@rm{XITSMath-Regular}%
+      \gdef\tju@font@name@xits@math@bf{XITSMath-Bold}%
+    }{%
+      \gdef\tju@font@family@xits{xits}%
+      \gdef\tju@font@style@xits@rm{regular}%
+      \gdef\tju@font@style@xits@bf{bold}%
+      \gdef\tju@font@style@xits@it{italic}%
+      \gdef\tju@font@style@xits@bfit{bolditalic}%
+      \gdef\tju@font@name@xits@math@rm{xits-math}%
+      \gdef\tju@font@name@xits@math@bf{xits-mathbold}%
+    }%
+  \fi
+}
+\unimathsetup{
+  math-style = ISO,
+  bold-style = ISO,
+  nabla      = upright,
+  partial    = upright,
+}
+\newcommand\tju@load@math@font@xits{%
+  \tju@set@xits@names
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
+    BoldFont = \tju@font@name@xits@math@bf,
+    StylisticSet = 8,
+  ]
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
+    StylisticSet = 1,
+    range = {cal, bfcal},
+  ]
+  \setmathfont{Times}[
+    Extension = .ttf,
+    range = \mathup/{num},
+    Script = Arabic,
+  ]
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
+    range = \mathit/{greek,Greek,latin,Latin},
+  ]
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
+    range = \mathup/{greek,Greek,latin,Latin},
+  ]
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
+    range = {
+      "2212,"002B,"003D,"0028,"0029,"005B,%
+      "005D,"221A,"2211,"2248,"222B,"007C,"2026,"2202,"00D7,"0302,%
+      "2261,"0025,"22C5,"00B1,"2194,"21D4%
+    },
+  ]
+}
+\newcommand\tju@load@math@font{%
+  \@nameuse{tju@load@math@font@\tju@math@font}
+}
+\tju@load@math@font
+\tju@option@hook{math-font}{\tju@load@math@font}
 
 
 % 页面尺寸
@@ -289,10 +378,13 @@
       \underline{\tju@par{#4}{##2{##3}}}\\
     \fi
   }%
-  \xiaosan
-  \begin{tabular}{l}%
-    #5%
-  \end{tabular}%
+  \begingroup
+    \xiaosan
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{l}%
+      #5%
+    \end{tabular}%
+  \endgroup
 }
 \newbox\tju@pad@box
 \newcommand\tju@pad[2]{%
