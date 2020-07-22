@@ -135,34 +135,8 @@
 
 % -------------------- More Declarations --------------------
 
-\LoadClass[a4paper, zihao=-4]{ctexart}
+\LoadClass[a4paper, zihao=5]{ctexart}
 
-\RequirePackage{etoolbox}
-
-% Modify the sizes of the document
-
-\RequirePackage{geometry}
-\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
-
-% Change page style
-
-\RequirePackage{fancyhdr}
-\RequirePackage{lastpage}
-
-\pagestyle{fancy}
-\pagenumbering{arabic}
-
-% \newcommand{\PageHead}[2]{\ifchinese@option{第#1页\ 共\ #2\ 页}\else{Page #1\ of #2}\fi}
-
-% \renewcommand{\headrulewidth}{0.4pt}
-% \renewcommand{\footrulewidth}{0.4pt}
-\setlength{\headheight}{15pt}
-% \fancyhead[L]{\footnotesize{\ifx\@course\undefined{}\else{\CourseStyle\@course{ -- }\fi}\TitleStyle\@title}}
-% \fancyhead[C]{}
-% \fancyhead[R]{\footnotesize{\PageHead{\thepage}{\pageref{LastPage}}}}
-% \fancyfoot[L, C]{}
-% \fancyfoot[C]{}
-% \fancyfoot[R]{\footnotesize\AuthorStyle\@author}
 
 % 引用必要宏包
 \RequirePackage{etoolbox}
@@ -240,6 +214,36 @@
   \clearpage
   \@mainmatterfalse
 }
+
+
+% 页面尺寸
+\geometry{
+  top = 30mm,
+  bottom = 50mm,
+  left = 45mm,
+  right = 30mm,
+}
+
+
+\RequirePackage{fancybox}
+\XeTeXcharclass`┊=1
+\fancyput(-0.75cm,-13cm){\parbox{1em}{\wuhao\baselineskip 15pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \setlength{\headheight}{40pt}
+  \fancyhead[L]{\quad\includegraphics[width=4.5cm]{tongji-name-bacholar.pdf}}
+  \fancyhead[R]{\raisebox{2.5ex}{\zihao{4}{毕业设计（论文）}}}
+  \renewcommand{\headrulewidth}{1pt}
+  \setlength{\headsep}{30pt}
+  \setlength{\footskip}{40pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\xiaosi\thepage}
+}
+\pagestyle{plain}
 
 
 % 标题页
@@ -335,6 +339,7 @@
   \expandafter\comma@parse\expandafter{#1}{\tju@name@title@process}%
   \tju@name@title@format{\tju@@name}{\tju@@title}%
 }
+
 
 % 摘要
 \renewenvironment{abstract}{\section*{\tju@abstract@name}}{}
