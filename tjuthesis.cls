@@ -8,24 +8,134 @@
 
 % -------------------- Preliminary Declarations --------------------
 
-\newcommand{\version}{0.0.0}
-\newcommand{\DocumentClass}{article}
+
+\newcommand\tju@error[1]{%
+  \ClassError{tjuthesis}{#1}{}%
+}
+\newcommand\tju@warning[1]{%
+  \ClassWarning{tjuthesis}{#1}%
+}
+\@ifl@t@r\fmtversion{2017/04/15}{}{
+  \tju@error{%
+    TeX Live 2017 or later version is required to compile this document%
+  }
+}
+
+
+\newcommand\version{0.0.0}
+\newcommand\DocumentClass{article}
+
+
+% keyword-value设置
+\RequirePackage{kvdefinekeys}
+\RequirePackage{kvsetkeys}
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{
+  family=tju,
+  prefix=tju@,
+  setkeys=\kvsetkeys}
+\newcommand\tjusetup[1]{%
+  \kvsetkeys{tju}{#1}%
+}
+\newcommand\tju@define@key[1]{%
+  \kvsetkeys{tju@key}{#1}%
+}
+
+\kv@set@family@handler{tju@key}{%
+  \@namedef{tju@#1@@name}{#1}%
+  \def\tju@@default{}%
+  \def\tju@@choices{}%
+  \kv@define@key{tju@value}{name}{%
+    \@namedef{tju@#1@@name}{##1}%
+  }%
+  \@namedef{tju@#1@@check}{}%
+  \@namedef{tju@#1@@code}{}%
+  \kv@define@key{tju@value}{choices}{%
+    \def\tju@@choices{##1}%
+    \@namedef{tju@#1@@reset}{}%
+    \@namedef{tju@#1@@check}{%
+      \@ifundefined{%
+        iftju@\@nameuse{tju@#1@@name}@\@nameuse{tju@\@nameuse{tju@#1@@name}}%
+      }{%
+        \tju@error{Invalid value "#1 = \@nameuse{tju@\@nameuse{tju@#1@@name}}"}%
+      }%
+      \@nameuse{tju@#1@@reset}%
+      \@nameuse{tju@\@nameuse{tju@#1@@name}@\@nameuse{tju@\@nameuse{tju@#1@@name}}true}%
+    }%
+  }%
+  \kv@define@key{tju@value}{default}{%
+    \def\tju@@default{##1}%
+  }%
+  \kvsetkeys{tju@value}{#2}%
+  \@namedef{tju@\@nameuse{tju@#1@@name}}{}%
+  \kv@set@family@handler{tju@choice}{%
+    \ifx\tju@@default\@empty
+      \def\tju@@default{##1}%
+    \fi
+    \expandafter\newif\csname iftju@\@nameuse{tju@#1@@name}@##1\endcsname
+    \expandafter\g@addto@macro\csname tju@#1@@reset\endcsname{%
+      \@nameuse{tju@\@nameuse{tju@#1@@name}@##1false}%
+    }%
+  }%
+  \kvsetkeys@expandafter{tju@choice}{\tju@@choices}%
+  \expandafter\let\csname tju@\@nameuse{tju@#1@@name}\endcsname\tju@@default
+  \expandafter\ifx\csname tju@\@nameuse{tju@#1@@name}\endcsname\@empty\else
+    \@nameuse{tju@#1@@check}%
+  \fi
+  \kv@define@key{tju}{#1}{%
+    \@namedef{tju@\@nameuse{tju@#1@@name}}{##1}%
+    \@nameuse{tju@#1@@check}%
+    \@nameuse{tju@#1@@code}%
+  }%
+}
+\newcommand\tju@option@hook[2]{%
+  \expandafter\g@addto@macro\csname tju@#1@@code\endcsname{#2}%
+}
+% 文档类选项
+\tju@define@key{
+  degree = {
+    choices = {
+      bachelor,
+    },
+    default = bachelor,
+  },
+}
+% 其它设置
+\tju@define@key{
+  title = {
+    default = {标题},
+  },
+  subtitle,
+  department = {
+    default = {学院},
+  },
+  discipline = {
+    default = {专业},
+  },
+  author = {
+    default = {姓名},
+  },
+  id = {
+    default = {学号},
+  },
+  supervisor = {
+    default = {导师姓名},
+  },
+  date = {
+    default = {},
+  },
+}
 
 % -------------------- Handle Options --------------------
 
 \newcommand{\tju@abstract@name}{摘要}
 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{\DocumentClass}}
-
-\ProcessOptions\relax
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{\DocumentClass}}
+\ProcessKeyvalOptions*
 
 % -------------------- More Declarations --------------------
 
-\RequirePackage{kvdefinekeys}
-\RequirePackage{kvsetkeys}
-\RequirePackage{kvoptions}
-
-\LoadClass[a4paper, 12pt]{ctexart}
+\LoadClass[a4paper, zihao=-4]{ctexart}
 
 \RequirePackage{etoolbox}
 
@@ -54,32 +164,187 @@
 % \fancyfoot[C]{}
 % \fancyfoot[R]{\footnotesize\AuthorStyle\@author}
 
+% 引用必要宏包
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
+\RequirePackage{geometry}%
+\RequirePackage{fancyhdr}
+\RequirePackage{titletoc}
+\RequirePackage{notoccite}
+\RequirePackage{amsmath}
+\RequirePackage{unicode-math}
+\RequirePackage{graphicx}
+\RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{pdfpages}
+\includepdfset{fitpaper=true}
+\RequirePackage[shortlabels]{enumitem}
+\RequirePackage{environ}
+\RequirePackage{xeCJKfntef}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{url}
+\RequirePackage{filehook}
+\newcommand\tju@package@conflict[2]{
+  \AtBeginOfPackageFile*{#2}{
+    \tju@error{The "#2" package is incompatible with required "#1"}
+  }
+}
+\tju@package@conflict{unicode-math}{amscd}
+\tju@package@conflict{unicode-math}{amsfonts}
+\tju@package@conflict{unicode-math}{amssymb}
+\tju@package@conflict{unicode-math}{bbm}
+\tju@package@conflict{unicode-math}{bm}
+\tju@package@conflict{unicode-math}{eucal}
+\tju@package@conflict{unicode-math}{eufrak}
+\tju@package@conflict{unicode-math}{mathrsfs}
+
+
+% 字号
+\def\tju@def@fontsize#1#2{%
+  \expandafter\newcommand\csname #1\endcsname[1][1.3]{%
+    \fontsize{#2}{##1\dimexpr #2}\selectfont}}
+\tju@def@fontsize{chuhao}{42bp}
+\tju@def@fontsize{xiaochu}{36bp}
+\tju@def@fontsize{yihao}{26bp}
+\tju@def@fontsize{xiaoyi}{24bp}
+\tju@def@fontsize{erhao}{22bp}
+\tju@def@fontsize{xiaoer}{18bp}
+\tju@def@fontsize{sanhao}{16bp}
+\tju@def@fontsize{xiaosan}{15bp}
+\tju@def@fontsize{sihao}{14bp}
+\tju@def@fontsize{banxiaosi}{13bp}
+\tju@def@fontsize{xiaosi}{12bp}
+\tju@def@fontsize{dawu}{11bp}
+\tju@def@fontsize{wuhao}{10.5bp}
+\tju@def@fontsize{xiaowu}{9bp}
+\tju@def@fontsize{liuhao}{7.5bp}
+\tju@def@fontsize{xiaoliu}{6.5bp}
+\tju@def@fontsize{qihao}{5.5bp}
+\tju@def@fontsize{bahao}{5bp}
+
 
 % 论文基本结构
+\newif\if@mainmatter
 \newcommand\frontmatter{%
-    \cleardoublepage
-    % \@mainmatterfalse
-    \pagenumbering{roman}}
+  \cleardoublepage
+  \@mainmatterfalse
+  \pagenumbering{roman}}
 
 \newcommand\mainmatter{%
-    \cleardoublepage
-    % \@mainmattertrue
-    \pagenumbering{arabic}
+  \cleardoublepage
+  \@mainmattertrue
+  \pagenumbering{arabic}
 }
 
 \newcommand\backmatter{%
-    \clearpage
+  \clearpage
+  \@mainmatterfalse
 }
+
+
+% 标题页
+\renewcommand{\maketitle}{%
+  \clearpage
+  \tju@titlepage
+  \clearpage
+}
+\newcommand\tju@titlepage{%
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \begin{center}
+    \includegraphics[height=2.25cm]{tongji-name-bacholar.pdf}
+    \par
+    {\xiaoer\MakeUppercase{\textbf{Tongji University}}}
+    \vskip 30pt
+    {\yihao{\textbf{毕业设计（论文）}}}
+    \vskip 80pt
+    \tju@titlepage@info
+  \end{center}
+  \vspace*{\fill}
+}
+
+%% 信息表
+\newcommand\tju@titlepage@info{%
+  \tju@titlepage@info@tabular{4em}{4em}{0.82cm}{18em}{%
+    \tju@info@item{课题名称}{}{\tju@title}
+    \tju@info@item{副标题}{}{\tju@subtitle}
+    \tju@info@item{学院}{}{\tju@department}
+    \tju@info@item{专业}{}{\tju@discipline}
+    \tju@info@item{学生姓名}{}{\tju@author}
+    \tju@info@item{学号}{}{\tju@id}
+    \tju@info@item{指导教师}{\tju@name@title}{\tju@supervisor}
+    \tju@info@item{日期}{}{\tju@date}
+  }
+}
+\newcommand\tju@titlepage@info@tabular[5]{%
+  \def\tju@info@item##1##2##3{%
+    \ifx##3\@empty\else
+      \tju@pad{#1}{\tju@fixed@box{#2}{##1}}%
+      \tju@pad{#3}{}%
+      \underline{\tju@par{#4}{##2{##3}}}\\
+    \fi
+  }%
+  \xiaosan
+  \begin{tabular}{l}%
+    #5%
+  \end{tabular}%
+}
+\newbox\tju@pad@box
+\newcommand\tju@pad[2]{%
+  \sbox\tju@pad@box{#2}%
+  \ifdim \wd\tju@pad@box < #1\relax
+    \makebox[#1][l]{\box\tju@pad@box}%
+  \else
+    \box\tju@pad@box
+  \fi
+}
+\newbox\tju@par@box
+\newcommand\tju@par[2]{%
+  \sbox\tju@par@box{#2}%
+  \ifdim \wd\tju@par@box < #1\relax
+    \makebox[#1][c]{\box\tju@par@box}%
+  \else
+    \box\tju@par@box
+  \fi
+}
+% 将文本分散排在固定长度的box里
+\newcommand\tju@fixed@box[2]{%
+  \begingroup
+    \def\CJKglue{\hskip 0pt plus 2filll minus 1filll}%
+    \makebox[#1][l]{#2}%
+  \endgroup
+}
+% 导师职称排版
+\newcounter{tju@csl@count}
+\newcommand\tju@name@title@process[1]{%
+  \ifcase\c@tju@csl@count  % == 0
+    \gdef\tju@@name{#1}%
+  \or  % == 1
+    \gdef\tju@@title{#1}%
+  \fi
+  \stepcounter{tju@csl@count}%
+}
+\newcommand\tju@name@title@format[2]{%
+  \tju@pad{4em}{\tju@par{4em}{#1}}%
+  \tju@par{3em}{#2}%
+}
+\newcommand\tju@name@title[1]{%
+  \setcounter{tju@csl@count}{0}%
+  \gdef\tju@@name{}%
+  \gdef\tju@@title{}%
+  \expandafter\comma@parse\expandafter{#1}{\tju@name@title@process}%
+  \tju@name@title@format{\tju@@name}{\tju@@title}%
+}
+
+% 摘要
+\renewenvironment{abstract}{\section*{\tju@abstract@name}}{}
 
 
 % 文献著录
 \usepackage[%
-    backend=biber,style=gb7714-2015,gbalign=gb7714-2015,gbpub=false
-    ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
+  backend=biber,style=gb7714-2015,gbalign=gb7714-2015,gbpub=false
+  ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
 \bibliography{ref/refs}
 
-
-% 摘要
-\renewenvironment{abstract}{\section*{\tju@abstract@name}}{}
 
 \endinput
