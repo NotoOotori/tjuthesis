@@ -225,12 +225,11 @@
 \newcommand\frontmatter{%
   \cleardoublepage
   \@mainmatterfalse
-  \pagenumbering{roman}}
+  \pagenumbering{arabic}}
 
 \newcommand\mainmatter{%
   \cleardoublepage
   \@mainmattertrue
-  \pagenumbering{arabic}
 }
 
 \newcommand\backmatter{%
@@ -391,7 +390,7 @@
   \fancyhead[R]{\xiaosi 毕业设计（论文）~\\}
   \renewcommand{\headrulewidth}{1.5pt}
   \renewcommand{\footrulewidth}{1.5pt}
-  \fancyfoot[C]{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}
+  \fancyfoot[RO]{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页} % LE,RO if twoside
 }
 \pagestyle{plain}
 
