@@ -146,8 +146,6 @@
 
 % -------------------- Handle Options --------------------
 
-\newcommand{\tju@abstract@name}{摘~要}
-
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{\DocumentClass}}
 \ProcessKeyvalOptions*
 
@@ -165,6 +163,7 @@
 \RequirePackage{xparse}
 \RequirePackage{geometry}
 \RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
 \RequirePackage{titletoc}
 \RequirePackage{notoccite}
 \RequirePackage{amsmath}
@@ -333,31 +332,66 @@
 
 % 页面尺寸
 \geometry{
-  top = 30mm,
-  bottom = 60mm,
-  left = 45mm,
-  right = 30mm,
+  top = 32mm,
+  bottom = 38mm,
+  left = 33mm,
+  right = 18mm,
 }
 
 
 % 装订线
 \RequirePackage{fancybox}
-\XeTeXcharclass`┊=1
-\fancyput(-0.75cm,-12cm){\parbox{1em}{\wuhao\baselineskip 12pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+% \XeTeXcharclass`┊=1
+% \fancyput(-0.75cm,-12cm){\parbox{1em}{\wuhao\baselineskip 12pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+\fancyput*(-0.8cm,-4.3cm){$|$}%
+\fancyput*(-0.8cm,-4.9cm){$|$}%
+\fancyput*(-0.8cm,-5.5cm){$|$}%
+\fancyput*(-0.8cm,-6.1cm){$|$}%
+\fancyput*(-0.8cm,-6.7cm){$|$}%
+\fancyput*(-0.8cm,-7.3cm){$|$}%
+\fancyput*(-0.8cm,-7.9cm){$|$}%
+\fancyput*(-0.8cm,-8.5cm){$|$}%
+\fancyput*(-0.8cm,-9.1cm){$|$}%
+\fancyput*(-0.8cm,-9.7cm){$|$}%
+\fancyput*(-1.0cm,-10.3cm){装}%
+\fancyput*(-0.8cm,-10.9cm){$|$}%
+\fancyput*(-0.8cm,-11.5cm){$|$}%
+\fancyput*(-0.8cm,-12.1cm){$|$}%
+\fancyput*(-0.8cm,-12.7cm){$|$}%
+\fancyput*(-0.8cm,-13.3cm){$|$}%
+\fancyput*(-1.0cm,-13.9cm){订}%
+\fancyput*(-0.8cm,-14.5cm){$|$}%
+\fancyput*(-0.8cm,-15.1cm){$|$}%
+\fancyput*(-0.8cm,-15.7cm){$|$}%
+\fancyput*(-0.8cm,-16.3cm){$|$}%
+\fancyput*(-0.8cm,-16.9cm){$|$}%
+\fancyput*(-1.0cm,-17.5cm){线}%
+\fancyput*(-0.8cm,-18.1cm){$|$}%
+\fancyput*(-0.8cm,-18.7cm){$|$}%
+\fancyput*(-0.8cm,-19.3cm){$|$}%
+\fancyput*(-0.8cm,-19.9cm){$|$}%
+\fancyput*(-0.8cm,-20.5cm){$|$}%
+\fancyput*(-0.8cm,-21.1cm){$|$}%
+\fancyput*(-0.8cm,-21.7cm){$|$}%
+\fancyput*(-0.8cm,-22.3cm){$|$}%
+\fancyput*(-0.8cm,-22.9cm){$|$}%
+\fancyput*(-0.8cm,-23.5cm){$|$}%
+
+
+% 行距
+\linespread{1.5}
 
 
 % 页眉页脚
 \pagestyle{fancy}
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \setlength{\headheight}{40pt}
-  \fancyhead[L]{\quad\includegraphics[width=4.5cm]{tongji-name-bacholar.pdf}}
-  \fancyhead[R]{\raisebox{2.5ex}{\zihao{4}{毕业设计（论文）}}}
-  \renewcommand{\headrulewidth}{1pt}
-  \setlength{\headsep}{30pt}
-  \setlength{\footskip}{20pt}
-  \renewcommand{\footrulewidth}{0pt}
-  \fancyfoot[C]{\xiaosi\thepage}
+  \setlength{\headheight}{42.82419pt}% TODO: check this
+  \fancyhead[L]{\qquad \includegraphics[height=1.34cm]{tongji-name-bacholar.jpg}}
+  \fancyhead[R]{\xiaosi 毕业设计（论文）~\\}
+  \renewcommand{\headrulewidth}{1.5pt}
+  \renewcommand{\footrulewidth}{1.5pt}
+  \fancyfoot[C]{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}
 }
 \pagestyle{plain}
 
@@ -369,110 +403,55 @@
   \clearpage
 }
 \newcommand\tju@titlepage{%
-  \thispagestyle{empty}
-  \vspace*{\fill}
-  \begin{center}
-    \includegraphics[height=2.25cm]{tongji-name-bacholar.pdf}
-    \par
-    {\xiaoer\MakeUppercase{\textbf{Tongji University}}}
-    \vskip 30pt
-    {\yihao{\textbf{毕业设计（论文）}}}
-    \vskip 80pt
-    \tju@titlepage@info
-  \end{center}
-  \vspace*{\fill}
-}
-
-%% 信息表
-\newcommand\tju@titlepage@info{%
-  \tju@titlepage@info@tabular{4em}{4em}{0.82cm}{18em}{%
-    \tju@info@item{课题名称}{}{\tju@title}
-    \tju@info@item{副标题}{}{\tju@subtitle}
-    \tju@info@item{学院}{}{\tju@department}
-    \tju@info@item{专业}{}{\tju@discipline}
-    \tju@info@item{学生姓名}{}{\tju@author}
-    \tju@info@item{学号}{}{\tju@id}
-    \tju@info@item{指导教师}{\tju@name@title}{\tju@supervisor}
-    \tju@info@item{日期}{}{\tju@date}
-  }
-}
-\newcommand\tju@titlepage@info@tabular[5]{%
-  \def\tju@info@item##1##2##3{%
-    \ifx##3\@empty\else
-      \tju@pad{#1}{\tju@fixed@box{#2}{##1}}%
-      \tju@pad{#3}{}%
-      \underline{\tju@par{#4}{##2{##3}}}\\
-    \fi
-  }%
-  \begingroup
-    \xiaosan
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{l}%
-      #5%
-    \end{tabular}%
-  \endgroup
-}
-\newbox\tju@pad@box
-\newcommand\tju@pad[2]{%
-  \sbox\tju@pad@box{#2}%
-  \ifdim \wd\tju@pad@box < #1\relax
-    \makebox[#1][l]{\box\tju@pad@box}%
-  \else
-    \box\tju@pad@box
-  \fi
-}
-\newbox\tju@par@box
-\newcommand\tju@par[2]{%
-  \sbox\tju@par@box{#2}%
-  \ifdim \wd\tju@par@box < #1\relax
-    \makebox[#1][c]{\box\tju@par@box}%
-  \else
-    \box\tju@par@box
-  \fi
-}
-% 将文本分散排在固定长度的box里
-\newcommand\tju@fixed@box[2]{%
-  \begingroup
-    \def\CJKglue{\hskip 0pt plus 2filll minus 1filll}%
-    \makebox[#1][l]{#2}%
-  \endgroup
-}
-% 导师职称排版
-\newcounter{tju@csl@count}
-\newcommand\tju@name@title@process[1]{%
-  \ifcase\c@tju@csl@count  % == 0
-    \gdef\tju@@name{#1}%
-  \or  % == 1
-    \gdef\tju@@title{#1}%
-  \fi
-  \stepcounter{tju@csl@count}%
-}
-\newcommand\tju@name@title@format[2]{%
-  \tju@pad{4em}{\tju@par{4em}{#1}}%
-  \tju@par{3em}{#2}%
-}
-\newcommand\tju@name@title[1]{%
-  \setcounter{tju@csl@count}{0}%
-  \gdef\tju@@name{}%
-  \gdef\tju@@title{}%
-  \expandafter\comma@parse\expandafter{#1}{\tju@name@title@process}%
-  \tju@name@title@format{\tju@@name}{\tju@@title}%
 }
 
 
 % 摘要
-\renewenvironment{abstract}{%
+\tju@define@key{
+  keywords,
+  keywords* = {
+    name = keywords@en,
+  },
+}
+\newcommand\tju@clist@use[2]{%
+  \def\tju@@tmp{}%
+  \def\tju@clist@processor##1{%
+    \ifx\tju@@tmp\@empty
+      \def\tju@@tmp{#2}%
+    \else
+      #2%
+    \fi
+    ##1%
+  }%
+  \expandafter\comma@parse\expandafter{#1}{\tju@clist@processor}%
+}
+\newcommand{\tju@abstract@name}{摘\quad 要}
+\newcommand{\tju@keywords@name}{关键词}
+\renewenvironment{abstract}[1]{%
+  \tjusetup{
+    keywords = {#1}
+  }
   \clearpage
-  \vskip 6pt
+  \null\vskip -1em
   \begingroup
-    \xiaoer\centering\zhhei\bf\tju@title\par
+    \erhao\centering\zhhei\bf\tju@title\par%
   \endgroup
-  \vskip 18pt
+  \begin{center}
+    \sihao\zhhei\tju@abstract@name%
+  \end{center}
+  \par%
   \begingroup
-    \sihao\centering\zhhei\tju@abstract@name\par
-  \endgroup
-  \vskip 9pt
+    \xiaowu\zhsong
 }{%
+  \endgroup
+  \vskip 5mm
+  \begingroup
+    \noindent
+    \wuhao\zhhei\tju@keywords@name:%
+  \endgroup
+  \begingroup
+    \quad\xiaowu\tju@clist@use{\tju@keywords}{, \quad}%
+  \endgroup
   \clearpage
 }
 
@@ -485,3 +464,5 @@
 
 
 \endinput
+
+% TODO: pdf information (pdfkeywords)
