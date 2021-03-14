@@ -19,9 +19,9 @@
   %   不可使用“\\”命令手动控制换行
   %   副标题为可选项
   %
-  title  = {同济大学学位论文 \LaTeX{} 模板},
+  title  = {同济大学学位论文 \LaTeX 模板},
   subtitle = {使用示例文档 v\version},
-  % title* = {An Introduction to \LaTeX{} Thesis Template of Tsinghua University v\version},
+  title* = {An Introduction to \LaTeX Thesis Template of Tongji University v\version},
   %
   % 学位
   %   1. 学术型
@@ -171,7 +171,8 @@
 % \DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
 % \providecommand\pkg[1]{{\sffamily#1}}
 
-% 借用 zhlipsum 来填充内容
+% 借用 lipsum与zhlipsum 来填充内容
+\usepackage{lipsum}
 \usepackage{zhlipsum}
 
 % hyperref 宏包在最后调用

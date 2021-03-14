@@ -106,6 +106,10 @@
     default = {标题},
   },
   subtitle,
+  title* = {
+    default = {Title},
+    name = title@en,
+  },
   department = {
     default = {学院},
   },
@@ -164,7 +168,8 @@
 \RequirePackage{geometry}
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
-\RequirePackage{titletoc}
+\RequirePackage[titles]{tocloft}
+% \RequirePackage{titletoc}
 \RequirePackage{notoccite}
 \RequirePackage{amsmath}
 % unicode-math should be loaded after any other packages that mess
@@ -174,7 +179,7 @@
 \RequirePackage[labelformat=simple]{subcaption}
 \RequirePackage{pdfpages}
 \includepdfset{fitpaper=true}
-\RequirePackage[shortlabels]{enumitem}
+\RequirePackage{enumerate}
 \RequirePackage{environ}
 \RequirePackage{xeCJKfntef}
 \RequirePackage{array}
@@ -239,7 +244,7 @@
 
 
 % 英文字体
-\setmainfont{Times New Roman}%
+\setmainfont{Computer Modern}%
 
 \let\tju@font@family@xits\@empty
 \newcommand\tju@set@xits@names{%
@@ -281,7 +286,7 @@
     StylisticSet = 1,
     range = {cal, bfcal},
   ]
-  \setmathfont{Times}[
+  \setmathfont{cmunrm}[
     Extension = .ttf,
     range = \mathup/{num},
     Script = Arabic,
@@ -426,6 +431,8 @@
 }
 \newcommand{\tju@abstract@name}{摘\quad 要}
 \newcommand{\tju@keywords@name}{关键词}
+\newcommand{\tju@abstract@name@en}{ABSTRACT}
+\newcommand{\tju@keywords@name@en}{Key words}
 \renewenvironment{abstract}[1]{%
   \tjusetup{
     keywords = {#1}
@@ -433,7 +440,7 @@
   \clearpage
   \null\vskip -1em
   \begingroup
-    \erhao\centering\zhhei\bf\tju@title\par%
+    \erhao\centering\zhhei\tju@title\par%
   \endgroup
   \begin{center}
     \sihao\zhhei\tju@abstract@name%
@@ -452,6 +459,56 @@
     \quad\xiaowu\tju@clist@use{\tju@keywords}{, \quad}%
   \endgroup
   \clearpage
+}
+\newenvironment{abstract*}[1]{
+  \tjusetup{
+    keywords* = {#1},
+  }
+  \clearpage
+  \begin{center}
+    \erhao\bf\tju@title@en%
+  \end{center}
+  \begin{center}
+    \sihao\bf\tju@abstract@name@en%
+  \end{center}
+  \par%
+  \begingroup
+    \xiaowu\zhsong
+}{%
+  \endgroup
+  \vskip 5mm
+  \begingroup
+    \noindent
+    \wuhao\bf\tju@keywords@name@en:%
+  \endgroup
+  \begingroup
+    \quad\xiaowu\tju@clist@use{\tju@keywords@en}{, \quad}
+  \endgroup
+  \clearpage
+}
+
+% 目录
+\newcommand{\tju@contents@name}{目\quad 录}
+\renewcommand{\contentsname}{\tju@contents@name}
+\renewcommand{\cftdot}{$\cdot$}
+\renewcommand{\cftdotsep}{1}
+\setlength{\cftbeforesecskip}{10pt}
+\setlength{\cftbeforesubsecskip}{3pt}
+\setlength{\cftbeforesubsubsecskip}{0pt}
+\renewcommand{\cftsecfont}{\wuhao\zhhei}
+\renewcommand{\cftsubsecfont}{\wuhao\zhhei}
+\renewcommand{\cftsubsubsecfont}{\wuhao\zhhei}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
+\renewcommand{\cftsecdotsep}{\cftdotsep}
+\renewcommand{\cftsecpagefont}{\wuhao}
+\renewcommand{\cftsubsecpagefont}{\wuhao}
+\renewcommand{\cftsubsubsecpagefont}{\wuhao}
+\renewcommand{\numberline}[1]{%
+  \settowidth\@tempdimb{#1\hspace{0.5em}}%
+  \ifdim\@tempdima<\@tempdimb%
+    \@tempdima=\@tempdimb%
+  \fi%
+  \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb%
 }
 
 
