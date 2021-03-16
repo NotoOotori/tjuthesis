@@ -179,7 +179,7 @@
 \RequirePackage[labelformat=simple]{subcaption}
 \RequirePackage{pdfpages}
 \includepdfset{fitpaper=true}
-\RequirePackage{enumerate}
+\RequirePackage{enumitem}
 \RequirePackage{environ}
 \RequirePackage{xeCJKfntef}
 \RequirePackage{array}
@@ -199,6 +199,10 @@
 \tju@package@conflict{unicode-math}{eucal}
 \tju@package@conflict{unicode-math}{eufrak}
 \tju@package@conflict{unicode-math}{mathrsfs}
+
+% 分项
+\setlist[enumerate,1]{label = (\arabic*)}
+\setlist[enumerate,2]{label = \arabic*)}
 
 
 % 字号
@@ -286,8 +290,7 @@
     StylisticSet = 1,
     range = {cal, bfcal},
   ]
-  \setmathfont{cmunrm}[
-    Extension = .ttf,
+  \setmathfont{Computer Modern}[
     range = \mathup/{num},
     Script = Arabic,
   ]
