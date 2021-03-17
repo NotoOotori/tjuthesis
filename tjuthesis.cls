@@ -201,7 +201,8 @@
 \tju@package@conflict{unicode-math}{mathrsfs}
 
 % 分项
-\setlist[enumerate,1]{label = (\arabic*)}
+\setlist{nosep}
+\setlist[enumerate,1]{label = (\arabic*), left = \parindent .. 2\parindent}
 \setlist[enumerate,2]{label = \arabic*)}
 
 
@@ -250,6 +251,12 @@
 % 英文字体
 \setmainfont{Computer Modern}%
 
+
+\mathchardef\ordinarycolon\mathcode`\:
+\mathcode`\:=\string"8000
+\begingroup \catcode`\:=\active
+  \gdef:{\mathrel{\mathop\ordinarycolon}}
+\endgroup
 \let\tju@font@family@xits\@empty
 \newcommand\tju@set@xits@names{%
   \ifx\tju@font@family@xits\@empty
@@ -285,8 +292,7 @@
     BoldFont = \tju@font@name@xits@math@bf,
     StylisticSet = 8,
   ]
-  \setmathfont{\tju@font@name@xits@math@rm}[
-    Extension = .otf,
+  \setmathfont{XITS Math}[
     StylisticSet = 1,
     range = {cal, bfcal},
   ]
@@ -294,16 +300,13 @@
     range = \mathup/{num},
     Script = Arabic,
   ]
-  \setmathfont{\tju@font@name@xits@math@rm}[
-    Extension = .otf,
+  \setmathfont{XITS Math}[
     range = \mathit/{greek,Greek,latin,Latin},
   ]
-  \setmathfont{\tju@font@name@xits@math@rm}[
-    Extension = .otf,
+  \setmathfont{XITS Math}[
     range = \mathup/{greek,Greek,latin,Latin},
   ]
-  \setmathfont{\tju@font@name@xits@math@rm}[
-    Extension = .otf,
+  \setmathfont{XITS Math}[
     range = {
       "2212,"002B,"003D,"0028,"0029,"005B,%
       "005D,"221A,"2211,"2248,"222B,"007C,"2026,"2202,"00D7,"0302,%
