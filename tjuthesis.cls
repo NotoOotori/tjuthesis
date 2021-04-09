@@ -520,14 +520,47 @@
 
 % 文献著录
 \usepackage[%
-  backend=biber,style=gb7714-2015,gbalign=gb7714-2015,gbpub=false,sortcites=true
+  backend=biber,style=gb7714-2015,gbalign=right,gbpub=false,sortcites=true
   ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
 \bibliography{ref/refs}
+
+\renewcommand{\bibfont}{\xiaowu}
+\setlength{\bibitemsep}{0.36ex} % 1.3*1.2-1.2
+% \setlength{\bibitemsep}{\baselineskip}
+% \addtolength{\bibitemsep}{-\ht\strutbox}
+\setlength{\bibitemindent}{0em} % bibitemindent表示一条文献中第一行相对后面各行的缩进
+\setlength{\bibhang}{3em} % 著者-出版年制中bibhang 表示的各行起始位置到页边的距离
+\setlength{\biblabelsep}{2mm} % 调整顺序标签与文献内容的间距
+% 调整各条文献的缩进：
+%-1-----gbalign=left、right、center时，重定义bibenvironment
+\defbibenvironment{bibliography}%修改对齐环境-调整缩进
+  {%
+    \list{%
+      \printtext[labelnumberwidth]{%
+      \printfield{labelprefix}%
+      \printfield{labelnumber}}}
+    {%
+      %这里是所做的调整，通过设置\bibitemindent，\bibhang调整缩进
+      % \addtolength{\bibitemindent}{\labelnumberwidth}%
+      % \addtolength{\bibitemindent}{\biblabelsep}%
+      \addtolength{\bibhang}{-\labelnumberwidth} %
+      \addtolength{\bibhang}{-\biblabelsep}%
+      %
+      %以下是默认的设置
+      \setlength{\labelwidth}{\labelnumberwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \setlength{\leftmargin}{\bibhang}%
+      \addtolength{\leftmargin}{\labelnumberwidth}%
+      \setlength{\itemindent}{\bibitemindent}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
 
 \DefineBibliographyStrings{english}{
     bytranslator= {Trans. by},
     }
-
 \renewbibmacro*{name:andothers}{\bibauthorfont%
   \ifboolexpr{
     test {\ifnumequal{\value{listcount}}{\value{liststop}}}
@@ -580,6 +613,7 @@
           {}}}%
 \iffieldequalstr{usere}{chinese}{\printtext{译}}
   {\bibstring{\abx@tempa}}}
+
 
 % TODO: pdf information (pdfkeywords)
 
