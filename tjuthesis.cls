@@ -520,10 +520,34 @@
 
 % 文献著录
 \usepackage[%
-  backend=biber,style=gb7714-2015,gbalign=right,gbpub=false,sortcites=true
+  backend=biber,style=gb7714-2015,gbalign=right,gbpub=false,sortcites=true,doi=false
   ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
 \bibliography{ref/refs}
+\AtEveryBibitem{\clearfield{pagetotal}}
+%%% 在驱动别名处理, 再处理文献类型标识.
+\DeclareBibliographyAlias{inreference}{incollection}
+\DeclareBibliographyAlias{reference}{collection}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{%
+    \map{
+      \pertype{inreference}
+      \step[fieldset=usera, fieldvalue={G}]
+      \step[fieldsource=institution]%有时会把publisher和institution混淆，处理后使用publisher
+      \step[fieldset=publisher, origfieldval]
+    }
+    \map{
+      \pertype{reference}
+      \step[fieldset=usera, fieldvalue={G}]
+      \step[fieldsource=institution]%有时会把publisher和institution混淆，处理后使用publisher
+      \step[fieldset=publisher, origfieldval]
+    }
+  }
+}
+\DeclareFieldFormat%将期刊等文献的标题中原来带的引号去掉
+[inreference]
+{title}{#1}%\nopunct\unspace
 
+%% 参考文献表
 \renewcommand{\bibfont}{\xiaowu}
 \setlength{\bibitemsep}{0.36ex} % 1.3*1.2-1.2
 % \setlength{\bibitemsep}{\baselineskip}
@@ -557,63 +581,6 @@
       \renewcommand*{\makelabel}[1]{\hss##1}}
   {\endlist}
   {\item}
-
-\DefineBibliographyStrings{english}{
-    bytranslator= {Trans. by},
-    }
-\renewbibmacro*{name:andothers}{\bibauthorfont%
-  \ifboolexpr{
-    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
-    and
-    test \ifmorenames
-  }{\ifnumgreater{\value{liststop}}{1}%
-       {\finalandcomma}%
-       {}%
-\printdelim{andothersdelim}\printdelim{strandothersdelim}%
-}{%当是译者的时候需要特殊处理：从7.2节看等，译前面加逗号，但从示例看等和译同时出现时，译前的逗号没有，比如：
-%袁训来, 陈哲, 肖书海, 等.
-%胡泳, 范海燕, 译.
-%潘惠霞, 魏婧, 杨艳, 等译.
-\ifcurrentname{translator}{\iffieldequalstr{usere}{chinese}{\addcomma\addthinspace}{}}{}%为了实现上述第二个示例情况做的处理
-}}
-
-\renewbibmacro*{bytranslator+others}{\bibauthorfont%
-  \ifnameundef{translator}
-    {}
-    {\iffieldequalstr{usere}{chinese}{}{\usebibmacro{bytranslator+othersstrg}}
-     %\setunit{\addspace}%
-     \printnames[bytranslator]{translator}%
-     \clearname{translator}%
-     %从macro*{bytranslator+othersstrg}%中可以看到当地化字符串格式的引用前的代码处理
-     %比如生成cotranslator等用于调用cotranslator所代表的当地化字符串
-     \iffieldequalstr{usere}{chinese}{\usebibmacro{bytranslator+othersstrg}}{}%“译”的位置换到下面来，即放到译者后面。
-     %\setunit{\addspace}%
-     \newunit}%
-  \usebibmacro{withothers}}
-
-
-\renewbibmacro*{bytranslator+othersstrg}{%
-  \def\abx@tempa{bytranslator}%
-  \ifnamesequal{translator}{commentator}
-    {\appto\abx@tempa{co}%
-     \clearname{commentator}}
-    {\ifnamesequal{translator}{annotator}
-       {\appto\abx@tempa{an}%
-        \clearname{annotator}}
-       {}}%
-  \ifnamesequal{translator}{introduction}
-    {\appto\abx@tempa{in}%
-     \clearname{introduction}}
-    {\ifnamesequal{translator}{foreword}
-       {\appto\abx@tempa{fo}%
-        \clearname{foreword}}
-       {\ifnamesequal{translator}{afterword}
-          {\appto\abx@tempa{af}%
-           \clearname{afterword}}
-          {}}}%
-\iffieldequalstr{usere}{chinese}{\printtext{译}}
-  {\bibstring{\abx@tempa}}}
-
 
 % TODO: pdf information (pdfkeywords)
 
