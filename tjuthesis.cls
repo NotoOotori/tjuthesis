@@ -583,11 +583,12 @@
   \item%
 }
 
-% 脚注
+% 脚注, 设置编号为圆圈内数字
 \RequirePackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
-    \node[shape=circle,draw,inner sep=0pt] (char) {#1};}}
-\renewcommand\@makefntext[1]{%
-  \noindent\makebox[0pt][r]{\circled{\@thefnmark}\space}#1}
+  \node[shape=circle,draw,inner sep=0pt] (char) {#1};}}
+\def\nosuper@makefnmark{\hbox{\normalfont\circled{\@thefnmark}\space}}
+\patchcmd\@makefntext{\@makefnmark}{\nosuper@makefnmark}{}{}% 需要etoolbox宏包来给局部打补丁
+% 如果想要每页重置脚注编号, 可以参考https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
 
 \endinput
