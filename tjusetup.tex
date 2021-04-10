@@ -177,3 +177,28 @@
 
 % hyperref 宏包在最后调用
 \usepackage{hyperref}
+
+\hypersetup{linktoc=all}% TOC中章节名称和页码都是超链接
+% \hypersetup{% 超链接样式
+%   colorlinks  =   true,
+%   linkcolor   =   cyan,
+%   anchorcolor =   black,
+%   citecolor   =   green,
+%   filecolor   =   cyan,
+%   menucolor   =   red,
+%   runcolor    =   filecolor,
+%   urlcolor    =   magenta,
+% }
+\hypersetup{% 书签
+  bookmarksopen = true,
+  bookmarksopenlevel = 2,
+  bookmarksnumbered = true,% 将章节编号放入书签中
+}
+\hypersetup{% PDF默认打开视图
+  pdfstartview        =   FitH,
+  pdfpagelayout       =   OneColumn,
+}
+\hypersetup{% PDF信息
+  pdftitle={\tjutitle},
+  pdfauthor={\tjuauthor},
+}

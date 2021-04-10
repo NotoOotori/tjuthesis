@@ -407,6 +407,8 @@
 
 
 % 标题页
+\newcommand{\tjutitle}{\tju@title}
+\newcommand{\tjuauthor}{\tju@author}
 \renewcommand{\maketitle}{%
   \clearpage
   \tju@titlepage
@@ -543,9 +545,7 @@
     }
   }
 }
-\DeclareFieldFormat%将期刊等文献的标题中原来带的引号去掉
-[inreference]
-{title}{#1}%\nopunct\unspace
+\DeclareFieldFormat[inreference]{title}{#1}%\nopunct\unspace%将期刊等文献的标题中原来带的引号去掉
 
 %% 参考文献表
 \renewcommand{\bibfont}{\xiaowu}
@@ -558,30 +558,36 @@
 % 调整各条文献的缩进：
 %-1-----gbalign=left、right、center时，重定义bibenvironment
 \defbibenvironment{bibliography}%修改对齐环境-调整缩进
+{%
+  \list{%
+    \printtext[labelnumberwidth]{%
+    \printfield{labelprefix}%
+    \printfield{labelnumber}}}
   {%
-    \list{%
-      \printtext[labelnumberwidth]{%
-      \printfield{labelprefix}%
-      \printfield{labelnumber}}}
-    {%
-      %这里是所做的调整，通过设置\bibitemindent，\bibhang调整缩进
-      % \addtolength{\bibitemindent}{\labelnumberwidth}%
-      % \addtolength{\bibitemindent}{\biblabelsep}%
-      \addtolength{\bibhang}{-\labelnumberwidth} %
-      \addtolength{\bibhang}{-\biblabelsep}%
-      %
-      %以下是默认的设置
-      \setlength{\labelwidth}{\labelnumberwidth}%
-      \setlength{\labelsep}{\biblabelsep}%
-      \setlength{\leftmargin}{\bibhang}%
-      \addtolength{\leftmargin}{\labelnumberwidth}%
-      \setlength{\itemindent}{\bibitemindent}%
-      \setlength{\itemsep}{\bibitemsep}%
-      \setlength{\parsep}{\bibparsep}}%
-      \renewcommand*{\makelabel}[1]{\hss##1}}
-  {\endlist}
-  {\item}
+    %这里是所做的调整，通过设置\bibitemindent，\bibhang调整缩进
+    % \addtolength{\bibitemindent}{\labelnumberwidth}%
+    % \addtolength{\bibitemindent}{\biblabelsep}%
+    \addtolength{\bibhang}{-\labelnumberwidth} %
+    \addtolength{\bibhang}{-\biblabelsep}%
+    %
+    %以下是默认的设置
+    \setlength{\labelwidth}{\labelnumberwidth}%
+    \setlength{\labelsep}{\biblabelsep}%
+    \setlength{\leftmargin}{\bibhang}%
+    \addtolength{\leftmargin}{\labelnumberwidth}%
+    \setlength{\itemindent}{\bibitemindent}%
+    \setlength{\itemsep}{\bibitemsep}%
+    \setlength{\parsep}{\bibparsep}}%
+    \renewcommand*{\makelabel}[1]{\hss##1}}{%
+  \endlist}{%
+  \item%
+}
 
-% TODO: pdf information (pdfkeywords)
+% 脚注
+\RequirePackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=0pt] (char) {#1};}}
+\renewcommand\@makefntext[1]{%
+  \noindent\makebox[0pt][r]{\circled{\@thefnmark}\space}#1}
 
 \endinput
