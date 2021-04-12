@@ -526,6 +526,7 @@
   ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
 \bibliography{ref/refs}
 \AtEveryBibitem{\clearfield{pagetotal}}
+\AtEveryBibitem{\clearfield{volume}}% incollection会意外输出volume信息
 %%% 在驱动别名处理, 再处理文献类型标识.
 \DeclareBibliographyAlias{inreference}{incollection}
 \DeclareBibliographyAlias{reference}{collection}
