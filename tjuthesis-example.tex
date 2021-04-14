@@ -2,9 +2,9 @@
 
 \documentclass[degree=bachelor]{tjuthesis}
   % 学位 degree:
-  %   doctor | master | bachelor | postdoc
+  %   bachelor
   % 学位类型 degree-type:
-  %   academic（默认）| professional
+  %   N/A
 
 
 % 论文基本配置，加载宏包等全局配置
@@ -33,23 +33,19 @@
 
 % 正文部分
 \mainmatter
-\input{data/sec01}
-\input{data/sec02}
+\input{data/sec01.tex}
+\input{data/sec02.tex}
 
 
 % 附录
 \appendix
-\input{data/appendix}
+\input{data/appendix.tex}
 % \input{data/appendix-survey}       % 本科生：外文资料的调研阅读报告
 % \input{data/appendix-translation}  % 本科生：外文资料的书面翻译
 
 
 % 其它部分
 \backmatter
-
-%% 本科生要求的几个索引。
-% \listoffigures    % 插图索引
-% \listoftables     % 表格索引
 
 % 参考文献 ref/refs.tex
 %TODO: printbibliography
@@ -61,17 +57,7 @@
 \endgroup
 
 % 致谢
-\input{data/acknowledgements}
+\input{data/acknowledgements.tex}
 
-% 声明
-% \statement
-% 将签字扫描后的声明文件 scan-statement.pdf 替换原始页面
-% \statement[scan-statement.pdf]
-
-% 个人简历
-% \input{data/resume}
-
-% 本科生的综合论文训练记录表（扫描版）
-% \record{scan-record.pdf}
 
 \end{document}

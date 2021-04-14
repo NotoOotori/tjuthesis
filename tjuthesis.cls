@@ -520,6 +520,9 @@
   \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb%
 }
 
+% 附录
+
+\appto\appendix{\clearpage}
 
 % 文献著录
 \usepackage[%
