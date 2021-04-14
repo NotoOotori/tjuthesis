@@ -164,6 +164,7 @@
 
 % 引用必要宏包
 \RequirePackage{etoolbox}
+\RequirePackage{xpatch}
 \RequirePackage{xparse}
 \RequirePackage{geometry}
 \RequirePackage{fancyhdr}
@@ -549,6 +550,8 @@
 \DeclareFieldFormat[inreference]{title}{#1}%\nopunct\unspace%将期刊等文献的标题中原来带的引号去掉
 
 %% 参考文献表
+% \xpretocmd\printbibliography{\begingroup\linespread{1.3}\sloppy}{}{}
+% \xapptocmd\printbibliography{\fussy\endgroup}{}{}
 \renewcommand{\bibfont}{\xiaowu}
 \setlength{\bibitemsep}{0.36ex} % 1.3*1.2-1.2
 % \setlength{\bibitemsep}{\baselineskip}
@@ -591,5 +594,7 @@
 \def\nosuper@makefnmark{\hbox{\normalfont\circled{\@thefnmark}\space}}
 \patchcmd\@makefntext{\@makefnmark}{\nosuper@makefnmark}{}{}% 需要etoolbox宏包来给局部打补丁
 % 如果想要每页重置脚注编号, 可以参考https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
+
+% 如果是旧版biblatex-gb7714-2015 那么填上处理翻译为外文文献的处理代码
 
 \endinput
