@@ -574,7 +574,7 @@
     %这里是所做的调整，通过设置\bibitemindent，\bibhang调整缩进
     % \addtolength{\bibitemindent}{\labelnumberwidth}%
     % \addtolength{\bibitemindent}{\biblabelsep}%
-    \addtolength{\bibhang}{-\labelnumberwidth} %
+    \addtolength{\bibhang}{-\labelnumberwidth}%
     \addtolength{\bibhang}{-\biblabelsep}%
     %
     %以下是默认的设置
