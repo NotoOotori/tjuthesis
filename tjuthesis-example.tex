@@ -13,22 +13,16 @@
 
 \begin{document}
 
-% 封面
-\maketitle
-
-% 使用授权的说明
-% \copyrightpage
-% 将签字扫描后授权文件 scan-copyright.pdf 替换原始页面
-% \copyrightpage[scan-copyright.pdf]
 
 \frontmatter
+
+% 封面
+\tjutitlepage
+
 \input{data/abstract.tex}
 
 % 目录
 \tableofcontents
-
-% 符号对照表
-% \input{data/denotation}
 
 
 % 正文部分
@@ -40,21 +34,13 @@
 % 附录
 \appendix
 \input{data/appendix.tex}
-% \input{data/appendix-survey}       % 本科生：外文资料的调研阅读报告
-% \input{data/appendix-translation}  % 本科生：外文资料的书面翻译
 
 
 % 其它部分
 \backmatter
 
 % 参考文献 ref/refs.tex
-%TODO: printbibliography
-\begingroup
-\linespread{1.3}
-\sloppy
-\printbibliography[heading=bibintoc]
-\fussy
-\endgroup
+\tjubibliography
 
 % 致谢
 \input{data/acknowledgements.tex}

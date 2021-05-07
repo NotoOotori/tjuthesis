@@ -410,7 +410,7 @@
 % 标题页
 \newcommand{\tjutitle}{\tju@title}
 \newcommand{\tjuauthor}{\tju@author}
-\renewcommand{\maketitle}{%
+\newcommand{\tjutitlepage}{%
   \clearpage
   \tju@titlepage
   \clearpage
@@ -524,13 +524,24 @@
 
 \appto\appendix{\clearpage}
 
+
 % 文献著录
 \usepackage[%
-  backend=biber,style=gb7714-2015,gbalign=right,gbpub=false,sortcites=true,doi=false
+  backend=biber,style=gb7714-2015,gbalign=right,gbpub=false,sortcites=true,doi=false,
   ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
 \bibliography{ref/refs}
+\newcommand\tjubibliography{\tju@bibliography}
+\newcommand\tju@bibliography{%
+  \begingroup%
+  \linespread{1.3}%
+  \sloppy\hbadness 10000\relax%
+  \printbibliography[heading=bibintoc]%
+  \fussy%
+  \endgroup%
+}
 \AtEveryBibitem{\clearfield{pagetotal}}
 % \AtEveryBibitem{\clearfield{volume}}% incollection会意外输出volume信息
+
 %%% 在驱动别名处理, 再处理文献类型标识.
 \DeclareBibliographyAlias{inreference}{incollection}
 \DeclareBibliographyAlias{reference}{collection}
@@ -551,6 +562,35 @@
   }
 }
 \DeclareFieldFormat[inreference]{title}{#1}%\nopunct\unspace%将期刊等文献的标题中原来带的引号去掉
+
+%GB/T 7714-2015 风格，全部大写
+\renewbibmacro*{name:gbuppercase}[4]{\bibauthorfont%
+\renewrobustcmd*{\bibinitperiod}{}%将名字简写后的点去掉
+\renewcommand*{\revsdnamepunct}{}%
+  \ifuseprefix%
+    {\usebibmacro{name:delim}{#3#1}%
+     \usebibmacro{name:hook}{#3#1}%
+     \ifdefvoid{#3}{}{%
+       \ifcapital%
+         {\mkbibnameprefix{\MakeCapital{#3}}\isdot}%
+         {\mkbibnameprefix{#3}\isdot}%
+       \ifprefchar{}{\bibnamedelimc}}%
+     \ifdefvoid{#2}{\mkbibnamefamily{\MakeUppercase{#1}}}{\mkbibnamefamily{\MakeUppercase{#1}}}\isdot%
+     \ifdefvoid{#2}{}{\revsdnamepunct\bibnamedelimd\mkbibnamegiven{\MakeUppercase{#2}}\isdot}%\MakeCapital
+     \ifdefvoid{#4}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}%后缀前加逗号
+    {\usebibmacro{name:delim}{#1}%
+     \usebibmacro{name:hook}{#1}%
+     \ifdefvoid{#2}{\mkbibnamefamily{\MakeUppercase{#1}}}{\mkbibnamefamily{\MakeUppercase{#1}}}\isdot%
+     \ifboolexpe{%
+       test {\ifdefvoid{#2}}
+       and
+       test {\ifdefvoid{#3}}}
+       {}{\revsdnamepunct}%
+     \ifdefvoid{#2}{}{\bibnamedelimd\mkbibnamegiven{\MakeUppercase{#2}}\isdot}%\MakeCapital
+     \ifdefvoid{#3}{}{\bibnamedelimd\mkbibnameprefix{#3}\isdot}%
+     \ifdefvoid{#4}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}%%后缀前加逗号
+}
+% TODO: 如果是旧版biblatex-gb7714-2015 那么填上处理翻译为外文文献的处理代码
 
 %% 参考文献表
 % \xpretocmd\printbibliography{\begingroup\linespread{1.3}\sloppy}{}{}
@@ -590,6 +630,7 @@
   \item%
 }
 
+
 % 脚注, 设置编号为圆圈内数字
 \RequirePackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
@@ -598,6 +639,5 @@
 \patchcmd\@makefntext{\@makefnmark}{\nosuper@makefnmark}{}{}% 需要etoolbox宏包来给局部打补丁
 % 如果想要每页重置脚注编号, 可以参考https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
 
-% 如果是旧版biblatex-gb7714-2015 那么填上处理翻译为外文文献的处理代码
 
 \endinput
