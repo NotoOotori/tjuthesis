@@ -527,7 +527,8 @@
 
 % 文献著录
 \usepackage[%
-  backend=biber,style=gb7714-2015,gbalign=right,gbpub=false,sortcites=true,doi=false,
+  backend=biber,style=gb7714-2015,gbalign=right,gbpub=false,sortcites=true,doi=false,%
+  defernumbers=true,%
   ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
 \bibliography{ref/refs}
 \newcommand\tjubibliography{\tju@bibliography}
@@ -535,12 +536,22 @@
   \begingroup%
   \linespread{1.3}%
   \sloppy\hbadness 10000\relax%
-  \printbibliography[heading=bibintoc]%
+  \printbibliography[heading=bibintoc, category=inbib]%
   \fussy%
   \endgroup%
 }
 \AtEveryBibitem{\clearfield{pagetotal}}
-% \AtEveryBibitem{\clearfield{volume}}% incollection会意外输出volume信息
+
+% https://tex.stackexchange.com/a/420605
+\DeclareBibliographyCategory{inbib}
+\AtEveryCitekey{%
+  \ifcsstring{blx@delimcontext}{footfullcite}
+    {}{\addtocategory{inbib}{\thefield{entrykey}}}%
+    % {%
+    %   \ifcsstring{blx@delimcontext}{footfullcite}
+    %     {}{\addtocategory{inbib}{\thefield{entrykey}}}
+    % }
+}
 
 %%% 在驱动别名处理, 再处理文献类型标识.
 \DeclareBibliographyAlias{inreference}{incollection}
