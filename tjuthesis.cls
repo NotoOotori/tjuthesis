@@ -442,8 +442,9 @@
 
 
 % 脚注
-%% 拒绝脚注跨页
-\interfootnotelinepenalty=\@M % https://tex.stackexchange.com/a/32210
+%% 脚注跨页怎么办 https://tex.stackexchange.com/a/32210
+\RequirePackage[splitrule]{footmisc} % 如果跨页的话在第二页的脚注前加一条长线作为提示
+% \interfootnotelinepenalty=\@M % 拒绝跨页, 但是会在第二页的开头留下奇怪的空白
 %% 设置编号为圆圈内数字
 \RequirePackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
