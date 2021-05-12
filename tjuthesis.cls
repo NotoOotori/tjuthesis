@@ -201,11 +201,6 @@
 \tju@package@conflict{unicode-math}{eufrak}
 \tju@package@conflict{unicode-math}{mathrsfs}
 
-% 分项
-\setlist{nosep}
-\setlist[enumerate,1]{label = (\arabic*), left = \parindent .. 2\parindent}
-\setlist[enumerate,2]{label = \arabic*)}
-
 
 % 字号
 \def\tju@def@fontsize#1#2{%
@@ -407,6 +402,57 @@
 \pagestyle{plain}
 
 
+% hyperref 宏包在最后调用
+\AtEndPreamble{
+  \RequirePackage{hyperref}
+  \RequirePackage{bookmark}
+
+  \hypersetup{linktoc=all}% TOC中章节名称和页码都是超链接
+  % \hypersetup{% 超链接样式
+  %   colorlinks  =   true,
+  %   linkcolor   =   cyan,
+  %   anchorcolor =   black,
+  %   citecolor   =   green,
+  %   filecolor   =   cyan,
+  %   menucolor   =   red,
+  %   runcolor    =   filecolor,
+  %   urlcolor    =   magenta,
+  % }
+  \hypersetup{% 书签
+    bookmarksopen=true,
+    bookmarksopenlevel=2,
+    bookmarksnumbered=true,% 将章节编号放入书签中
+  }
+  \hypersetup{% PDF默认打开视图
+    pdfstartview=FitH,
+    pdfpagelayout=OneColumn,
+  }
+}
+\AtEndDocument{
+  \hypersetup{% PDF信息
+    pdftitle={\tjutitle},
+    pdfauthor={\tjuauthor},
+  }
+}
+
+% 分项
+\setlist{nosep}
+\setlist[enumerate,1]{label = (\arabic*)}
+\setlist[enumerate,2]{label = \arabic*)}
+
+
+% 脚注
+%% 拒绝脚注跨页
+\interfootnotelinepenalty=\@M % https://tex.stackexchange.com/a/32210
+%% 设置编号为圆圈内数字
+\RequirePackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=0pt] (char) {#1};}}
+\def\nosuper@makefnmark{\hbox{\normalfont\circled{\@thefnmark}\space}}
+\patchcmd\@makefntext{\@makefnmark}{\nosuper@makefnmark}{}{}% 需要etoolbox宏包来给局部打补丁
+% 如果想要每页重置脚注编号, 可以参考https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
+
+
 % 标题页
 \newcommand{\tjutitle}{\tju@title}
 \newcommand{\tjuauthor}{\tju@author}
@@ -496,6 +542,7 @@
   \clearpage
 }
 
+
 % 目录
 \newcommand{\tju@contents@name}{目\quad 录}
 \renewcommand{\contentsname}{\tju@contents@name}
@@ -519,6 +566,7 @@
   \fi%
   \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb%
 }
+
 
 % 附录
 
@@ -640,15 +688,6 @@
   \endlist}{%
   \item%
 }
-
-
-% 脚注, 设置编号为圆圈内数字
-\RequirePackage{tikz}
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
-  \node[shape=circle,draw,inner sep=0pt] (char) {#1};}}
-\def\nosuper@makefnmark{\hbox{\normalfont\circled{\@thefnmark}\space}}
-\patchcmd\@makefntext{\@makefnmark}{\nosuper@makefnmark}{}{}% 需要etoolbox宏包来给局部打补丁
-% 如果想要每页重置脚注编号, 可以参考https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
 
 
 \endinput

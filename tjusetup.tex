@@ -75,45 +75,10 @@
   supervisor  = {关晓飞, 副教授},
   % supervisor* = {Professor Zheng Weimin},
   %
-  % 副指导教师
-  %
-  % associate-supervisor  = {陈文光, 教授},
-  % associate-supervisor* = {Professor Chen Wenguang},
-  %
-  % 联合指导教师
-  %
-  % joint-supervisor  = {某某某, 教授},
-  % joint-supervisor* = {Professor Mou Moumou},
-  %
   % 日期
   %   使用 ISO 格式；默认为当前时间
   %
   % date = {2019-07-07},
-  %
-  % 是否在中文封面后的空白页生成书脊（默认 false）
-  %
-  % include-spine = false,
-  %
-  % 生成的声明页是否要插入页眉和页脚（默认 empty）
-  % 仅在需要进行电子签名时，才需要打开这一选项
-  % 插入的扫描声明页总是会生成页眉（研究生）和页脚，不受这一选项影响
-  %
-  % statement-page-style = plain,
-  %
-  % 密级和年限
-  %   秘密, 机密, 绝密
-  %
-  % secret-level = {秘密},
-  % secret-year  = {10},
-  %
-  % 博士后专有部分
-  %
-  % clc                = {分类号},
-  % udc                = {UDC},
-  % id                 = {编号},
-  % discipline-level-1 = {计算机科学与技术},  % 流动站（一级学科）名称
-  % discipline-level-2 = {系统结构},          % 专业（二级学科）名称
-  % start-date         = {2011-07-01},        % 研究工作起始时间
 }
 
 %% Put any packages you would like to use here
@@ -143,9 +108,32 @@
 % \usepackage{rotating} % 图形和表格的控制旋转
 
 % 定理类环境宏包
-% \usepackage{amsthm}
-% 也可以使用 ntheorem
-% \usepackage[amsmath,thmmarks,hyperref]{ntheorem}
+\usepackage[amsmath,thmmarks,hyperref,thref]{ntheorem}
+
+% One should always load \usepackage{hyperref} before the first use of \newtheorem to obtain correct handling and referencing of counters.
+% \AtBeginDocument{
+%   \theoremstyle{plain}
+%   \theoremheaderfont{\bfseries}\theorembodyfont{\upshape}
+%   \theoremindent0pt
+%   \newtheorem{theorem}{定理}[subsection]
+%   \newtheorem{corollary}[theorem]{推论}
+%   \newtheorem{lemma}[theorem]{引理}
+%   \newtheorem{proposition}[theorem]{命题}
+%   \theoremsymbol{\ensuremath{\mdlgwhtsquare}}
+%   \newtheorem{theoremnoproof}[theorem]{定理}
+%   \newtheorem{propositionnoproof}[theorem]{命题}
+%   \theoremsymbol{}
+%   \newtheorem{definition}[theorem]{定义}
+%   \newtheorem{remark}[theorem]{注}
+%   \newtheorem{example}[theorem]{例}
+%   \theoremstyle{nonumberplain}
+%   \theoremheaderfont{\bfseries}\theorembodyfont{\upshape}
+%   \theoremindent0pt
+%   \theoremsymbol{\ensuremath{\mdlgwhtsquare}}
+%   \newtheorem{proof}{证明}
+%   \theoremsymbol{}
+%   % TODO: theorem style
+% }
 
 % 给自定义的宏后面自动加空白
 % \usepackage{xspace}
@@ -153,19 +141,29 @@
 % 定义所有的图片文件在 figures 子目录下
 % \graphicspath{{figures/}}
 
+% 配置enumitem宏包
+% \setlist[enumerate,1]{left = \parindent .. 2\parindent} % 设置enumerate环境一级分项的缩进
+
 % 定义自己常用的东西
 % \def\myname{薛瑞尼}
 
 % 数学命令
-% \newcommand\dif{\mathop{}\!\mathrm{d}}  % 微分符号
-% \newcommand\real{{\mathbf{R}}}  % 实数集
-% \newcommand\abs[1]{\lvert#1\rvert}
-% \newcommand\VECTOR{\symbf}  % 向量
-% \newcommand\MATRIX{\symbf}  % 矩阵
-% \newcommand\vn{{\VECTOR{n}}}
-% \newcommand\vx{{\VECTOR{x}}}
-% \newcommand\mA{{\MATRIX{A}}}
-% \newcommand\mK{{\MATRIX{K}}}
+% unicode-math does many jobs at begin document, so we need to declare operator after that.
+% 算子
+% \AtBeginDocument{%https://tex.stackexchange.com/a/117995
+%   \let\dim\relax
+%   \DeclareMathOperator{\dim}{dim}
+%   \DeclareMathOperator{\codim}{codim}
+%   %https://tex.stackexchange.com/questions/175251/how-to-redefine-a-command-using-declaremathoperator
+% }
+% 实用工具宏
+% \newcommand*{\lr}[3]{\left#1#3\right#2}
+% \newcommand*{\powerset}[1]{2^{#1}}
+% 简写
+% \newcommand*{\CC}{\symbb{C}}
+% \newcommand*{\ZZ}{\symbb{Z}}
+% \newcommand*{\NN}{\symbb{N}}
+
 
 % 借用 ltxdoc 里面的几个命令方便写文档。
 % \DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
@@ -174,31 +172,3 @@
 % 借用 lipsum与zhlipsum 来填充内容
 \usepackage{lipsum}
 \usepackage{zhlipsum}
-
-% hyperref 宏包在最后调用
-\usepackage{hyperref}
-
-\hypersetup{linktoc=all}% TOC中章节名称和页码都是超链接
-% \hypersetup{% 超链接样式
-%   colorlinks  =   true,
-%   linkcolor   =   cyan,
-%   anchorcolor =   black,
-%   citecolor   =   green,
-%   filecolor   =   cyan,
-%   menucolor   =   red,
-%   runcolor    =   filecolor,
-%   urlcolor    =   magenta,
-% }
-\hypersetup{% 书签
-  bookmarksopen = true,
-  bookmarksopenlevel = 2,
-  bookmarksnumbered = true,% 将章节编号放入书签中
-}
-\hypersetup{% PDF默认打开视图
-  pdfstartview        =   FitH,
-  pdfpagelayout       =   OneColumn,
-}
-\hypersetup{% PDF信息
-  pdftitle={\tjutitle},
-  pdfauthor={\tjuauthor},
-}
