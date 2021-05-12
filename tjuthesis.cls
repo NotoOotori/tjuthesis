@@ -436,9 +436,9 @@
 }
 
 % 分项
-\setlist{nosep}
-\setlist[enumerate,1]{label = (\arabic*)}
-\setlist[enumerate,2]{label = \arabic*)}
+\setlist*{nosep}
+\setlist*[enumerate,1]{label = (\arabic*)}
+\setlist*[enumerate,2]{label = \arabic*)}
 
 
 % 脚注
