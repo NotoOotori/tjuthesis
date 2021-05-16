@@ -443,7 +443,7 @@
 
 % 脚注
 %% 脚注跨页怎么办 https://tex.stackexchange.com/a/32210
-\RequirePackage[splitrule]{footmisc} % 如果跨页的话在第二页的脚注前加一条长线作为提示
+% \RequirePackage[splitrule]{footmisc} % 如果跨页的话在第二页的脚注前加一条长线作为提示 但是我们下面对脚注的格式定制就无了
 % \interfootnotelinepenalty=\@M % 拒绝跨页, 但是会在第二页的开头留下奇怪的空白
 %% 设置编号为圆圈内数字
 \RequirePackage{tikz}
