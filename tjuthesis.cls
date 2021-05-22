@@ -244,8 +244,11 @@
 }
 
 
-% 英文字体
-\setmainfont{CMU Serif}%
+% 英文字体 % TODO: Load fonts explicitly
+\setmainfont{cmunrm.ttf}[%
+  BoldFont = cmunbx.ttf,
+  ItalicFont = cmunti.ttf,
+]
 
 
 \mathchardef\ordinarycolon\mathcode`\:
@@ -288,21 +291,27 @@
     BoldFont = \tju@font@name@xits@math@bf,
     StylisticSet = 8,
   ]
-  \setmathfont{XITS Math}[
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
     StylisticSet = 1,
     range = {cal, bfcal},
   ]
-  \setmathfont{CMU Serif}[
-    range = \mathup/{num},
-    Script = Arabic,
+  \setmathfont{cmunrm.ttf}[
+    range = up/{num},
   ]
-  \setmathfont{XITS Math}[
-    range = \mathit/{greek,Greek,latin,Latin},
+  \setmathfont{cmunbx.ttf}[
+    range = bfup/{num},
   ]
-  \setmathfont{XITS Math}[
-    range = \mathup/{greek,Greek,latin,Latin},
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
+    range = it/{greek,Greek,latin,Latin},
   ]
-  \setmathfont{XITS Math}[
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
+    range = up/{greek,Greek,latin,Latin},
+  ]
+  \setmathfont{\tju@font@name@xits@math@rm}[
+    Extension = .otf,
     range = {
       "2212,"002B,"003D,"0028,"0029,"005B,%
       "005D,"221A,"2211,"2248,"222B,"007C,"2026,"2202,"00D7,"0302,%
@@ -323,11 +332,11 @@
     ItalicFont   = KaiTi,
   ]%
   \setCJKsansfont{SimHei}[AutoFakeBold]%
-  \setCJKmonofont{FangSong}%
+  \setCJKmonofont{FangSong}[AutoFakeBold]%
   \newCJKfontfamily\zhsong{SimSun}[AutoFakeBold]%
   \newCJKfontfamily\zhhei{SimHei}[AutoFakeBold]%
-  \newCJKfontfamily\zhkai{KaiTi}%
-  \newCJKfontfamily\zhfs{FangSong}%
+  \newCJKfontfamily\zhkai{KaiTi}[AutoFakeBold]%
+  \newCJKfontfamily\zhfs{FangSong}[AutoFakeBold]%
 }
 \newcommand\tju@load@cjk@font{%
   \@nameuse{tju@load@cjk@font@\tju@cjk@font}%
