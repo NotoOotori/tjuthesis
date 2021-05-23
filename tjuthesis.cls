@@ -419,7 +419,7 @@
 
 % 章节标题
 \ctexset{
-  subsubsection/name = {\hspace{2em}},
+  subsubsection/nameformat = {\hspace{2em}},
 }
 
 
