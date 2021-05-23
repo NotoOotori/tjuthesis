@@ -528,75 +528,81 @@
 \newcommand{\tju@keywords@name@en}{Key words}
 \let\abstract\relax
 \let\endabstract\relax
-\newenvironment{abstract}[1]{%
-  \tjusetup{
-    keywords = {#1}
-  }
-  \clearpage
-  \null\vskip -1em
-  \begingroup
-    \erhao\centering\zhhei\tju@title\par%
-  \endgroup
-  \ifx\tju@subtitle\@empty
-    \relax
-  \else
+\newcommand{\tju@newenv@abstract@math}{%
+  \newenvironment{abstract}[1]{%
+    \tjusetup{
+      keywords = {##1}
+    }
+    \clearpage
+    \null\vskip -1em
+    \begingroup
+      \erhao\centering\zhhei\tju@title\par%
+    \endgroup
+    \ifx\tju@subtitle\@empty
+      \relax
+    \else
+      \begin{center}
+        \xiaoer\zhhei\tju@subtitle\par%
+      \end{center}
+    \fi
     \begin{center}
-      \xiaoer\zhhei\tju@subtitle\par%
+      \sihao\zhhei\tju@abstract@name%
     \end{center}
-  \fi
-  \begin{center}
-    \sihao\zhhei\tju@abstract@name%
-  \end{center}
-  \par%
-  \begingroup
-    \xiaowu\zhsong
-}{%
-  \endgroup
-  \vskip 5mm
-  \begingroup
-    \noindent
-    \wuhao\zhhei\tju@keywords@name:%
-  \endgroup
-  \begingroup
-    \quad\xiaowu\tju@clist@use{\tju@keywords}{, \quad}%
-  \endgroup
-  \clearpage
-}
-\newenvironment{abstract*}[1]{
-  \tjusetup{
-    keywords* = {#1},
+    \par%
+    \begingroup
+      \xiaowu\zhsong
+  }{%
+    \endgroup
+    \vskip 5mm
+    \begingroup
+      \noindent
+      \wuhao\zhhei\tju@keywords@name:%
+    \endgroup
+    \begingroup
+      \quad\xiaowu\tju@clist@use{\tju@keywords}{, \quad}%
+    \endgroup
+    \clearpage
   }
-  \clearpage
-  \begin{center}
-    \linespread{1}
-    \erhao\bf\tju@title@en%
-  \end{center}
-  \ifx\tju@subtitle@en\@empty
-    \relax
-  \else
+  \newenvironment{abstract*}[1]{
+    \tjusetup{
+      keywords* = {##1},
+    }
+    \clearpage
     \begin{center}
-      \xiaoer\zhhei\tju@subtitle@en\par%
+      \linespread{1}
+      \erhao\bf\tju@title@en%
     \end{center}
-  \fi
-  \begin{center}
-    \sihao\bf\tju@abstract@name@en%
-  \end{center}
-  \par%
-  \begingroup
-    \xiaowu\zhsong
-}{%
-  \endgroup
-  \vskip 5mm
-  \begingroup
-    \noindent
-    \wuhao\bf\tju@keywords@name@en:%
-  \endgroup
-  \begingroup
-    \quad\xiaowu\tju@clist@use{\tju@keywords@en}{, \quad}
-  \endgroup
-  \clearpage
+    \ifx\tju@subtitle@en\@empty
+      \relax
+    \else
+      \begin{center}
+        \xiaoer\zhhei\tju@subtitle@en\par%
+      \end{center}
+    \fi
+    \begin{center}
+      \sihao\bf\tju@abstract@name@en%
+    \end{center}
+    \par%
+    \begingroup
+      \xiaowu\zhsong
+  }{%
+    \endgroup
+    \vskip 5mm
+    \begingroup
+      \noindent
+      \wuhao\bf\tju@keywords@name@en:%
+    \endgroup
+    \begingroup
+      \quad\xiaowu\tju@clist@use{\tju@keywords@en}{, \quad}
+    \endgroup
+    \clearpage
+  }
 }
-
+\newcommand{\tju@newenv@abstract@standard}{%
+  \tju@newenv@abstract@math% TODO: standard abstract
+}
+\newcommand{\tju@newenv@abstract}{\@nameuse{tju@newenv@abstract@\tju@style}}
+\tju@option@hook{style}{\tju@newenv@abstract}
 
 % 目录
 \newcommand{\tju@contents@name}{目\quad 录}
