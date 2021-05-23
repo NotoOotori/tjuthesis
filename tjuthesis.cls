@@ -110,6 +110,9 @@
     default = {Title},
     name = title@en,
   },
+  subtitle* = {
+    name = subtitle@en,
+  },
   department = {
     default = {学院},
   },
@@ -126,10 +129,10 @@
     default = {导师姓名},
   },
   date = {
-    default = {},
+    default = {\today},
   },
 }
-%% 字体选项
+%% 排版选项
 \tju@define@key{
   math-font = {
     name = math@font,
@@ -144,6 +147,21 @@
       windows,
     },
     default = windows,
+  },
+  output = {
+    choices = {
+      electronic,
+      print,
+      draft,
+    },
+    default = electronic,
+  },
+  style = {
+    choices = {
+      standard,
+      math,
+    },
+    default = standard,
   },
 }
 
@@ -451,8 +469,8 @@
 }
 \AtEndDocument{
   \hypersetup{% PDF信息
-    pdftitle={\tjutitle},
-    pdfauthor={\tjuauthor},
+    pdftitle={\tju@title},
+    pdfauthor={\tju@author},
   }
 }
 
@@ -476,8 +494,6 @@
 
 
 % 标题页
-\newcommand{\tjutitle}{\tju@title}
-\newcommand{\tjuauthor}{\tju@author}
 \newcommand{\tjutitlepage}{%
   \clearpage
   \tju@titlepage
@@ -510,7 +526,9 @@
 \newcommand{\tju@keywords@name}{关键词}
 \newcommand{\tju@abstract@name@en}{ABSTRACT}
 \newcommand{\tju@keywords@name@en}{Key words}
-\renewenvironment{abstract}[1]{%
+\let\abstract\relax
+\let\endabstract\relax
+\newenvironment{abstract}[1]{%
   \tjusetup{
     keywords = {#1}
   }
@@ -519,6 +537,13 @@
   \begingroup
     \erhao\centering\zhhei\tju@title\par%
   \endgroup
+  \ifx\tju@subtitle\@empty
+    \relax
+  \else
+    \begin{center}
+      \xiaoer\zhhei\tju@subtitle\par%
+    \end{center}
+  \fi
   \begin{center}
     \sihao\zhhei\tju@abstract@name%
   \end{center}
@@ -543,8 +568,16 @@
   }
   \clearpage
   \begin{center}
+    \linespread{1}
     \erhao\bf\tju@title@en%
   \end{center}
+  \ifx\tju@subtitle@en\@empty
+    \relax
+  \else
+    \begin{center}
+      \xiaoer\zhhei\tju@subtitle@en\par%
+    \end{center}
+  \fi
   \begin{center}
     \sihao\bf\tju@abstract@name@en%
   \end{center}
