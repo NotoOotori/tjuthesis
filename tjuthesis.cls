@@ -293,25 +293,31 @@
   ]
   \setmathfont{\tju@font@name@xits@math@rm}[
     Extension = .otf,
+    BoldFont = \tju@font@name@xits@math@bf,
     StylisticSet = 1,
     range = {cal, bfcal},
   ]
   \setmathfont{cmunrm.ttf}[
     range = up/{num},
+    BoldFont = cmunbx.ttf,
   ]
   \setmathfont{cmunbx.ttf}[
     range = bfup/{num},
+    BoldFont = cmunbx.ttf,
   ]
   \setmathfont{\tju@font@name@xits@math@rm}[
     Extension = .otf,
+    BoldFont = \tju@font@name@xits@math@bf,
     range = it/{greek,Greek,latin,Latin},
   ]
   \setmathfont{\tju@font@name@xits@math@rm}[
     Extension = .otf,
+    BoldFont = \tju@font@name@xits@math@bf,
     range = up/{greek,Greek,latin,Latin},
   ]
   \setmathfont{\tju@font@name@xits@math@rm}[
     Extension = .otf,
+    BoldFont = \tju@font@name@xits@math@bf,
     range = {
       "2212,"002B,"003D,"0028,"0029,"005B,%
       "005D,"221A,"2211,"2248,"222B,"007C,"2026,"2202,"00D7,"0302,%
