@@ -380,41 +380,47 @@
 
 % 装订线
 \RequirePackage{fancybox}
-% \XeTeXcharclass`┊=1
-% \fancyput(-0.75cm,-12cm){\parbox{1em}{\wuhao\baselineskip 12pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
-\fancyput*(-0.8cm,-4.3cm){$|$}%
-\fancyput*(-0.8cm,-4.9cm){$|$}%
-\fancyput*(-0.8cm,-5.5cm){$|$}%
-\fancyput*(-0.8cm,-6.1cm){$|$}%
-\fancyput*(-0.8cm,-6.7cm){$|$}%
-\fancyput*(-0.8cm,-7.3cm){$|$}%
-\fancyput*(-0.8cm,-7.9cm){$|$}%
-\fancyput*(-0.8cm,-8.5cm){$|$}%
-\fancyput*(-0.8cm,-9.1cm){$|$}%
-\fancyput*(-0.8cm,-9.7cm){$|$}%
-\fancyput*(-1.0cm,-10.3cm){装}%
-\fancyput*(-0.8cm,-10.9cm){$|$}%
-\fancyput*(-0.8cm,-11.5cm){$|$}%
-\fancyput*(-0.8cm,-12.1cm){$|$}%
-\fancyput*(-0.8cm,-12.7cm){$|$}%
-\fancyput*(-0.8cm,-13.3cm){$|$}%
-\fancyput*(-1.0cm,-13.9cm){订}%
-\fancyput*(-0.8cm,-14.5cm){$|$}%
-\fancyput*(-0.8cm,-15.1cm){$|$}%
-\fancyput*(-0.8cm,-15.7cm){$|$}%
-\fancyput*(-0.8cm,-16.3cm){$|$}%
-\fancyput*(-0.8cm,-16.9cm){$|$}%
-\fancyput*(-1.0cm,-17.5cm){线}%
-\fancyput*(-0.8cm,-18.1cm){$|$}%
-\fancyput*(-0.8cm,-18.7cm){$|$}%
-\fancyput*(-0.8cm,-19.3cm){$|$}%
-\fancyput*(-0.8cm,-19.9cm){$|$}%
-\fancyput*(-0.8cm,-20.5cm){$|$}%
-\fancyput*(-0.8cm,-21.1cm){$|$}%
-\fancyput*(-0.8cm,-21.7cm){$|$}%
-\fancyput*(-0.8cm,-22.3cm){$|$}%
-\fancyput*(-0.8cm,-22.9cm){$|$}%
-\fancyput*(-0.8cm,-23.5cm){$|$}%
+\newcommand{\tju@put@gutter@math}{%
+  \fancyput*(-0.8cm,-4.3cm){$|$}%
+  \fancyput*(-0.8cm,-4.9cm){$|$}%
+  \fancyput*(-0.8cm,-5.5cm){$|$}%
+  \fancyput*(-0.8cm,-6.1cm){$|$}%
+  \fancyput*(-0.8cm,-6.7cm){$|$}%
+  \fancyput*(-0.8cm,-7.3cm){$|$}%
+  \fancyput*(-0.8cm,-7.9cm){$|$}%
+  \fancyput*(-0.8cm,-8.5cm){$|$}%
+  \fancyput*(-0.8cm,-9.1cm){$|$}%
+  \fancyput*(-0.8cm,-9.7cm){$|$}%
+  \fancyput*(-1.0cm,-10.3cm){装}%
+  \fancyput*(-0.8cm,-10.9cm){$|$}%
+  \fancyput*(-0.8cm,-11.5cm){$|$}%
+  \fancyput*(-0.8cm,-12.1cm){$|$}%
+  \fancyput*(-0.8cm,-12.7cm){$|$}%
+  \fancyput*(-0.8cm,-13.3cm){$|$}%
+  \fancyput*(-1.0cm,-13.9cm){订}%
+  \fancyput*(-0.8cm,-14.5cm){$|$}%
+  \fancyput*(-0.8cm,-15.1cm){$|$}%
+  \fancyput*(-0.8cm,-15.7cm){$|$}%
+  \fancyput*(-0.8cm,-16.3cm){$|$}%
+  \fancyput*(-0.8cm,-16.9cm){$|$}%
+  \fancyput*(-1.0cm,-17.5cm){线}%
+  \fancyput*(-0.8cm,-18.1cm){$|$}%
+  \fancyput*(-0.8cm,-18.7cm){$|$}%
+  \fancyput*(-0.8cm,-19.3cm){$|$}%
+  \fancyput*(-0.8cm,-19.9cm){$|$}%
+  \fancyput*(-0.8cm,-20.5cm){$|$}%
+  \fancyput*(-0.8cm,-21.1cm){$|$}%
+  \fancyput*(-0.8cm,-21.7cm){$|$}%
+  \fancyput*(-0.8cm,-22.3cm){$|$}%
+  \fancyput*(-0.8cm,-22.9cm){$|$}%
+  \fancyput*(-0.8cm,-23.5cm){$|$}%
+}
+\newcommand{\tju@put@gutter@standard}{%
+  \XeTeXcharclass`┊=1
+  \fancyput(-0.75cm,-12cm){\parbox{1em}{\wuhao\baselineskip 12pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+}
+\newcommand{\tju@put@gutter}{\@nameuse{tju@put@gutter@\tju@style}}
+\tju@option@hook{style}{\tju@put@gutter}
 
 
 % 行距
