@@ -758,7 +758,7 @@
     \usebibmacro{withothers}}
 
 
-  \newbibmacro*{bytranslator+othersstrg}{%
+  \renewbibmacro*{bytranslator+othersstrg}{%
     \def\abx@tempa{bytranslator}%
     \ifnamesequal{translator}{commentator}
       {\appto\abx@tempa{co}%
