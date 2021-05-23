@@ -472,13 +472,12 @@
     pdfstartview=FitH,
     pdfpagelayout=OneColumn,
   }
+  % PDF信息
+  % \tju@option@hook{title}{\hypersetup{pdftitle={\tju@title}}}
+  % \tju@option@hook{author}{\hypersetup{pdfauthor={\tju@author}}}
+  % \tju@option@hook{keywords}{\hypersetup{pdfkeywords={\tju@keywords}}}
 }
-\AtEndDocument{
-  \hypersetup{% PDF信息
-    pdftitle={\tju@title},
-    pdfauthor={\tju@author},
-  }
-}
+
 
 % 分项
 \setlist*{nosep}
@@ -816,6 +815,14 @@
   \endlist}{%
   \item%
 }
+
+
+% 谢辞
+\newenvironment{acknowledgements}{%
+  \clearpage
+  \section*{谢辞}
+  \addcontentsline{toc}{section}{谢辞}
+}{}
 
 
 \endinput
