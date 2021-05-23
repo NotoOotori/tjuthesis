@@ -44,16 +44,17 @@
 
 ## 待完成的工作
 
-- 三级标题需要有2em的缩进.
 - 致谢需要加入TOC中.
 - 图表的图题和编号有格式定制.
 - 副标题与英文副标题.
-- enumerate的配置有没有在小册子要求里面.
 - 设置字体时最好能精确到文件.
-- 抹去一些不该有的setup.
-- 区分辣鸡数学专业的要求和学校文件的要求.
 - 添加draft与final选项.
+
+这里列举一些辣鸡"模板"与学校要求不同的地方.
+
+- [] 前几页不需要有页码.
+- [] 各级标题与页眉的距离设置不对.
 
 ## 致谢
 
-这个项目中的一些代码的用法和思路参考了[tuna/tjuthesis](https://github.com/tuna/thuthesis).
+这个项目中的一些代码的用法和思路参考了[tuna/tjuthesis](https://github.com/tuna/thuthesis)和[SXKDZ/tongjithesis](https://github.com/SXKDZ/tongjithesis), 特别感谢他们.
