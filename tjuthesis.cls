@@ -417,7 +417,7 @@
 }
 \newcommand{\tju@put@gutter@standard}{%
   \XeTeXcharclass`┊=1
-  \fancyput(-0.75cm,-12cm){\parbox{1em}{\wuhao\baselineskip 12pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+  \fancyput(-0.75cm,-12cm){\parbox{1\ccwd}{\wuhao\baselineskip 12pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
 }
 \newcommand{\tju@put@gutter}{\@nameuse{tju@put@gutter@\tju@style}}
 \tju@option@hook{style}{\tju@put@gutter}
@@ -443,7 +443,7 @@
 
 % 章节标题
 \ctexset{
-  subsubsection/nameformat = {\hspace{2em}},
+  subsubsection/nameformat = {\hspace{2\ccwd}},
 }
 
 
@@ -539,7 +539,7 @@
       keywords = {##1}
     }
     \clearpage
-    \null\vskip -1em
+    \null\vskip -1\ccwd
     \begingroup
       \erhao\centering\zhhei\tju@title\par%
     \endgroup
@@ -786,7 +786,7 @@
 % \setlength{\bibitemsep}{\baselineskip}
 % \addtolength{\bibitemsep}{-\ht\strutbox}
 \setlength{\bibitemindent}{0em} % bibitemindent表示一条文献中第一行相对后面各行的缩进
-\setlength{\bibhang}{3em} % 著者-出版年制中bibhang 表示的各行起始位置到页边的距离
+\setlength{\bibhang}{3\ccwd} % 著者-出版年制中bibhang 表示的各行起始位置到页边的距离
 \setlength{\biblabelsep}{2mm} % 调整顺序标签与文献内容的间距
 % 调整各条文献的缩进：
 %-1-----gbalign=left、right、center时，重定义bibenvironment
