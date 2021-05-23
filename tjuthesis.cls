@@ -263,9 +263,10 @@
 
 
 % 英文字体 % TODO: Load fonts explicitly
-\setmainfont{cmunrm.ttf}[%
-  BoldFont = cmunbx.ttf,
-  ItalicFont = cmunti.ttf,
+\setmainfont{cmunrm}[%
+  Extension = .otf,
+  BoldFont = cmunbx,
+  ItalicFont = cmunti,
 ]
 
 
@@ -315,13 +316,15 @@
     StylisticSet = 1,
     range = {cal, bfcal},
   ]
-  \setmathfont{cmunrm.ttf}[
+  \setmathfont{cmunrm}[
+    Extension = .otf,
     range = up/{num},
-    BoldFont = cmunbx.ttf,
+    BoldFont = cmunbx,
   ]
-  \setmathfont{cmunbx.ttf}[
+  \setmathfont{cmunbx}[
+    Extension = .otf,
     range = bfup/{num},
-    BoldFont = cmunbx.ttf,
+    BoldFont = cmunbx,
   ]
   \setmathfont{\tju@font@name@xits@math@rm}[
     Extension = .otf,
