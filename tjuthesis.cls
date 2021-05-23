@@ -267,6 +267,7 @@
   Extension = .otf,
   BoldFont = cmunbx,
   ItalicFont = cmunti,
+  BoldItalicFont = cmunbi,
 ]
 
 
@@ -357,10 +358,19 @@
   \setCJKmainfont{SimSun}[
     AutoFakeBold = true,
     ItalicFont   = KaiTi,
+    % ItalicFeatures = { AutoFakeBold = true },
+    BoldItalicFont   = KaiTi,
+    BoldItalicFeatures = { FakeBold = 2 },
   ]%
   \setCJKsansfont{SimHei}[AutoFakeBold]%
   \setCJKmonofont{FangSong}[AutoFakeBold]%
-  \newCJKfontfamily\zhsong{SimSun}[AutoFakeBold]%
+  \newCJKfontfamily\zhsong{SimSun}[
+    AutoFakeBold = true,
+    ItalicFont   = KaiTi,
+    % ItalicFeatures = { AutoFakeBold = true },
+    BoldItalicFont   = KaiTi,
+    BoldItalicFeatures = { FakeBold = 2 },
+  ]%
   \newCJKfontfamily\zhhei{SimHei}[AutoFakeBold]%
   \newCJKfontfamily\zhkai{KaiTi}[AutoFakeBold]%
   \newCJKfontfamily\zhfs{FangSong}[AutoFakeBold]%
