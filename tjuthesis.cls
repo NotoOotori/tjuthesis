@@ -456,6 +456,7 @@
 }
 \pagestyle{plain}
 
+
 % 章节标题
 \ctexset{
   subsection/format += {\wuhao},
@@ -500,25 +501,6 @@
   % \tju@option@hook{author}{\hypersetup{pdfauthor={\tju@author}}}
   % \tju@option@hook{keywords}{\hypersetup{pdfkeywords={\tju@keywords}}}
 }
-
-
-% 分项
-\setlist*{nosep}
-\setlist*[enumerate,1]{label = (\arabic*)}
-\setlist*[enumerate,2]{label = \arabic*)}
-
-
-% 脚注
-%% 脚注跨页怎么办 https://tex.stackexchange.com/a/32210
-% \RequirePackage[splitrule]{footmisc} % 如果跨页的话在第二页的脚注前加一条长线作为提示 但是我们下面对脚注的格式定制就无了
-% \interfootnotelinepenalty=\@M % 拒绝跨页, 但是会在第二页的开头留下奇怪的空白
-%% 设置编号为圆圈内数字
-\RequirePackage{tikz}
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
-  \node[shape=circle,draw,inner sep=0pt] (char) {#1};}}
-\def\nosuper@makefnmark{\hbox{\normalfont\circled{\@thefnmark}\space}}
-\patchcmd\@makefntext{\@makefnmark}{\nosuper@makefnmark}{}{}% 需要etoolbox宏包来给局部打补丁
-% 如果想要每页重置脚注编号, 可以参考https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
 
 
 % 标题页
@@ -670,12 +652,56 @@
 \preto\section{\clearpage}% 每一个section都会从新的一页开始
 
 
+% 分项
+\setlist*{nosep}
+\setlist*[enumerate,1]{label = (\arabic*)}
+\setlist*[enumerate,2]{label = \arabic*)}
+
+
+% 脚注
+%% 脚注跨页怎么办 https://tex.stackexchange.com/a/32210
+% \RequirePackage[splitrule]{footmisc} % 如果跨页的话在第二页的脚注前加一条长线作为提示 但是我们下面对脚注的格式定制就无了
+% \interfootnotelinepenalty=\@M % 拒绝跨页, 但是会在第二页的开头留下奇怪的空白
+%% 设置编号为圆圈内数字
+\RequirePackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=0pt] (char) {#1};}}
+\def\nosuper@makefnmark{\hbox{\normalfont\circled{\@thefnmark}\space}}
+\patchcmd\@makefntext{\@makefnmark}{\nosuper@makefnmark}{}{}% 需要etoolbox宏包来给局部打补丁
+% 如果想要每页重置脚注编号, 可以参考https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
+
+
+% 图表代码算法之类的环境
+\RequirePackage{caption}% 来配置caption格式
+\newcommand\tju@caption@font{\xiaowu\linespread{1.3}\selectfont}% 小五 18磅行距
+\DeclareCaptionFont{tju}{\tju@caption@font}
+\captionsetup{%
+  font = tju,% zihao=5的时候小五是small
+  skip = 0pt,%
+}
+\RequirePackage{chngcntr}% 设置counter within
+
+%% 插图
+\captionsetup[figure]{%
+  position = below,%
+}
+\counterwithin{figure}{section}
+
+%% 表格
+% \captionsetup[table]{%
+%   position = above,%
+% }
+
+
 % 附录
-
 \appto\appendix{\clearpage}
+\newif\if@appendix
+\appto\appendix{\@appendixtrue}
+\appto\backmatter{\@appendixfalse}
 
 
-% 文献著录 TODO: 将来应该弄到bbx和cbx文件中
+% 文献著录
+% TODO: 将来应该弄到bbx和cbx文件中
 % \newcommand\tju@pass@option@biblatex@math{%
 %   \PassOptionsToPackage{gbnamefmt=lowercase}{biblatex}
 % }

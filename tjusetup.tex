@@ -36,7 +36,8 @@
   %
 }
 
-%% Put any packages you would like to use here
+
+% Put any packages you would like to use here
 
 % 表格中支持跨行
 % \usepackage{multirow}
@@ -119,7 +120,9 @@
 % \newcommand*{\ZZ}{\symbb{Z}}
 % \newcommand*{\NN}{\symbb{N}}
 
-
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %
+% 从这开始的代码是专门为了示例用的, 使用者可以全部注释掉
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %
 % 借用 ltxdoc 里面的几个命令方便写文档。
 % \DeclareRobustCommand\cs[1]{\texttt{\char`\\#1}}
 % \providecommand\pkg[1]{{\sffamily#1}}
@@ -127,3 +130,6 @@
 % 借用 lipsum与zhlipsum 来填充内容
 \usepackage{lipsum}
 \usepackage{zhlipsum}
+
+% 设置提到包与程序名字时候所用的字体
+\newcommand{\pkg}[1]{\textsc{#1}}
