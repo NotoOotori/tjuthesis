@@ -356,7 +356,7 @@
 \newcommand\tju@load@cjk@font@windows{%
   \xeCJKsetup{EmboldenFactor=2}
   \setCJKmainfont{SimSun}[
-    AutoFakeBold = true,
+    BoldFont = SimHei,
     ItalicFont   = KaiTi,
     % ItalicFeatures = { AutoFakeBold = true },
     BoldItalicFont   = KaiTi,
@@ -456,6 +456,7 @@
 
 % 章节标题
 \ctexset{
+  subsection/format += {\wuhao},
   subsubsection/nameformat = {\hspace{2\ccwd}},
 }
 
@@ -464,6 +465,12 @@
 \AtEndPreamble{
   \RequirePackage{hyperref}
   \RequirePackage{bookmark}
+
+  \pdfstringdefDisableCommands{% to add definitions for commands that make no sense in bookmarks https://tex.stackexchange.com/a/142276
+    \let\enspace\empty% this causes the warning for \kern
+    \let\noindent\empty% this causes the warning for \indent
+    \let\quad\space% this causes the warning for \quad
+  }
 
   \hypersetup{linktoc=all}% TOC中章节名称和页码都是超链接
   % \hypersetup{% 超链接样式
@@ -622,9 +629,10 @@
 \newcommand{\tju@newenv@abstract}{\@nameuse{tju@newenv@abstract@\tju@style}}
 \tju@option@hook{style}{\tju@newenv@abstract}
 
+
 % 目录
 \newcommand{\tju@contents@name}{目\quad 录}
-\renewcommand{\contentsname}{\tju@contents@name}
+\renewcommand{\contentsname}{\zhhei\tju@contents@name}
 \renewcommand{\cftdot}{$\cdot$}
 \renewcommand{\cftdotsep}{1}
 \setlength{\cftbeforesecskip}{10pt}
@@ -645,6 +653,10 @@
   \fi%
   \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb%
 }
+
+
+% 章节
+\preto\section{\clearpage}% 每一个section都会从新的一页开始
 
 
 % 附录
@@ -849,10 +861,11 @@
 
 
 % 谢辞
+\newcommand\tju@acknowledgements@name{谢\quad 辞}
 \newenvironment{acknowledgements}{%
   \clearpage
-  \section*{谢辞}
-  \addcontentsline{toc}{section}{谢辞}
+  \section*{\tju@acknowledgements@name}
+  \addcontentsline{toc}{section}{\tju@acknowledgements@name}
 }{}
 
 
