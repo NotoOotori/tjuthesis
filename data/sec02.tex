@@ -14,23 +14,19 @@
 
 \subsection{BibLaTeX 文献著录}
 
-\nocite{*}
+采用\verb|\cite|命令来引用文献, 我们已经将其修改为正确的引用格式. 对于数学专业, 引用文献不需要上标\cite{atiyah_introduction_1969}, 外文文献的作者名字也不用按照国标示例全大写. 如果一本图书只引用同一处内容, 则可以在参考文献表中标注页码, 例如\cite{herrlich_axiom_2006}; 如果图书广泛引用, 则不需要多次重复著录和标注页码, 即例如\cite{atiyah_introduction_1969}.
 
-仿照示例里引用的格式, 我们应该采用\verb|\parencite|命令来引用文献.
+% 我们先引用一下郑博文写的书\cite{rudin1976principleschinese3}.
 
-我们先引用一下郑博文写的书\parencite{rudin1976principleschinese3}.
+% 我们再引用一下张赫写的书\cite{rudin1976principleschinese}.
 
-我们再引用一下张赫写的书\parencite{rudin1976principleschinese}.
+% 我们还可以两本书一起引用\cite{rudin1976principleschinese,rudin1976principleschinese3}.
 
-我们还可以两本书一起引用\parencite{rudin1976principleschinese,rudin1976principleschinese3}.
+% 最后我们看一下英文的参考文献\cite{rudin1976principles}.
 
-最后我们看一下英文的参考文献\parencite{rudin1976principles}.
+% 多本书一起引用的效果是这样的\cite{rudin1976principleschinese,rudin1976principleschinese3, rudin1976principles, rudin1976principleschinese2}.
 
-多本书一起引用的效果是这样的\parencite{rudin1976principleschinese,rudin1976principleschinese3, rudin1976principles, rudin1976principleschinese2}.
-
-测试一下翻译成外文的外文文献的著录\parencite{sally_history_1985}
-
-不太正式的参考资料\footfullcite{andrew_how_2016}我们在脚注里引用, 并且不著录进参考文献表中. 目前这个引用的著录格式与参考文献表中要求的格式不太相同, 不过短时间没有解决这个问题的动力.
+测试一下翻译成外文的外文文献的著录\cite{sally_history_1985}. 不太正式的参考资料\footfullcite{andrew_how_2016}我们在脚注里引用, 并且不著录进参考文献表中. 目前这个引用的著录格式与参考文献表中要求的格式不太相同, 不过短时间没有解决这个问题的动力.
 
 \zhlipsum[1]
 

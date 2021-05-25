@@ -652,14 +652,29 @@
 \appto\appendix{\clearpage}
 
 
-% 文献著录
+% 文献著录 TODO: 将来应该弄到bbx和cbx文件中
+% \newcommand\tju@pass@option@biblatex@math{%
+%   \PassOptionsToPackage{gbnamefmt=lowercase}{biblatex}
+% }
+% \newcommand\tju@pass@option@biblatex@standard{%
+%   \PassOptionsToPackage{gbnamefmt=uppercase}{biblatex}
+% }
+% \newcommand{\tju@pass@option@biblatex}{%
+%   \@nameuse{tju@pass@option@biblatex@\tju@style}
+% }
+% \tju@option@hook{style}{\tju@pass@option@biblatex}
 \usepackage[%
   backend=biber,%
   style=gb7714-2015,gbalign=right,gbpub=false,gbnamefmt=lowercase,%
   sortcites=true,doi=false,%
   defernumbers=true,%
-  ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
+  ]{biblatex} % 需要 biblatex-gb7714-2015
 \bibliography{ref/refs}
+
+%% 引用
+\let\cite\parencite
+
+%% 参考文献表
 \newcommand\tjubibliography{\tju@bibliography}
 \newcommand\tju@bibliography{%
   \begingroup%
@@ -671,7 +686,8 @@
 }
 \AtEveryBibitem{\clearfield{pagetotal}}
 
-% https://tex.stackexchange.com/a/420605
+%% 只被footfullcite的文献不配进参考文献表
+%% https://tex.stackexchange.com/a/420605
 \DeclareBibliographyCategory{inbib}
 \AtEveryCitekey{%
   \ifcsstring{blx@delimcontext}{footfullcite}
@@ -703,7 +719,7 @@
 }
 \DeclareFieldFormat[inreference]{title}{#1}%\nopunct\unspace%将期刊等文献的标题中原来带的引号去掉
 
-%GB/T 7714-2015 风格，全部大写
+%% GB/T 7714-2015 风格, 全部大写 这段代码修复只有姓或者名的人名字不全大写的bug
 \renewbibmacro*{name:gbuppercase}[4]{\bibauthorfont%
 \renewrobustcmd*{\bibinitperiod}{}%将名字简写后的点去掉
 \renewcommand*{\revsdnamepunct}{}%
@@ -731,7 +747,7 @@
      \ifdefvoid{#4}{}{\addcomma\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}%%后缀前加逗号
 }
 
-% 如果是旧版biblatex-gb7714-2015 那么添上处理翻译为外文文献的处理代码
+%% 如果是旧版biblatex-gb7714-2015 那么添上处理翻译为外文文献的处理代码
 \def\tju@parse@gbt@date#1 #2{#1}
 \def\dateofgbtstyle{\expandafter\tju@parse@gbt@date\versionofgbtstyle}
 \ifnum\pdfstrcmp{\dateofgbtstyle}{2021/04/03}<0%
