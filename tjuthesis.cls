@@ -654,7 +654,9 @@
 
 % 文献著录
 \usepackage[%
-  backend=biber,style=gb7714-2015,gbalign=right,gbpub=false,sortcites=true,doi=false,%
+  backend=biber,%
+  style=gb7714-2015,gbalign=right,gbpub=false,gbnamefmt=lowercase,%
+  sortcites=true,doi=false,%
   defernumbers=true,%
   ]{biblatex} % 需要 biblatex-gb7714-2015 宏包
 \bibliography{ref/refs}
