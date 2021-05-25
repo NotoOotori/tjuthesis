@@ -486,13 +486,14 @@
   %   urlcolor    =   magenta,
   % }
   \hypersetup{% 书签
-    bookmarksopen=true,
-    bookmarksopenlevel=2,
-    bookmarksnumbered=true,% 将章节编号放入书签中
+    bookmarksopen = true,
+    bookmarksopenlevel = 2,
+    bookmarksnumbered = true,% 将章节编号放入书签中
   }
   \hypersetup{% PDF默认打开视图
-    pdfstartview=FitH,
-    pdfpagelayout=OneColumn,
+    pdfpagemode = UseNone,
+    pdfstartview = Fit,
+    pdfpagelayout = SinglePage,
   }
   % PDF信息
   % \tju@option@hook{title}{\hypersetup{pdftitle={\tju@title}}}
