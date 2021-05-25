@@ -673,7 +673,7 @@
 
 % 图表代码算法之类的环境
 \RequirePackage{caption}% 来配置caption格式
-\newcommand\tju@caption@font{\xiaowu\linespread{1.3}\selectfont}% 小五 18磅行距
+\newcommand\tju@caption@font{\xiaowu[12bp]\selectfont}% 小五 18磅行距 baselinestrech=1.5
 \DeclareCaptionFont{tju}{\tju@caption@font}
 \captionsetup{%
   font = tju,% zihao=5的时候小五是small
