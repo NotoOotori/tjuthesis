@@ -384,10 +384,13 @@
 
 % 页面尺寸
 \geometry{
-  top = 32mm,
-  bottom = 38mm,
+  top = \dimexpr32mm+42.82419pt-4.5mm\relax,
+  bottom = \dimexpr38mm-42.82419pt+4.4mm\relax,
   left = 33mm,
   right = 18mm,
+  % headsep = \dimexpr32mm-42.82419pt\relax,
+  headheight = 42.82419pt,
+  % showframe,
 }
 
 
@@ -430,7 +433,7 @@
 }
 \newcommand{\tju@put@gutter@standard}{%
   \XeTeXcharclass`┊=1
-  \fancyput(-0.75cm,-12cm){\parbox{1\ccwd}{\wuhao\baselineskip 12pt ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+  \fancyput(-0.75cm,-12cm){\parbox{1\ccwd}{\wuhao\baselineskip 12pt\selectfont ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
 }
 \newcommand{\tju@put@gutter}{\@nameuse{tju@put@gutter@\tju@style}}
 \tju@option@hook{style}{\tju@put@gutter}
@@ -444,15 +447,14 @@
 \pagestyle{fancy}
 \fancypagestyle{plain}{%
   \fancyhf{}%
-  \setlength{\headheight}{42.82419pt}% TODO: check this
+  % \setlength{\headheight}{42.82419pt}
   \fancyhead[L]{\qquad \includegraphics[height=1.34cm]{tongji-name-bacholar.jpg}}
   \fancyhead[R]{\xiaosi 毕业设计（论文）~\\}
   \renewcommand{\headrulewidth}{1.5pt}
   \renewcommand{\footrulewidth}{1.5pt}
-  \fancyfoot[RO]{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页} % LE,RO if twoside
+  \fancyfoot[R]{\leavevmode\smash{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}} % LE,RO if twoside
 }
 \pagestyle{plain}
-
 
 % 章节标题
 \ctexset{
@@ -559,6 +561,13 @@
       keywords = {##1}
     }
     \clearpage
+    \newgeometry{
+      top = \dimexpr32mm+42.82419pt+21.41209pt-0.5mm\relax,
+      bottom = \dimexpr38mm-42.82419pt+4.4mm\relax,
+      left = 33mm,
+      right = 18mm,
+      headheight = 42.82419pt,
+    }
     \null\vskip -1\ccwd
     \begingroup
       \erhao\centering\zhhei\tju@title\par%
@@ -587,6 +596,7 @@
       \quad\xiaowu\tju@clist@use{\tju@keywords}{, \quad}%
     \endgroup
     \clearpage
+    \aftergroup\restoregeometry
   }
   \newenvironment{abstract*}[1]{
     \tjusetup{
