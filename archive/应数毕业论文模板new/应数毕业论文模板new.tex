@@ -11,9 +11,7 @@
 \usepackage{graphicx}     %插入图片
 \usepackage{lastpage}     %引用最后一页
 \graphicspath{{figures/}} %%图片路径
-%% TODO: geometry
 \usepackage[top=3.2cm,bottom=3.8cm,left=3.3cm,right=1.8cm]{geometry}  %设置页边距
-%% TODO: zhuang ding xian
 \usepackage{fancybox}                      %画边界线
 \fancyput*(-0.8cm,-4.3cm){$|$}%
 \fancyput*(-0.8cm,-4.9cm){$|$}%
@@ -49,7 +47,6 @@
 \fancyput*(-0.8cm,-22.9cm){$|$}%
 \fancyput*(-0.8cm,-23.5cm){$|$}%
 
-%% TODO: toc
 %设置目录格式(引文部分）
 \usepackage[titles]{tocloft}
 \renewcommand{\cftdot}{$\cdot$}
@@ -65,10 +62,8 @@
 \renewcommand{\cftsecpagefont}{\zihao{5}}
 \renewcommand{\cftsubsecpagefont}{\zihao{5}}
 \renewcommand{\cftsubsubsecpagefont}{\zihao{5}}
-%% TODO: equation numbering
 \numberwithin{equation}{section}
 
-%% TODO: theorem
 %设置定理定义等的格式，如果某项的编号是跟着章节的，在后面加[section]
 \theoremstyle{definition}
 \newtheorem{thm}{定理\hspace{0.05pt}}[section]
@@ -83,8 +78,6 @@
 \newtheorem{rem}{注\hspace{0.05pt}}
 %\newtheorem{note}[thm]{Note}
 \newtheorem*{pf}{证明}
-
-%% TODO: numbering of floats
 
 %设置图表编号和章节相关联，参见http://blog.sina.com.cn/s/blog_5e16f1770100h6ts.html
 \usepackage[T1]{fontenc}
@@ -105,11 +98,6 @@
 
 %\CJKindent
 \begin{document}
-
-
-% TODO: title page
-
-%% TODO: pagestyle
 \linespread{1.5}  %1.5倍行距
 \pagestyle{fancy} %页眉页脚设置
 \fancyhead{}      %清空默认页眉
@@ -124,12 +112,10 @@
 \thispagestyle{fancy}
 
 
-%% TODO: title
 ~\\
 \begin{center}\heiti\zihao{2}
 经典力学的数学基础
 \end{center}
-%% TODO: abstract
 \begin{center}\heiti\zihao{4}
     摘\quad 要
 \end{center}
@@ -137,23 +123,17 @@
  {\heiti\zihao{-5}}\quad {\songti\zihao{-5}历史上，数学与物理一直有密不可分的联系，许多数学理论发展自物理问题，很多数学方法和工具也都在物理学中找到实际应用.本文以经典力学为研究范畴，用数学语言叙述了其中的重要原理和定理，如三大守恒定律，最小作用量原理，诺特定理及刘维尔定理等等，体现了包括微分方程，变分法，守恒律，微分流形，辛结构在内的各种抽象数学工具和概念如何帮助我们描述和求解现实中的力学问题.根据经典力学的不同表述，文章主体分为牛顿力学，拉格朗日力学，以及哈密顿力学三章，每部分内又可分为运动方程的推导，相空间的几何，不变量的导出三部分，并附有实例说明如何通过守恒律简化方程求解.
 }
 %局部修改字体字号{\字体名\zihao{} ...}
-%% TODO: keywords
 \par
 \vskip 5mm
 \noindent {\heiti\zihao{5}关键词:}\quad{\songti\zihao{-5}  经典力学, \quad 微分方程, \quad 微分流形, \quad 守恒律}~\\
 
 
 \newpage
-
-% TODO: english title page
-
 %\thispagestyle{fancy}
 \vskip 4mm
-%% TODO: english title
 \begin{center}\heiti\zihao{2}
 	{\bf {English Title} }
 \end{center}
-%% TODO: english abstract
 \begin{center}\heiti\zihao{4}
 \bf{	ABSTRACT}
 \end{center}
@@ -161,14 +141,12 @@
  {\heiti\zihao{-5}}\quad {\songti\zihao{-5}Historically, mathematics and physics have been inextricably linked, since many mathematical theories were inspired by physical problems and a variety of mathematical tools find applications in physical areas. In this paper,key principles and theorems about classical mechanics are discussed using mathematical language, such as the conservation law,Hamilton least action principle, Noether's theorem and Liouville's theorem. This paper also tries to show that how does the abstract mathematical tools help us describe and solve practical mechanics problems. Among those mathematical tools are variational principles, differential equations and differential manifolds. The body of this paper is divided into three sections according to the different interpretations of classical mechanics. And within each section, we will present an introduction to the equations of motion and the geometry of phase space. We also give the derivation of some key invariants. Examples showing how to simplify the equations by conservation laws are attached as well.
 }\par
 
-%% TODO: english keywords
-\vskip 4mm
+
+\vskip 4mm 
 \noindent{\heiti\zihao{5}\bf {Key\ words:}}\quad
 {\songti\zihao{-5} Classical Mechanics, \quad Differential Equations, \quad Differential Manifolds,
 	\quad Conservation Laws}
 \par
-
-%% TODO: table of contents
 
 %以下为修改目录格式的正文内语句，正文内用@命令需用\makeatletter,\makeatother括起来
 \renewcommand{\contentsname}{\centerline{目\quad 录}}
@@ -184,8 +162,6 @@
 \newpage
 \tableofcontents   %放置目录
 \newpage
-
-%% TODO: title style of headings
 
 %以下两段修改章节标题格式，参数含义见博客http://blog.sina.com.cn/s/blog_5e16f1770100lqn7.html
 \makeatletter
@@ -617,10 +593,10 @@ $$\frac{\partial F_1(\textbf{Q},\textbf{q})}{\partial \textbf{q}}=\textbf{p} \te
 \begin{table}[h]
 \renewcommand{\captionfont}{\small}
 \begin{center}
-
+	
 	\caption{常用生成函数类}
 	\vskip 4mm
-
+	
 	\begin{tabular}{c|c|c|c}
     \text{类型} & \text{函数} & \text{偏导数} & \text{示例}\\ \hline
 1 & \( F_{1}(q, Q, t) \) & \( \begin{array}{l}
@@ -698,7 +674,6 @@ $$\dot{P}= -\frac{\partial K}{\partial Q}=0 \qquad \dot{Q}=\frac{\partial K}{\pa
 以阿诺德的《经典力学的数学方法》为基础，本文用数学语言简要介绍了牛顿力学，拉格朗日力学以及哈密顿力学中的大部分重要概念和定理.着重体现了三种力学相空间的差异，以及这种差异带来的研究方法的不同.此外突出了系统对称性与守恒量之间的联系以及如何运用守恒量减少问题自由度，简化问题的求解.此外，本文在原书基础上补充了一些证明，或者将某些证明从一维推广到高维.
 \par 未来研究方向包括以下几点：第一，本文研究的系统多为自治系统，可研究非自制系统下的方程性质，并将资质条件下定义定理推广到非自制情形；第二，本文提到的约束都为完整约束，可研究非完整约束下的情形；第三，本文限于篇幅对哈密顿力学提及较少，可深化对哈密顿系统以及相关的辛几何学的学习；第四，本文大部分在做定性描述，未来可研究哈密顿方程以及哈密顿雅可比方程的数值求解.
 \newpage
-%% TODO: bibliography
 %下面修改参考文献格式
 \makeatletter
 \renewenvironment{thebibliography}[1]
@@ -726,7 +701,7 @@ $$\dot{P}= -\frac{\partial K}{\partial Q}=0 \qquad \dot{Q}=\frac{\partial K}{\pa
 
 \addcontentsline{toc}{section}{参考文献}
 \begin{thebibliography}{MM}
-\addtolength{\itemsep}{-0.5em}% TODO:
+\addtolength{\itemsep}{-0.5em}
 \begin{small}
 \bibitem{AI1} Arnold V I. Mathematical methods of classical mechanics[M]. Springer, 1989: 4-6.
 \bibitem{drm} Robbin J W, Salamon D A. Introduction to differential topology[J]. UW Madison, ETH Zürich, 2011：49-99.
@@ -757,8 +732,8 @@ $$\dot{P}= -\frac{\partial K}{\partial Q}=0 \qquad \dot{Q}=\frac{\partial K}{\pa
 \bibitem{1}  库恩. 科学革命的结构:第四版[M].金吾伦，胡新和，译.2 版.北京:北京大学出版社，2012:25.
 \bibitem{2}何晓群,刘文卿. 应用回归分析[M]. 北京: 中国人民大学出版社,   2011:107-110.
 \bibitem{3}魏浩.  股票价格影响因素分析[J].  企业研究. 2012,18: 34-35.
-\bibitem{4}赵国顺.  基于时间序列分析的股票价格趋势预测研究[D]. 厦门: 厦门大学, 2009.
-\bibitem{5} 戴军,黄志文,葛新元.  Logistic选股模型及其在沪深300中的实证[EB/OL]. （2010-09-07）[2016-5-28].  http://www. doc88.com/p-3187558973748.html.
+\bibitem{4}赵国顺.  基于时间序列分析的股票价格趋势预测研究[D]. 厦门: 厦门大学, 2009. 
+\bibitem{5} 戴军,黄志文,葛新元.  Logistic选股模型及其在沪深300中的实证[EB/OL]. （2010-09-07）[2016-5-28].  http://www. doc88.com/p-3187558973748.html. 
 
 
 
