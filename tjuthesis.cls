@@ -220,7 +220,26 @@
 \tju@package@conflict{unicode-math}{mathrsfs}
 
 
-% 字号
+% 正文字体大小
+\newcommand\tju@set@font@size@math{}
+\newcommand\tju@set@font@size@standard{%
+  \renewcommand\normalsize{%
+    \@setfontsize\normalsize{12bp}{18bp}%
+    \abovedisplayskip 0bp%
+    \abovedisplayshortskip 0bp%
+    \belowdisplayshortskip 0bp%
+    \belowdisplayskip \abovedisplayskip
+  }
+  \normalsize
+  \ifx\MakeRobust\@undefined \else
+      \MakeRobust\normalsize
+  \fi
+}
+\newcommand\tju@set@font@size{\@nameuse{tju@set@font@size\tju@style}}
+\tju@option@hook{style}{\tju@set@font@size}
+
+
+% 设置常用字号
 \def\tju@def@fontsize#1#2{%
   \expandafter\newcommand\csname #1\endcsname[1][1.3]{%
     \fontsize{#2}{##1\dimexpr #2}\selectfont}}
@@ -439,10 +458,6 @@
 \tju@option@hook{style}{\tju@put@gutter}
 
 
-% 行距
-\linespread{1.5}
-
-
 % 页眉页脚
 \pagestyle{fancy}
 \fancypagestyle{plain}{%
@@ -602,7 +617,7 @@
     \end{center}
     \par%
     \begingroup
-      \xiaowu\zhsong
+      \xiaowu[1.4]\zhsong
   }{%
     \endgroup
     \vskip 5mm
