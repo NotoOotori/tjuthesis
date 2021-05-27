@@ -178,6 +178,7 @@
 
 
 \LoadClass[a4paper, zihao=5, fontset=none]{ctexart}
+\linespread{1.0}
 
 
 % 引用必要宏包
@@ -224,7 +225,7 @@
 \newcommand\tju@set@font@size@math{}
 \newcommand\tju@set@font@size@standard{%
   \renewcommand\normalsize{%
-    \@setfontsize\normalsize{12bp}{18bp}%
+    \@setfontsize\normalsize{9bp}{18bp}%
     \abovedisplayskip 0bp%
     \abovedisplayshortskip 0bp%
     \belowdisplayshortskip 0bp%
@@ -234,8 +235,20 @@
   \ifx\MakeRobust\@undefined \else
       \MakeRobust\normalsize
   \fi
+  % TODO: 故意设置得奇怪一点观察有没有地方用到
+  \DeclareRobustCommand\small{%
+    \@setfontsize\small{12bp}{20bp}%
+    \abovedisplayskip 6bp%
+    \abovedisplayshortskip 6bp%
+    \belowdisplayshortskip 6bp%
+    \def\@listi{\leftmargin\leftmargini
+                \topsep \z@skip
+                \parsep \z@skip
+                \itemsep \z@skip}%
+    \belowdisplayskip \abovedisplayskip
+  }
 }
-\newcommand\tju@set@font@size{\@nameuse{tju@set@font@size\tju@style}}
+\newcommand\tju@set@font@size{\@nameuse{tju@set@font@size@\tju@style}}
 \tju@option@hook{style}{\tju@set@font@size}
 
 
@@ -452,7 +465,7 @@
 }
 \newcommand{\tju@put@gutter@standard}{%
   \XeTeXcharclass`┊=1
-  \fancyput(-0.75cm,-12cm){\parbox{1\ccwd}{\wuhao\baselineskip 12pt\selectfont ┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}
+  \fancyput(-0.86cm,-12.745cm){\wuhao[0.48cm]\parbox{1\ccwd}{┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}% -0.66cm
 }
 \newcommand{\tju@put@gutter}{\@nameuse{tju@put@gutter@\tju@style}}
 \tju@option@hook{style}{\tju@put@gutter}
@@ -681,17 +694,21 @@
 \RequirePackage{tikz}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
   \node[shape=circle,draw,inner sep=0pt] (char) {#1};}}
-\def\nosuper@makefnmark{\hbox{\normalfont\circled{\@thefnmark}\space}}
-\patchcmd\@makefntext{\@makefnmark}{\nosuper@makefnmark}{}{}% 需要etoolbox宏包来给局部打补丁
+\def\@makefnmark@circled@nosuper{\hbox{\normalfont\circled{\@thefnmark}\space}}
+\def\@makefnmark@circled@super{\hbox{\@textsuperscript{\normalfont\circled{\@thefnmark}}}}
+\AtBeginDocument{% should be done after loading hyperref
+  \patchcmd\@footnotemark{\@makefnmark}{\@makefnmark@circled@super}{}{}
+  \patchcmd\@makefntext{\@makefnmark}{\@makefnmark@circled@nosuper}{}{}% 需要etoolbox宏包来给局部打补丁
+}
 % 如果想要每页重置脚注编号, 可以参考https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
 
 
 % 图表代码算法之类的环境
 \RequirePackage{caption}% 来配置caption格式
-\newcommand\tju@caption@font{\xiaowu[12bp]\selectfont}% 小五 18磅行距 baselinestrech=1.5
+\newcommand\tju@caption@font{\xiaowu[18bp]\selectfont}% 小五 18磅行距
 \DeclareCaptionFont{tju}{\tju@caption@font}
 \captionsetup{%
-  font = tju,% zihao=5的时候小五是small
+  font = tju,%
   skip = 0pt,%
 }
 \RequirePackage{chngcntr}% 设置counter within
