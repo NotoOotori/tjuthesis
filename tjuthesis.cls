@@ -134,6 +134,13 @@
 }
 %% 排版选项
 \tju@define@key{
+  font = {
+    choices = {
+      times,
+      cmu,
+    },
+    default = times,
+  },
   math-font = {
     name = math@font,
     choices = {
@@ -297,20 +304,36 @@
 }
 
 
-% 英文字体 % TODO: Load fonts explicitly
-\setmainfont{cmunrm}[%
-  Extension = .otf,
-  BoldFont = cmunbx,
-  ItalicFont = cmunti,
-  BoldItalicFont = cmunbi,
-]
-
-
-\mathchardef\ordinarycolon\mathcode`\:
-\mathcode`\:=\string"8000
-\begingroup \catcode`\:=\active
-  \gdef:{\mathrel{\mathop\ordinarycolon}}
-\endgroup
+% 字体
+\let\tju@font@extension@cmu\@empty
+\newcommand\tju@set@cmu@names{%
+  \ifx\tju@font@extension@cmu\@empty
+    \gdef\tju@font@extension@cmu{.otf}%
+    \gdef\tju@font@name@cmu@rm{cmunrm}%
+    \gdef\tju@font@name@cmu@bf{cmunbx}%
+    \gdef\tju@font@name@cmu@it{cmunti}%
+    \gdef\tju@font@name@cmu@bfit{cmunbi}%
+  \fi
+}
+\let\tju@font@extension@times\@empty
+\newcommand\tju@set@times@names{%
+  \ifx\tju@font@extension@times\@empty
+    \IfFontExistsTF{times.ttf}{%
+      \gdef\tju@font@extension@times{.ttf}%
+      \gdef\tju@font@name@times@rm{times}%
+      \gdef\tju@font@name@times@bf{timesbd}%
+      \gdef\tju@font@name@times@it{timesi}%
+      \gdef\tju@font@name@times@bfit{timesbi}%
+    }{%
+      \gdef\tju@font@extension@times{.otf}%
+      \gdef\tju@font@name@times@rm{texgyretermes-regular}%
+      \gdef\tju@font@name@times@bf{texgyretermes-bold}%
+      \gdef\tju@font@name@times@it{texgyretermes-italic}%
+      \gdef\tju@font@name@times@bfit{texgyretermes-bolditalic}%
+    }%
+  \fi
+}
+% TODO: refactor to match times and cmu
 \let\tju@font@family@xits\@empty
 \newcommand\tju@set@xits@names{%
   \ifx\tju@font@family@xits\@empty
@@ -333,11 +356,56 @@
     }%
   \fi
 }
-\unimathsetup{
+\newcommand\tju@set@font@names{%
+  \def\tju@font@extension{\@nameuse{tju@font@extension@\tju@font}}%
+  \def\tju@font@name@rm{\@nameuse{tju@font@name@\tju@font @rm}}%
+  \def\tju@font@name@bf{\@nameuse{tju@font@name@\tju@font @bf}}%
+  \def\tju@font@name@it{\@nameuse{tju@font@name@\tju@font @it}}%
+  \def\tju@font@name@bfit{\@nameuse{tju@font@name@\tju@font @bfit}}%
+}
+
+
+% 英文字体 % TODO: Load fonts explicitly
+\newif\iftju@math@font@loaded
+\tju@math@font@loadedfalse
+\newcommand\tju@load@font{%
+  \@nameuse{tju@set@\tju@font @names}%
+  \tju@set@font@names%
+  \setmainfont{\tju@font@name@rm}[%
+    Ligatures = TeX,
+    Extension = \tju@font@extension,
+    BoldFont = \tju@font@name@bf,
+    ItalicFont = \tju@font@name@it,
+    BoldItalicFont = \tju@font@name@bfit,
+  ]
+}
+\tju@load@font
+\tju@option@hook{font}{%
+  \tju@load@font%
+  \iftju@math@font@loaded
+    \tju@load@math@num@font%
+  \fi
+}
+
+
+% 数学字体
+\unimathsetup{%
   math-style = ISO,
   bold-style = ISO,
-  nabla      = upright,
-  partial    = upright,
+  nabla = upright,
+  partial = upright,
+}
+\newcommand\tju@load@math@num@font{%
+  \setmathfont{\tju@font@name@rm}[
+    Extension = \tju@font@extension,
+    range = up/{num},
+    BoldFont = \tju@font@name@bf,
+  ]
+  \setmathfont{\tju@font@name@bf}[
+    Extension = \tju@font@extension,
+    range = bfup/{num},
+    BoldFont = \tju@font@name@bf,
+  ]
 }
 \newcommand\tju@load@math@font@xits{%
   \tju@set@xits@names
@@ -351,16 +419,6 @@
     BoldFont = \tju@font@name@xits@math@bf,
     StylisticSet = 1,
     range = {cal, bfcal},
-  ]
-  \setmathfont{cmunrm}[
-    Extension = .otf,
-    range = up/{num},
-    BoldFont = cmunbx,
-  ]
-  \setmathfont{cmunbx}[
-    Extension = .otf,
-    range = bfup/{num},
-    BoldFont = cmunbx,
   ]
   \setmathfont{\tju@font@name@xits@math@rm}[
     Extension = .otf,
@@ -383,11 +441,15 @@
   ]
 }
 \newcommand\tju@load@math@font{%
-  \@nameuse{tju@load@math@font@\tju@math@font}
+  \@nameuse{tju@load@math@font@\tju@math@font}%
+  \tju@load@math@num@font%
+  \tju@math@font@loadedtrue%
 }
 \tju@load@math@font
 \tju@option@hook{math-font}{\tju@load@math@font}
 
+
+% 中文字体
 \newcommand\tju@load@cjk@font@windows{%
   \xeCJKsetup{EmboldenFactor=2}
   \setCJKmainfont{SimSun}[
