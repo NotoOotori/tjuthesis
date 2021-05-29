@@ -229,6 +229,12 @@
 
 
 % 正文字体大小
+\newlength\tju@font@size@standard@normal
+\setlength\tju@font@size@standard@normal{9bp}
+\newlength\tju@font@size@normal
+\setlength\tju@font@size@normal{9bp}
+\newlength\tju@line@height@normal
+\setlength\tju@line@height@normal{1.2\tju@font@size@normal}
 \newcommand\tju@set@font@size@math{}
 \newcommand\tju@set@font@size@standard{%
   \renewcommand\normalsize{%
@@ -450,14 +456,15 @@
 
 
 % 中文字体
+\newcommand\tju@cjk@embolden@factor{4}
 \newcommand\tju@load@cjk@font@windows{%
-  \xeCJKsetup{EmboldenFactor=2}
+  \xeCJKsetup{EmboldenFactor = \tju@cjk@embolden@factor}
   \setCJKmainfont{SimSun}[
     BoldFont = SimHei,
     ItalicFont   = KaiTi,
     % ItalicFeatures = { AutoFakeBold = true },
     BoldItalicFont   = KaiTi,
-    BoldItalicFeatures = { FakeBold = 2 },
+    BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
   ]%
   \setCJKsansfont{SimHei}[AutoFakeBold]%
   \setCJKmonofont{FangSong}[AutoFakeBold]%
@@ -466,9 +473,12 @@
     ItalicFont   = KaiTi,
     % ItalicFeatures = { AutoFakeBold = true },
     BoldItalicFont   = KaiTi,
-    BoldItalicFeatures = { FakeBold = 2 },
+    BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
   ]%
-  \newCJKfontfamily\zhhei{SimHei}[AutoFakeBold]%
+  \newCJKfontfamily\zhhei{SimHei}[
+    BoldFont = SimHei,
+    BoldFeatures = { FakeBold = \tju@cjk@embolden@factor },
+  ]%
   \newCJKfontfamily\zhkai{KaiTi}[AutoFakeBold]%
   \newCJKfontfamily\zhfs{FangSong}[AutoFakeBold]%
 }
@@ -704,12 +714,89 @@
   }%
   \expandafter\comma@parse\expandafter{#1}{\tju@clist@processor}%
 }
-\newcommand{\tju@abstract@name}{摘\quad 要}
+\newcommand{\tju@abstract@name@standard}{摘\hspace*{0.10in}要}
+\newcommand{\tju@abstract@name@math}{摘\quad 要}
+\newcommand{\tju@abstract@name}{\@nameuse{tju@abstract@name@\tju@style}}
 \newcommand{\tju@keywords@name}{关键词}
 \newcommand{\tju@abstract@name@en}{ABSTRACT}
 \newcommand{\tju@keywords@name@en}{Key words}
 \let\abstract\relax
 \let\endabstract\relax
+\newcommand{\tju@newenv@abstract@standard}{%
+  \newenvironment{abstract}[1]{%
+    \tjusetup{
+      keywords = {##1}
+    }
+    \clearpage
+    \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
+    \begingroup
+      \centering\bf\xiaoer\zhhei\tju@title%
+      \vskip 0.5\tju@line@height@normal%
+    \endgroup
+    \ifx\tju@subtitle\@empty
+      \vskip 1.0\tju@line@height@normal%
+    \else
+    \begingroup
+      \vskip 0.5\tju@line@height@normal%
+      \centering\sanhao\zhhei\tju@subtitle%
+      \vskip 1.5\tju@line@height@normal%
+    \endgroup
+    \fi
+    \begingroup
+      \vskip \dimexpr0.5\tju@line@height@normal+9bp\relax%
+      \centering\sihao[18bp]\zhhei\tju@abstract@name%
+      \vskip 0.5\tju@line@height@normal%
+    \endgroup
+    \par%
+    \begingroup
+      \xiaowu[18bp]\zhsong
+  }{%
+    \endgroup
+    \vskip \dimexpr1.0\tju@line@height@normal+9bp\relax%
+    \begingroup
+      \noindent%
+      \bf\wuhao\zhsong\tju@keywords@name：%
+    \endgroup%
+    \begingroup%
+      \wuhao\zhsong\tju@clist@use{\tju@keywords}{，}%
+    \endgroup
+    \clearpage
+  }
+  \newenvironment{abstract*}[1]{
+  \tjusetup{
+    keywords* = {##1},
+  }
+  \clearpage
+  \begin{center}
+    \linespread{1}
+    \erhao\bf\tju@title@en%
+  \end{center}
+  \ifx\tju@subtitle@en\@empty
+    \relax
+  \else
+    \begin{center}
+      \xiaoer\zhhei\tju@subtitle@en\par%
+    \end{center}
+  \fi
+  \begin{center}
+    \sihao\bf\tju@abstract@name@en%
+  \end{center}
+  \par%
+  \begingroup
+    \xiaowu[1.4]\zhsong
+  }{%
+  \endgroup
+  \vskip 5mm
+  \begingroup
+    \noindent
+    \wuhao\bf\tju@keywords@name@en:%
+  \endgroup
+  \begingroup
+    \quad\xiaowu\tju@clist@use{\tju@keywords@en}{, \quad}
+  \endgroup
+  \clearpage
+  }
+}
 \newcommand{\tju@newenv@abstract@math}{%
   \newenvironment{abstract}[1]{%
     \tjusetup{
@@ -786,84 +873,6 @@
       \quad\xiaowu\tju@clist@use{\tju@keywords@en}{, \quad}
     \endgroup
     \clearpage
-  }
-}
-\newcommand{\tju@newenv@abstract@standard}{%
-\newenvironment{abstract}[1]{%
-  \tjusetup{
-    keywords = {##1}
-  }
-  \clearpage
-  % \newgeometry{
-  %   top = \dimexpr32mm+42.82419pt+21.41209pt-0.5mm\relax,
-  %   bottom = \dimexpr38mm-42.82419pt+4.4mm\relax,
-  %   left = 33mm,
-  %   right = 18mm,
-  %   headheight = 42.82419pt,
-  % }
-  \null\vskip -1\ccwd
-  \begingroup
-    \erhao\centering\zhhei\tju@title\par%
-  \endgroup
-  \ifx\tju@subtitle\@empty
-    \relax
-  \else
-    \begin{center}
-      \xiaoer\zhhei\tju@subtitle\par%
-    \end{center}
-  \fi
-  \begin{center}
-    \sihao\zhhei\tju@abstract@name%
-  \end{center}
-  \par%
-  \begingroup
-    \xiaowu\zhsong
-  }{%
-  \endgroup
-  \vskip 5mm
-  \begingroup
-    \noindent
-    \wuhao\zhhei\tju@keywords@name:%
-  \endgroup
-  \begingroup
-    \quad\xiaowu\tju@clist@use{\tju@keywords}{, \quad}%
-  \endgroup
-  \clearpage
-  \aftergroup\restoregeometry
-  }
-  \newenvironment{abstract*}[1]{
-  \tjusetup{
-    keywords* = {##1},
-  }
-  \clearpage
-  \begin{center}
-    \linespread{1}
-    \erhao\bf\tju@title@en%
-  \end{center}
-  \ifx\tju@subtitle@en\@empty
-    \relax
-  \else
-    \begin{center}
-      \xiaoer\zhhei\tju@subtitle@en\par%
-    \end{center}
-  \fi
-  \begin{center}
-    \sihao\bf\tju@abstract@name@en%
-  \end{center}
-  \par%
-  \begingroup
-    \xiaowu[1.4]\zhsong
-  }{%
-  \endgroup
-  \vskip 5mm
-  \begingroup
-    \noindent
-    \wuhao\bf\tju@keywords@name@en:%
-  \endgroup
-  \begingroup
-    \quad\xiaowu\tju@clist@use{\tju@keywords@en}{, \quad}
-  \endgroup
-  \clearpage
   }
 }
 \newcommand{\tju@newenv@abstract}{\@nameuse{tju@newenv@abstract@\tju@style}}
