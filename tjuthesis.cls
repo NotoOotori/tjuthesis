@@ -764,38 +764,43 @@
     \clearpage
   }
   \newenvironment{abstract*}[1]{
-  \tjusetup{
-    keywords* = {##1},
-  }
-  \clearpage
-  \begin{center}
-    \linespread{1}
-    \erhao\bf\tju@title@en%
-  \end{center}
-  \ifx\tju@subtitle@en\@empty
-    \relax
-  \else
-    \begin{center}
-      \xiaoer\zhhei\tju@subtitle@en\par%
-    \end{center}
-  \fi
-  \begin{center}
-    \sihao\bf\tju@abstract@name@en%
-  \end{center}
-  \par%
-  \begingroup
-    \xiaowu[1.4]\zhsong
+    \tjusetup{
+      keywords* = {##1},
+    }
+    \clearpage
+    \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
+    \begingroup
+      \centering\bf\xiaoer\tju@title@en%
+      \vskip 0.5\tju@line@height@normal%
+    \endgroup
+    \ifx\tju@subtitle@en\@empty
+      \vskip 1.0\tju@line@height@normal%
+    \else
+    \begingroup
+      \vskip 0.5\tju@line@height@normal%
+      \centering\sanhao\tju@subtitle@en%
+      \vskip 1.5\tju@line@height@normal%
+    \endgroup
+    \fi
+    \begingroup
+      \vskip \dimexpr0.5\tju@line@height@normal+9bp\relax% 这里的9bp应是 \baselineskip-\tju@font@size@normal
+      \centering\sihao[18bp]\tju@abstract@name@en%
+      \vskip 0.5\tju@line@height@normal%
+    \endgroup
+    \par%
+    \begingroup
+      \xiaowu[18bp]
   }{%
-  \endgroup
-  \vskip 5mm
-  \begingroup
-    \noindent
-    \wuhao\bf\tju@keywords@name@en:%
-  \endgroup
-  \begingroup
-    \quad\xiaowu\tju@clist@use{\tju@keywords@en}{, \quad}
-  \endgroup
-  \clearpage
+    \endgroup
+    \vskip \dimexpr1.0\tju@line@height@normal+9bp\relax%
+    \begingroup
+      \noindent%
+      \bf\wuhao\tju@keywords@name@en: %
+    \endgroup%
+    \begingroup%
+      \wuhao\tju@clist@use{\tju@keywords@en}{, }%
+    \endgroup
+    \clearpage
   }
 }
 \newcommand{\tju@newenv@abstract@math}{%
