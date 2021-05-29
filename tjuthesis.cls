@@ -558,11 +558,11 @@
 }
 \newcommand\tju@new@page@style@standard@front@foot{%
   \renewcommand{\footrulewidth}{0pt}%
-  \fancyfoot[C]{\thepage}%
+  \fancyfoot[C]{\xiaosi \raisebox{-0.02in}{\thepage}}%
 }
 \newcommand\tju@new@page@style@standard@main@foot{%
   \renewcommand{\footrulewidth}{1.5pt}%
-  \fancyfoot[R]{\leavevmode\smash{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}}% LE,RO if twoside
+  \fancyfoot[R]{\leavevmode\smash{\xiaosi\zhsong 共\quad \pageref{LastPage}\quad 页\hspace*{0.21in} 第\quad \thepage \quad 页}}% LE,RO if twoside
 }
 \newcommand\tju@new@page@style@standard@front{%
   \fancypagestyle{front}{%
