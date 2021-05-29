@@ -475,6 +475,7 @@
     BoldItalicFont   = KaiTi,
     BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
   ]%
+  \newfontfamily\songti{SimSun}
   \newCJKfontfamily\zhhei{SimHei}[
     BoldFont = SimHei,
     BoldFeatures = { FakeBold = \tju@cjk@embolden@factor },
@@ -572,7 +573,7 @@
 }
 \newcommand\tju@new@page@style@standard@main@foot{%
   \renewcommand{\footrulewidth}{1.5pt}%
-  \fancyfoot[R]{\leavevmode\smash{\xiaosi\zhsong 共\quad \pageref{LastPage}\quad 页\hspace*{0.21in} 第\quad \thepage \quad 页}}% LE,RO if twoside
+  \fancyfoot[R]{\leavevmode\smash{\xiaosi\songti 共\hspace*{1\ccwd}\pageref{LastPage}\hspace*{1\ccwd}页\hspace*{1.5\ccwd}第\hspace*{1\ccwd}\thepage\hspace*{1\ccwd}页}}% LE,RO if twoside
 }
 \newcommand\tju@new@page@style@standard@front{%
   \fancypagestyle{front}{%
@@ -714,7 +715,7 @@
   }%
   \expandafter\comma@parse\expandafter{#1}{\tju@clist@processor}%
 }
-\newcommand{\tju@abstract@name@standard}{摘\hspace*{0.10in}要}
+\newcommand{\tju@abstract@name@standard}{摘\hspace*{0.5\ccwd}要}
 \newcommand{\tju@abstract@name@math}{摘\quad 要}
 \newcommand{\tju@abstract@name}{\@nameuse{tju@abstract@name@\tju@style}}
 \newcommand{\tju@keywords@name}{关键词}
@@ -743,7 +744,7 @@
     \endgroup
     \fi
     \begingroup
-      \vskip \dimexpr0.5\tju@line@height@normal+9bp\relax%
+      \vskip \dimexpr0.5\tju@line@height@normal+9bp\relax% 这里的9bp应是 \baselineskip-\tju@font@size@normal
       \centering\sihao[18bp]\zhhei\tju@abstract@name%
       \vskip 0.5\tju@line@height@normal%
     \endgroup
