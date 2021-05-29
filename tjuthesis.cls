@@ -279,13 +279,16 @@
 % 论文基本结构
 \newif\if@mainmatter
 \newcommand\frontmatter{%
-  \cleardoublepage
+  \clearpage
   \@mainmatterfalse
-  \pagenumbering{arabic}}
+  \pagestyle{front}
+  \tju@set@page@numbering@front}
 
 \newcommand\mainmatter{%
-  \cleardoublepage
+  \clearpage
   \@mainmattertrue
+  \pagestyle{main}
+  \tju@set@page@numbering@main
 }
 
 \newcommand\backmatter{%
@@ -415,15 +418,29 @@
 
 
 % 页面尺寸
-\geometry{
-  top = \dimexpr32mm+42.82419pt-4.5mm\relax,
-  bottom = \dimexpr38mm-42.82419pt+4.4mm\relax,
-  left = 33mm,
-  right = 18mm,
-  % headsep = \dimexpr32mm-42.82419pt\relax,
-  headheight = 42.82419pt,
-  % showframe,
+\newcommand\tju@set@geometry@standard{
+  \geometry{
+    top = 1.67in,
+    bottom = 1.05in,
+    left = 1.36in,
+    right = 0.74in,
+    headheight = 45pt,
+  }
 }
+\newcommand\tju@set@geometry@math{
+  \geometry{
+    top = \dimexpr32mm+42.82419pt-4.5mm\relax,
+    bottom = \dimexpr38mm-42.82419pt+4.4mm\relax,
+    left = 33mm,
+    right = 18mm,
+    % headsep = \dimexpr32mm-42.82419pt\relax,
+    headheight = 42.82419pt,
+    % showframe,
+  }
+}
+\newcommand\tju@set@geometry{\@nameuse{tju@set@geometry@\tju@style}}
+\tju@set@geometry
+\tju@option@hook{style}{\tju@set@geometry}
 
 
 % 装订线
@@ -472,17 +489,82 @@
 
 
 % 页眉页脚
-\pagestyle{fancy}
-\fancypagestyle{plain}{%
-  \fancyhf{}%
-  % \setlength{\headheight}{42.82419pt}
-  \fancyhead[L]{\qquad \includegraphics[height=1.34cm]{tongji-name-bacholar.jpg}}
-  \fancyhead[R]{\xiaosi 毕业设计（论文）~\\}
-  \renewcommand{\headrulewidth}{1.5pt}
-  \renewcommand{\footrulewidth}{1.5pt}
-  \fancyfoot[R]{\leavevmode\smash{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}} % LE,RO if twoside
+\newcommand\tju@new@page@style@standard@head{%
+  \fancyhead[L]{\qquad \includegraphics[height=1.34cm]{tongji-name-bacholar.jpg}}%
+  \fancyhead[R]{\xiaosi \raisebox{0.15in}{毕业设计（论文）}}%
+  \renewcommand{\headrulewidth}{1.5pt}%
 }
-\pagestyle{plain}
+\newcommand\tju@new@page@style@standard@front@foot{%
+  \renewcommand{\footrulewidth}{0pt}%
+  \fancyfoot[C]{\thepage}%
+}
+\newcommand\tju@new@page@style@standard@main@foot{%
+  \renewcommand{\footrulewidth}{1.5pt}%
+  \fancyfoot[R]{\leavevmode\smash{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}}% LE,RO if twoside
+}
+\newcommand\tju@new@page@style@standard@front{%
+  \fancypagestyle{front}{%
+    \fancyhf{}%
+    \tju@new@page@style@standard@head%
+    \tju@new@page@style@standard@front@foot%
+  }
+}
+\newcommand\tju@set@page@numbering@standard@front{%
+  \pagenumbering{Roman}
+}
+\newcommand\tju@new@page@style@standard@main{%
+  \fancypagestyle{main}{%
+    \fancyhf{}%
+    \tju@new@page@style@standard@head%
+    \tju@new@page@style@standard@main@foot%
+  }
+}
+\newcommand\tju@set@page@numbering@standard@main{%
+  \pagenumbering{arabic}
+}
+\newcommand\tju@new@page@style@math@front{%
+  \fancypagestyle{front}{%
+    \fancyhf{}%
+    \fancyhead[L]{\qquad \includegraphics[height=1.34cm]{tongji-name-bacholar.jpg}}%
+    \fancyhead[R]{\xiaosi 毕业设计（论文）~\\}%
+    \renewcommand{\headrulewidth}{1.5pt}%
+    \renewcommand{\footrulewidth}{1.5pt}%
+    \fancyfoot[R]{\leavevmode\smash{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}}% LE,RO if twoside
+  }
+}
+\newcommand\tju@set@page@numbering@math@front{%
+  \pagenumbering{arabic}
+}
+\newcommand\tju@new@page@style@math@main{%
+  \fancypagestyle{main}{%
+    \fancyhf{}%
+    \fancyhead[L]{\qquad \includegraphics[height=1.34cm]{tongji-name-bacholar.jpg}}%
+    \fancyhead[R]{\xiaosi 毕业设计（论文）~\\}%
+    \renewcommand{\headrulewidth}{1.5pt}%
+    \renewcommand{\footrulewidth}{1.5pt}%
+    \fancyfoot[R]{\leavevmode\smash{\xiaosi 共\quad \pageref{LastPage}\quad 页\quad 第\quad \thepage \quad 页}}% LE,RO if twoside
+  }
+}
+\newcommand\tju@set@page@numbering@math@main{}
+\newcommand\tju@new@page@style@front{%
+  \@nameuse{tju@new@page@style@\tju@style @front}
+}
+\newcommand\tju@new@page@style@main{%
+  \@nameuse{tju@new@page@style@\tju@style @main}
+}
+\newcommand\tju@new@page@style{%
+  \tju@new@page@style@front
+  \tju@new@page@style@main
+  \pagestyle{main}
+}
+\newcommand\tju@set@page@numbering@front{%
+  \@nameuse{tju@set@page@numbering@\tju@style @front}
+}
+\newcommand\tju@set@page@numbering@main{%
+  \@nameuse{tju@set@page@numbering@\tju@style @main}
+}
+\tju@new@page@style
+\tju@option@hook{style}{\tju@new@page@style}
 
 
 % 章节标题
@@ -645,7 +727,82 @@
   }
 }
 \newcommand{\tju@newenv@abstract@standard}{%
-  \tju@newenv@abstract@math% TODO: standard abstract
+\newenvironment{abstract}[1]{%
+  \tjusetup{
+    keywords = {##1}
+  }
+  \clearpage
+  % \newgeometry{
+  %   top = \dimexpr32mm+42.82419pt+21.41209pt-0.5mm\relax,
+  %   bottom = \dimexpr38mm-42.82419pt+4.4mm\relax,
+  %   left = 33mm,
+  %   right = 18mm,
+  %   headheight = 42.82419pt,
+  % }
+  \null\vskip -1\ccwd
+  \begingroup
+    \erhao\centering\zhhei\tju@title\par%
+  \endgroup
+  \ifx\tju@subtitle\@empty
+    \relax
+  \else
+    \begin{center}
+      \xiaoer\zhhei\tju@subtitle\par%
+    \end{center}
+  \fi
+  \begin{center}
+    \sihao\zhhei\tju@abstract@name%
+  \end{center}
+  \par%
+  \begingroup
+    \xiaowu\zhsong
+  }{%
+  \endgroup
+  \vskip 5mm
+  \begingroup
+    \noindent
+    \wuhao\zhhei\tju@keywords@name:%
+  \endgroup
+  \begingroup
+    \quad\xiaowu\tju@clist@use{\tju@keywords}{, \quad}%
+  \endgroup
+  \clearpage
+  \aftergroup\restoregeometry
+  }
+  \newenvironment{abstract*}[1]{
+  \tjusetup{
+    keywords* = {##1},
+  }
+  \clearpage
+  \begin{center}
+    \linespread{1}
+    \erhao\bf\tju@title@en%
+  \end{center}
+  \ifx\tju@subtitle@en\@empty
+    \relax
+  \else
+    \begin{center}
+      \xiaoer\zhhei\tju@subtitle@en\par%
+    \end{center}
+  \fi
+  \begin{center}
+    \sihao\bf\tju@abstract@name@en%
+  \end{center}
+  \par%
+  \begingroup
+    \xiaowu[1.4]\zhsong
+  }{%
+  \endgroup
+  \vskip 5mm
+  \begingroup
+    \noindent
+    \wuhao\bf\tju@keywords@name@en:%
+  \endgroup
+  \begingroup
+    \quad\xiaowu\tju@clist@use{\tju@keywords@en}{, \quad}
+  \endgroup
+  \clearpage
+  }
 }
 \newcommand{\tju@newenv@abstract}{\@nameuse{tju@newenv@abstract@\tju@style}}
 \tju@option@hook{style}{\tju@newenv@abstract}
