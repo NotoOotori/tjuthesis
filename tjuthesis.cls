@@ -185,7 +185,6 @@
 
 
 \LoadClass[a4paper, zihao=5, fontset=none]{ctexart}
-\linespread{1.0}
 
 
 % 引用必要宏包
@@ -235,7 +234,15 @@
 \setlength\tju@font@size@normal{9bp}
 \newlength\tju@line@height@normal
 \setlength\tju@line@height@normal{1.2\tju@font@size@normal}
-\newcommand\tju@set@font@size@math{}
+\newcommand\tju@set@font@size@math{
+  \renewcommand\normalsize{%
+    \@setfontsize\normalsize{9bp}{10.8bp}%
+    \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+    \abovedisplayshortskip \z@ \@plus3\p@
+    \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+    \belowdisplayskip \abovedisplayskip
+  }
+}
 \newcommand\tju@set@font@size@standard{%
   \renewcommand\normalsize{%
     \@setfontsize\normalsize{9bp}{18bp}%
@@ -640,12 +647,6 @@
 \tju@option@hook{style}{\tju@new@page@style}
 
 
-% 章节标题
-\ctexset{
-  subsection/format += {\wuhao},
-  subsubsection/nameformat = {\hspace{2\ccwd}},
-}
-
 
 % hyperref 宏包在最后调用
 \AtEndPreamble{
@@ -684,6 +685,14 @@
   % \tju@option@hook{author}{\hypersetup{pdfauthor={\tju@author}}}
   % \tju@option@hook{keywords}{\hypersetup{pdfkeywords={\tju@keywords}}}
 }
+
+
+% 行间距
+\newcommand\tju@set@line@spread@standard{\linespread{1.0}}
+\newcommand\tju@set@line@spread@math{\linespread{1.3}}
+\newcommand\tju@set@line@spread{\@nameuse{tju@set@line@spread@\tju@style}}
+\tju@set@line@spread
+\tju@option@hook{style}{\tju@set@line@spread}
 
 
 % 标题页
@@ -911,7 +920,71 @@
 
 
 % 章节
-\preto\section{\clearpage}% 每一个section都会从新的一页开始
+\newcommand\tju@set@section@format@standard{
+  \ctexset{%
+    section/format = {\centering\sihao[18bp]\zhhei},
+    subsection/format = {\wuhao[18bp]\zhhei},
+    subsubsection/format = {\wuhao[18bp]\zhhei},
+    subsubsection/nameformat = {\hspace{2\ccwd}},
+  }
+  %% 设置标题上下间距
+  \ctexset{%
+    section/beforeskip = 0pt,
+    subsection/beforeskip = 0.5\tju@line@height@normal,
+    subsubsection/beforeskip = 0.5\tju@line@height@normal,
+    section/afterskip = 0.5\tju@line@height@normal,
+    subsection/afterskip = 0.5\tju@line@height@normal,
+    subsubsection/afterskip = 0.5\tju@line@height@normal,
+  }
+  \ctexset{%
+    section/aftertitle = {},
+    subsection/aftertitle = {},
+    subsubsection/aftertitle = {},
+  }
+  \ctexset{%
+    section/aftername = \hspace*{1\ccwd},
+    subsection/aftername = \hspace*{0.5\ccwd},
+    subsubsection/aftername = \hspace*{0.5\ccwd},
+  }
+}
+\newcommand\tju@set@section@format@math{
+  \ctexset{%
+    section/format = {\Large\bfseries\centering },
+    subsection/format = {\bfseries\wuhao},
+    subsubsection/format = {\normalsize\bfseries},
+    subsubsection/nameformat = {\hspace{2\ccwd}},
+  }
+  %% 设置标题上下间距
+  \ctexset{%
+    section/beforeskip = 3.5ex plus 1ex minus .2ex,
+    subsection/beforeskip = 3.25ex plus 1ex minus .2ex,
+    subsubsection/beforeskip = 3.25ex plus 1ex minus .2ex,
+    section/afterskip = 2.3ex plus .2ex,
+    subsection/afterskip = 1.5ex plus .2ex,
+    subsubsection/afterskip = 1.5ex plus .2ex,
+  }
+  \ctexset{%
+    section/aftertitle = \@@par,
+    subsection/aftertitle = \@@par,
+    subsubsection/aftertitle = \@@par,
+  }
+  \ctexset{%
+    section/aftername = \quad,
+    subsection/aftername = \quad,
+    subsubsection/aftername = \quad,
+  }
+}
+\newcommand\tju@set@section@format{\@nameuse{tju@set@section@format@\tju@style}}
+\tju@option@hook{style}{\tju@set@section@format}
+\newcommand\tju@at@pre@section@standard{%
+  \clearpage% 每一个section都会从新的一页开始
+  \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
+}
+\newcommand\tju@at@pre@section@math{%
+  \clearpage% 每一个section都会从新的一页开始
+}
+\newcommand\tju@at@pre@section{\@nameuse{tju@at@pre@section@\tju@style}}
+\preto\section{\tju@at@pre@section}
 
 
 % 分项
@@ -1164,9 +1237,10 @@
 
 
 % 谢辞
-\newcommand\tju@acknowledgements@name{谢\quad 辞}
+\newcommand\tju@acknowledgements@name@standard{谢\hspace*{0.5\ccwd}辞}
+\newcommand\tju@acknowledgements@name@math{谢\quad 辞}
+\newcommand\tju@acknowledgements@name{\@nameuse{tju@acknowledgements@name@\tju@style}}
 \newenvironment{acknowledgements}{%
-  \clearpage
   \section*{\tju@acknowledgements@name}
   \addcontentsline{toc}{section}{\tju@acknowledgements@name}
 }{}
