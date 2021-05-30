@@ -236,7 +236,7 @@
 \setlength\tju@line@height@normal{1.2\tju@font@size@normal}
 \newcommand\tju@set@font@size@math{
   \renewcommand\normalsize{%
-    \@setfontsize\normalsize{9bp}{10.8bp}%
+    \@setfontsize\normalsize{10.5bp}{12.6bp}%
     \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
     \abovedisplayshortskip \z@ \@plus3\p@
     \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
@@ -245,7 +245,7 @@
 }
 \newcommand\tju@set@font@size@standard{%
   \renewcommand\normalsize{%
-    \@setfontsize\normalsize{9bp}{18bp}%
+    \@setfontsize\normalsize{10.5bp}{18bp}%
     \abovedisplayskip 0bp%
     \abovedisplayshortskip 0bp%
     \belowdisplayshortskip 0bp%
@@ -759,7 +759,7 @@
     \endgroup
     \par%
     \begingroup
-      \xiaowu[18bp]\zhsong
+      \wuhao[18bp]\zhsong
   }{%
     \endgroup
     \vskip \dimexpr1.0\tju@line@height@normal+9bp\relax%
@@ -798,7 +798,7 @@
     \endgroup
     \par%
     \begingroup
-      \xiaowu[18bp]
+      \wuhao[18bp]
   }{%
     \endgroup
     \vskip \dimexpr1.0\tju@line@height@normal+9bp\relax%
@@ -930,7 +930,6 @@
     \hb@xt@\@tempdima{\@cftbsnum ##1\@cftasnum\hfil}\@cftasnumb}
 }
 \newcommand\tju@format@contents@math{%
-\renewcommand{\cftZtitlefont}{\Large\bfseries}% default
   \renewcommand{\contentsname}{\zhhei\tju@contents@name}
   \renewcommand{\cftdot}{$\cdot$}
   \renewcommand{\cftdotsep}{1}
