@@ -8,7 +8,7 @@
 
 首先确保你的电脑中安装了较新的LaTeX发行版和较新的宏包, 推荐安装[texlive](https://www.tug.org/texlive/acquire-netinstall.html), 安装教程可以参考[知乎用户李阿玲](https://www.zhihu.com/people/li-a-ling)的TeXLive安装指南, 目前更新到[2020版](https://zhuanlan.zhihu.com/p/129789360).
 
-然后将这个库下载到你的电脑中. 可以用`git clone`命令, 也可以直接下载压缩包并解压.
+然后将这个库下载到你的电脑中. 可以用`git clone https://github.com/NotoOotori/tjuthesis.git`命令, 也可以直接下载压缩包并解压.
 
 请使用`XeLaTeX`与`Biber`进行编译. 推荐采用`LaTeXmk`一键编译, 需要安装[Perl](https://www.perl.org/). 编译命令在`.vscode/settings.json`中给出了, 就算不用VSCode的话也可以去参考一下.
 
@@ -26,7 +26,7 @@
 
 ### 命令
 
-我们将要建立一个`\tjucite`的宏, 来满足一些奇怪的文献引用格式.
+我们将要建立一个 `\tjucite` 的宏, 来满足一些奇怪的文献引用格式.
 
 我们对常用字号和字体都创建了宏, 可以很方便地使用.
 
@@ -34,17 +34,17 @@
 
 ### 文档类干了什么
 
-文档类中引用了`unicode-math`包来提供数学符号并设置数学字体, 所以不要尝试引用一些别的与数学字体和符号有关的包.
+文档类中引用了 `unicode-math` 包来提供数学符号并设置数学字体, 所以不要尝试引用一些别的与数学字体和符号有关的包. `unicode-math` 包会在 `\AtBeginDocument` 时做不少配置, 因此数学符号的设置可以放在那之后进行.
 
-文档类在导言区结束的时候才引用了`hyperref`包, 不过要注意若采用`ntheorem`包进行定理的排版, 需要在引用`hyperref`包之后再使用`\newtheorem`命令定义定理环境.
+文档类在 `\AtEndPreamble` 时才引用了 `hyperref` 包. 要注意若采用 `ntheorem` 包进行定理的排版, 需要在引用 `hyperref` 包之后再使用 `\newtheorem` 命令定义定理环境.
 
-文档类引用了`biblatex`包并采用了`biblatex-gb7714-2015`宏包内提供的`gb7714-2015`样式, 请参照该宏包的文档来引用文献, 通常来说直接`\cite{<reference>}`或者`\cite[<page>]{<reference>}`就可以了, 也可以用`\footfullcite{<reference>}`在脚注中引用文献, 如果一篇文献仅在脚注中被引用, 那么它将不会出现在参考文献表中. 注意`.bib`文件应该放在`ref/refs.bib`, 建议使用[Zotero](https://www.zotero.org/)一键导出的功能, 我们会尽力确保一键导出的`.bib`文件就能满足要求.
+文档类引用了 `biblatex` 包并采用了 `biblatex-gb7714-2015` 宏包内提供的 `gb7714-2015` 样式, 请参照该宏包的文档来引用文献, 通常来说直接 `\cite{<reference>}` 或者 `\cite[<page>]{<reference>}` 就可以了, 也可以用 `\footfullcite{<reference>}` 在脚注中引用文献, 如果一篇文献仅在脚注中被引用, 那么它将不会出现在参考文献表中. **注意 `.bib` 文件应该放在 `ref/refs.bib`**, 建议使用[Zotero](https://www.zotero.org/)一键导出的功能, 我们会尽力确保一键导出的 `.bib` 文件就能满足要求.
 
-### 字体
+<!-- ### 字体
 
 需要安装XITS, Computer Modern等字体.
 
-若遇到xdvipdfmx报错"Invalid Font", 可以考虑修改"C:\Users\<username>\AppData\Roaming\MiKTeX\2.9\fontconfig\config\localfonts.conf"文件, 将有关T1字体的行都注释掉, 再重新编译.
+若遇到xdvipdfmx报错"Invalid Font", 可以考虑修改"C:\Users\<username>\AppData\Roaming\MiKTeX\2.9\fontconfig\config\localfonts.conf"文件, 将有关T1字体的行都注释掉, 再重新编译. -->
 
 ## 待完成的工作
 
@@ -71,9 +71,14 @@
 
 - [ ] 分项.
 - [ ] 公式.
-- [ ] 图.
-  - [ ] 多行多列子图.
-- [ ] 表.
+- [ ] 定理.
+- [x] 插图.
+  - [x] 单张图.
+  - [x] 子图.
+- [ ] 表格.
+  - [ ] 单页表格.
+  - [ ] 跨页表格.
+  - [ ] pgfplotstable 宏包使用.
 - [ ] 代码.
 - [ ] 算法.
 - [ ] 文献引用.
@@ -88,6 +93,10 @@
 
 - [ ] 关键词采取某种键值对的方式输入.
 - [ ] 将文献著录相关的定制移出文档类, 给用户提供选择的自由.
+
+### 编译环境设置
+
+- [ ] latexmkrc文件.
 
 ### 在线编辑器支持
 

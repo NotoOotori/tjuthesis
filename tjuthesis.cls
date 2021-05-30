@@ -202,7 +202,7 @@
 %   with the math functionality.
 \RequirePackage{unicode-math}
 \RequirePackage{graphicx}
-\RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{subcaption}
 \RequirePackage{pdfpages}
 \includepdfset{fitpaper=true}
 \RequirePackage{enumitem}
@@ -1081,6 +1081,10 @@
 \captionsetup{%
   font = tju,%
   skip = 0pt,%
+}
+\captionsetup[sub]{%
+  font = tju,%
+  skip = 0bp,%
 }
 \RequirePackage{chngcntr}% 设置counter within
 
