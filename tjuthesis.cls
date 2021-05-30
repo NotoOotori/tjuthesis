@@ -945,9 +945,9 @@
   \renewcommand{\cftsecindent}{0pt}
   \renewcommand{\cftsubsecindent}{1.5em}
   \renewcommand{\cftsubsubsecindent}{3.8em}
-  \renewcommand{\cftsecnumwidth}{2.3em}
-  \renewcommand{\cftsubsecnumwidth}{3.2em}
-  \renewcommand{\cftsubsubsecnumwidth}{4.1em}
+  \renewcommand{\cftsecnumwidth}{1.5em}
+  \renewcommand{\cftsubsecnumwidth}{2.3em}
+  \renewcommand{\cftsubsubsecnumwidth}{3.2em}
   \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
   \renewcommand{\cftsecpagefont}{\wuhao}
   \renewcommand{\cftsubsecpagefont}{\wuhao}
