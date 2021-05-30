@@ -895,28 +895,93 @@
 
 
 % 目录
-\newcommand{\tju@contents@name}{目\quad 录}
-\renewcommand{\contentsname}{\zhhei\tju@contents@name}
-\renewcommand{\cftdot}{$\cdot$}
-\renewcommand{\cftdotsep}{1}
-\setlength{\cftbeforesecskip}{10pt}
-\setlength{\cftbeforesubsecskip}{3pt}
-\setlength{\cftbeforesubsubsecskip}{0pt}
-\renewcommand{\cftsecfont}{\wuhao\zhhei}
-\renewcommand{\cftsubsecfont}{\wuhao\zhhei}
-\renewcommand{\cftsubsubsecfont}{\wuhao\zhhei}
-\renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
-\renewcommand{\cftsecdotsep}{\cftdotsep}
-\renewcommand{\cftsecpagefont}{\wuhao}
-\renewcommand{\cftsubsecpagefont}{\wuhao}
-\renewcommand{\cftsubsubsecpagefont}{\wuhao}
-\renewcommand{\numberline}[1]{%
-  \settowidth\@tempdimb{#1\hspace{0.5em}}%
-  \ifdim\@tempdima<\@tempdimb%
-    \@tempdima=\@tempdimb%
-  \fi%
-  \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb%
+\newcommand\tju@contents@name@standard{目\hspace*{0.5\ccwd}录}
+\newcommand\tju@contents@name@math{目\quad 录}
+\newcommand\tju@contents@name{\@nameuse{tju@contents@name@\tju@style}}
+\newcommand\tju@format@contents@standard{%
+  \renewcommand{\contentsname}{\tju@contents@name}
+  \renewcommand{\cftdot}{.}
+  \renewcommand{\cftdotsep}{0}
+  \renewcommand{\cftsecdotsep}{\cftdotsep}
+  \renewcommand{\cftsubsecdotsep}{\cftdotsep}
+  \renewcommand{\cftsubsubsecdotsep}{\cftdotsep}
+  \setlength{\cftbeforesecskip}{0pt}
+  \setlength{\cftbeforesubsecskip}{0pt}
+  \setlength{\cftbeforesubsubsecskip}{0pt}
+  \renewcommand{\cftsecfont}{\wuhao[1]\zhsong}
+  \renewcommand{\cftsubsecfont}{\wuhao[1]\zhsong}
+  \renewcommand{\cftsubsubsecfont}{\wuhao[1]\zhsong}
+  \renewcommand{\cftsecindent}{0pt}
+  \renewcommand{\cftsubsecindent}{1.25\ccwd}
+  \renewcommand{\cftsubsubsecindent}{4.5\ccwd}
+  \renewcommand{\cftsecnumwidth}{1.25\ccwd}
+  \renewcommand{\cftsubsecnumwidth}{2\ccwd}
+  \renewcommand{\cftsubsubsecnumwidth}{2.75\ccwd}
+  \renewcommand{\cftsecleader}{\hspace*{0.125\ccwd}\cftdotfill{\cftsecdotsep}}
+  \renewcommand{\cftsubsecleader}{\hspace*{0.125\ccwd}\cftdotfill{\cftsubsecdotsep}}
+  \renewcommand{\cftsubsubsecleader}{\hspace*{0.125\ccwd}\cftdotfill{\cftsubsubsecdotsep}}
+  \renewcommand{\cftsecpagefont}{\wuhao[1]\zhsong}
+  \renewcommand{\cftsubsecpagefont}{\wuhao[1]\zhsong}
+  \renewcommand{\cftsubsubsecpagefont}{\wuhao[1]\zhsong}
+  \cftsetpnumwidth{0.5\ccwd}
+  \cftsetrmarg{0.75\ccwd}
+  \renewcommand{\cftpnumalign}{l}
+  \renewcommand{\numberline}[1]{% default
+    \hb@xt@\@tempdima{\@cftbsnum ##1\@cftasnum\hfil}\@cftasnumb}
 }
+\newcommand\tju@format@contents@math{%
+\renewcommand{\cftZtitlefont}{\Large\bfseries}% default
+  \renewcommand{\contentsname}{\zhhei\tju@contents@name}
+  \renewcommand{\cftdot}{$\cdot$}
+  \renewcommand{\cftdotsep}{1}
+  \renewcommand{\cftsecdotsep}{\cftdotsep}
+  \renewcommand{\cftsubsecdotsep}{\cftdotsep}
+  \renewcommand{\cftsubsubsecdotsep}{\cftdotsep}
+  \setlength{\cftbeforesecskip}{10pt}
+  \setlength{\cftbeforesubsecskip}{3pt}
+  \setlength{\cftbeforesubsubsecskip}{0pt}
+  \renewcommand{\cftsecfont}{\wuhao\zhhei}
+  \renewcommand{\cftsubsecfont}{\wuhao\zhhei}
+  \renewcommand{\cftsubsubsecfont}{\wuhao\zhhei}
+  \renewcommand{\cftsecindent}{0pt}
+  \renewcommand{\cftsubsecindent}{1.5em}
+  \renewcommand{\cftsubsubsecindent}{3.8em}
+  \renewcommand{\cftsecnumwidth}{2.3em}
+  \renewcommand{\cftsubsecnumwidth}{3.2em}
+  \renewcommand{\cftsubsubsecnumwidth}{4.1em}
+  \renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
+  \renewcommand{\cftsecpagefont}{\wuhao}
+  \renewcommand{\cftsubsecpagefont}{\wuhao}
+  \renewcommand{\cftsubsubsecpagefont}{\wuhao}
+  \cftsetpnumwidth{1.55em}
+  \cftsetrmarg{2.55em}
+  \renewcommand{\cftpnumalign}{r}
+  \renewcommand{\numberline}[1]{%
+    \settowidth\@tempdimb{##1\hspace{0.5em}}%
+    \ifdim\@tempdima<\@tempdimb%
+      \@tempdima=\@tempdimb%
+    \fi%
+    \hb@xt@\@tempdima{\@cftbsnum ##1\@cftasnum\hfil}\@cftasnumb%
+  }
+}
+\newcommand\tju@format@contents{\@nameuse{tju@format@contents@\tju@style}}
+\tju@format@contents
+\tju@option@hook{style}{\tju@format@contents}
+\newcommand\tju@at@pre@toc@standard{%
+  \begingroup%
+  \ctexset{
+    section/afterskip = \dimexpr1.5\tju@line@height@normal+9bp\relax
+  }
+}
+\newcommand\tju@at@post@toc@standard{%
+  \endgroup%
+}
+\newcommand\tju@at@pre@toc@math{}
+\newcommand\tju@at@post@toc@math{}
+\newcommand\tju@at@pre@toc{\@nameuse{tju@at@pre@toc@\tju@style}}
+\newcommand\tju@at@post@toc{\@nameuse{tju@at@post@toc@\tju@style}}
+\preto\tableofcontents{\tju@at@pre@toc@standard}
+\appto\tableofcontents{\tju@at@post@toc@standard}
 
 
 % 章节
