@@ -4,6 +4,8 @@
 
 \subsection{正文字体测试}
 
+参考例文中关于中英文字体的示例有点混乱. 中文摘要中以及正文的页脚中连标点符号和空格都是宋体的, 但是在参考文献中中文条目的文献标识号是英文字体的, 英文条目中括住文献标识号的方括号却是中文字体的, 甚至有些地方出现了等线字体, 可以说是非常不小心了.
+
 {\bfseries 默认宋体的加粗设置为黑体}, 如果想要加粗的宋体文字的话, 请用\verb|\zhsong\bfseries|, {\zhsong\bfseries 例如\zhlipsum[1]}
 
 {\bfseries\itshape 这是加粗斜体的字. These are bold italic letters. \zhlipsum[1]\lipsum[1]}
@@ -53,9 +55,11 @@
 %   \sin \cos
 % \end{equation}
 
-\subsection{BibLaTeX 文献著录}
+\subsection{BibLaTeX 文献著录}\label{sec: exm-bib}
 
-采用 \verb|\cite| 命令来引用文献, 我们已经将其修改为正确的引用格式. 对于数学专业, 引用文献不需要上标 \cite{atiyah_introduction_1969}, 外文文献的作者名字也不用按照国标示例全大写. 如果一本图书只引用同一处内容, 则可以在参考文献表中标注页码, 例如 \cite{herrlich_axiom_2006}; 如果图书广泛引用, 则不需要多次重复著录和标注页码, 即例如 \cite{atiyah_introduction_1969}.
+采用 \verb|\cite| 命令来引用文献, 我们已经将其修改为正确的引用格式. 对于数学专业, 引用文献不需要上标 \cite{atiyah_introduction_1969}, 外文文献的作者名字也不用按照国标示例全大写. 如果一本图书只引用同一处内容, 则可以在参考文献表中标注页码, 例如 \cite{herrlich_axiom_2006}; 如果图书广泛引用, 则不需要多次重复著录和标注页码, 即例如 \cite{atiyah_introduction_1969}. 为了示例的需要, 我们来多搞点文献, 使得一共有十个及以上的文献 \cite{jacobson_basic_1985, jacobson_basic_1989, zariski_commutative_1958, zariski_commutative_1960, ciarlet_linear_2013, flaherty_riemannian_1992, munkres_topology_2000, ahlfors_complex_1978, milne_algebraic_2017}.
+
+% \ExecuteBibliographyOptions
 
 % 我们先引用一下郑博文写的书\cite{rudin1976principleschinese3}.
 
