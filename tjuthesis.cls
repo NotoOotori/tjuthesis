@@ -502,8 +502,8 @@
   \geometry{
     top = 1.67in,
     bottom = 1.05in,
-    left = 1.36in,
-    right = 0.74in,
+    left = 1.38in,
+    right = 0.76in,
     headheight = 45pt,
   }
 }
@@ -573,6 +573,7 @@
   \fancyhead[L]{\qquad \includegraphics[height=1.34cm]{tongji-name-bacholar.jpg}}%
   \fancyhead[R]{\xiaosi \raisebox{0.15in}{毕业设计（论文）}}%
   \renewcommand{\headrulewidth}{1.5pt}%
+  \fancyhfoffset{0.02in}
 }
 \newcommand\tju@new@page@style@standard@front@foot{%
   \renewcommand{\footrulewidth}{0pt}%
