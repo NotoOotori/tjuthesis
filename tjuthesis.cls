@@ -1079,12 +1079,15 @@
 \RequirePackage{caption}% 来配置caption格式
 \newcommand\tju@caption@font{\xiaowu[18bp]\selectfont}% 小五 18磅行距
 \DeclareCaptionFont{tju}{\tju@caption@font}
+\DeclareCaptionLabelSeparator{tju}{\hspace*{0.5\ccwd}}
 \captionsetup{%
   font = tju,%
+  labelsep = tju,%
   skip = 0pt,%
 }
 \captionsetup[sub]{%
   font = tju,%
+  labelsep = tju,%
   skip = 0bp,%
 }
 \RequirePackage{chngcntr}% 设置counter within
