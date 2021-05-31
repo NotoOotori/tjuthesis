@@ -581,7 +581,7 @@
 }
 \newcommand\tju@new@page@style@standard@main@foot{%
   \renewcommand{\footrulewidth}{1.5pt}%
-  \fancyfoot[R]{\leavevmode\smash{\xiaosi\songti 共\hspace*{1\ccwd}\pageref{LastPage}\hspace*{1\ccwd}页\hspace*{1.5\ccwd}第\hspace*{1\ccwd}\thepage\hspace*{1\ccwd}页}}% LE,RO if twoside
+  \fancyfoot[R]{\leavevmode\smash{\xiaosi\zhsong 共\hspace*{1\ccwd}\pageref{LastPage}\hspace*{1\ccwd}页\hspace*{1.5\ccwd}第\hspace*{1\ccwd}\thepage\hspace*{1\ccwd}页}}% LE,RO if twoside
 }
 \newcommand\tju@new@page@style@standard@front{%
   \fancypagestyle{front}{%
@@ -1088,7 +1088,7 @@
 \captionsetup[sub]{%
   font = tju,%
   labelsep = tju,%
-  skip = 0bp,%
+  skip = 0pt,%
 }
 \RequirePackage{chngcntr}% 设置counter within
 
@@ -1099,9 +1099,12 @@
 \counterwithin{figure}{section}
 
 %% 表格
-% \captionsetup[table]{%
-%   position = above,%
-% }
+\captionsetup[table]{%
+  position = above,%
+}
+\counterwithin{table}{section}
+\AtBeginEnvironment{tabular*}{\xiaowu[18bp]}
+\AtBeginEnvironment{tabularx}{\xiaowu[18bp]}
 
 
 % 附录
