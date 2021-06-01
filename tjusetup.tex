@@ -18,13 +18,6 @@
   % output = electronic,
   %
   %
-  % 样式
-  %   standard  按照学校手册要求进行排版 (默认)
-  %   math      模仿应数专业下发的"应数毕业论文模板new.tex"的排版
-  %
-  style = standard,
-  %
-  %
   % 标题
   %   不可使用“\\”命令手动控制换行
   %   副标题为可选项
@@ -41,6 +34,11 @@
   %   cmu     Computer Modern Serif 字体
   %
   font = times,
+  %
+  %
+  % title-page
+  %
+  title-page = true,
   %
   %
 }
@@ -115,6 +113,8 @@
 % 借用 lipsum与zhlipsum 来填充内容
 \usepackage{lipsum}
 \usepackage{zhlipsum}
+
+\XeTeXcharclass`┊=1
 
 % 设置提到包与程序名字时候所用的字体
 \newcommand{\pckg}[1]{\textsc{#1}}

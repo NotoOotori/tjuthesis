@@ -3,11 +3,14 @@
 
 % -------------------- Identification --------------------
 
-\NeedsTeXFormat{LaTeX2e}[2017/04/15]
-\ProvidesClass{tjuthesis}[2020/06/19 0.0.0 Tongji University Thesis Template]
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+\ProvidesClass{tjuthesis}[2021/06/01 0.0.0 Tongji University Thesis Template]
 
 % -------------------- Preliminary Declarations --------------------
 
+
+\newif\iftju@load@time
+\tju@load@timetrue
 
 \newcommand\tju@error[1]{%
   \ClassError{tjuthesis}{#1}{}%
@@ -15,11 +18,16 @@
 \newcommand\tju@warning[1]{%
   \ClassWarning{tjuthesis}{#1}%
 }
-\@ifl@t@r\fmtversion{2017/04/15}{}{
+
+\@ifl@t@r\fmtversion{2020/10/01}{}{
   \tju@error{%
-    TeX Live 2017 or later version is required to compile this document%
+    TeX Live 2021 or later version is required to compile this document%
   }
 }
+\RequirePackage{iftex}
+\ifXeTeX\else
+  \thu@error{XeLaTeX is required to compile this document}
+\fi
 
 
 \newcommand\version{0.0.0}
@@ -39,6 +47,10 @@
 }
 \newcommand\tju@define@key[1]{%
   \kvsetkeys{tju@key}{#1}%
+}
+\newcommand\tju@define@load@time@key[1]{%
+  \tju@define@key{tju@key}{#1}%
+  \tju@option@hook{#1}{\iftju@load@time\else\tju@error{Option "#1" must be used as tjuthesis is loaded.}\fi}
 }
 
 \kv@set@family@handler{tju@key}{%
@@ -98,6 +110,14 @@
       bachelor,
     },
     default = bachelor,
+  },
+  tju-style = {
+    choices = {
+      standard,
+      math,
+    },
+    default = standard,
+    name = style,
   },
 }
 %% 文档信息
@@ -163,20 +183,22 @@
     },
     default = electronic,
   },
-  style = {
+  title-page = {
     choices = {
-      standard,
-      math,
+      true,
+      false,
     },
-    default = standard,
+    default = false,
+    name = title@page,
   },
 }
 
 
 % -------------------- Handle Options --------------------
 
-\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{\DocumentClass}}
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ctexart}}
 \ProcessKeyvalOptions*
+\tju@load@timefalse
 
 % -------------------- More Declarations --------------------
 
@@ -186,6 +208,11 @@
 
 \LoadClass[a4paper, zihao=5, fontset=none]{ctexart}
 
+\if@twoside
+  \iftju@style@math
+    \tju@warning{The option "twoside" is not supported for style=math.}
+  \fi
+\fi
 
 % 引用必要宏包
 \RequirePackage{etoolbox}
@@ -269,7 +296,7 @@
   }
 }
 \newcommand\tju@set@font@size{\@nameuse{tju@set@font@size@\tju@style}}
-\tju@option@hook{style}{\tju@set@font@size}
+\tju@set@font@size
 
 
 % 设置常用字号
@@ -297,23 +324,24 @@
 
 
 % 论文基本结构
-\newif\if@mainmatter
+\newif\iftju@mainmatter
+\tju@mainmatterfalse
 \newcommand\frontmatter{%
-  \clearpage
-  \@mainmatterfalse
+  \cleardoublepage
+  \tju@mainmatterfalse
   \pagestyle{front}
   \tju@set@page@numbering@front}
 
 \newcommand\mainmatter{%
-  \clearpage
-  \@mainmattertrue
+  \cleardoublepage
+  \tju@mainmattertrue
   \pagestyle{main}
   \tju@set@page@numbering@main
 }
 
 \newcommand\backmatter{%
-  \clearpage
-  \@mainmatterfalse
+  \cleardoublepage
+  \tju@mainmatterfalse
 }
 
 
@@ -497,6 +525,25 @@
 \tju@option@hook{cjk-font}{\tju@load@cjk@font}
 
 
+% 双页
+\def\tju@emptypage{%
+  \hbox{}%
+  % \blankpage%
+  \thispagestyle{empty}
+  \newpage%
+}%
+\def\cleardoublepage{%
+  \clearpage%
+  \if@twoside%
+    \ifodd\c@page%
+        % do nothing
+    \else%
+        \tju@emptypage%
+    \fi%
+  \fi%
+}%
+
+
 % 页面尺寸
 \newcommand\tju@set@geometry@standard{
   \geometry{
@@ -520,12 +567,11 @@
 }
 \newcommand\tju@set@geometry{\@nameuse{tju@set@geometry@\tju@style}}
 \tju@set@geometry
-\tju@option@hook{style}{\tju@set@geometry}
 
 
 % 装订线
-\RequirePackage{fancybox}
 \newcommand{\tju@put@gutter@math}{%
+  \RequirePackage{fancybox}
   \fancyput*(-0.8cm,-4.3cm){$|$}%
   \fancyput*(-0.8cm,-4.9cm){$|$}%
   \fancyput*(-0.8cm,-5.5cm){$|$}%
@@ -560,18 +606,60 @@
   \fancyput*(-0.8cm,-22.9cm){$|$}%
   \fancyput*(-0.8cm,-23.5cm){$|$}%
 }
+\newcommand\tju@this@gutter@off@math{\thisfancyput{}}
 \newcommand{\tju@put@gutter@standard}{%
   \XeTeXcharclass`┊=1
-  \fancyput(-0.86cm,-12.745cm){\wuhao[0.48cm]\parbox{1\ccwd}{┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}% -0.66cm
+  \newlength\tju@gutter@right@x
+  \newlength\tju@gutter@right@y
+  \newlength\tju@gutter@left@x
+  \newlength\tju@gutter@left@y
+  \newlength\tju@gutter@x
+  \newlength\tju@gutter@y
+  \setlength\tju@gutter@right@x{1.69cm}
+  \setlength\tju@gutter@right@y{-15.20cm}
+  \setlength\tju@gutter@left@x{19.12cm}
+  \setlength\tju@gutter@left@y{-15.20cm}
+  \setlength\tju@gutter@x{\tju@gutter@right@x}
+  \setlength\tju@gutter@y{\tju@gutter@right@y}
+  \newif\iftju@gutter@this@page
+  \tju@gutter@this@pagetrue
+  \AddToHook{shipout/background}{%
+    \iftju@gutter@this@page
+      \if@twoside
+        \ifodd\ReadonlyShipoutCounter
+          \setlength\tju@gutter@x{\tju@gutter@right@x}
+          \setlength\tju@gutter@y{\tju@gutter@right@y}
+        \else
+          \setlength\tju@gutter@x{\tju@gutter@left@x}
+          \setlength\tju@gutter@y{\tju@gutter@left@y}
+        \fi
+      \fi
+      \put(\tju@gutter@x,\tju@gutter@y){\wuhao[0.48cm]\parbox{1\ccwd}{┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}%
+    \fi
+    \setlength\tju@gutter@x{\tju@gutter@right@x}
+    \setlength\tju@gutter@y{\tju@gutter@right@y}
+  }
+  % \fancyput(-0.86cm,-12.745cm){\wuhao[0.48cm]\parbox{1\ccwd}{┊┊┊┊┊┊┊┊┊┊┊┊┊装┊┊┊┊┊订┊┊┊┊┊线┊┊┊┊┊┊┊┊┊┊┊┊┊}}% -0.66cm
 }
+\newcommand\tju@this@gutter@off@standard{%
+  \AddToHookNext{shipout/before}{\tju@gutter@this@pagefalse}%
+  \AddToHookNext{shipout/background}{\tju@gutter@this@pagetrue}%
+}
+\newcommand\tju@this@gutter@off{\@nameuse{tju@this@gutter@off@\tju@style}}
 \newcommand{\tju@put@gutter}{\@nameuse{tju@put@gutter@\tju@style}}
-\tju@option@hook{style}{\tju@put@gutter}
+\tju@put@gutter
+
 
 
 % 页眉页脚
 \newcommand\tju@new@page@style@standard@head{%
-  \fancyhead[L]{\qquad \includegraphics[height=1.34cm]{tongji-name-bacholar.jpg}}%
-  \fancyhead[R]{\xiaosi \raisebox{0.15in}{毕业设计（论文）}}%
+  \if@twoside
+    \fancyhead[LO,RE]{\qquad \includegraphics{tongji-name-bacholar.jpg}}%
+    \fancyhead[RO,LE]{\xiaosi \raisebox{0.15in}{毕业设计（论文）}}%
+  \else
+    \fancyhead[L]{\qquad \includegraphics{tongji-name-bacholar.jpg}}%
+    \fancyhead[R]{\xiaosi \raisebox{0.15in}{毕业设计（论文）}}%
+  \fi
   \renewcommand{\headrulewidth}{1.5pt}%
   \fancyhfoffset{0.02in}
 }
@@ -581,7 +669,11 @@
 }
 \newcommand\tju@new@page@style@standard@main@foot{%
   \renewcommand{\footrulewidth}{1.5pt}%
-  \fancyfoot[R]{\leavevmode\smash{\xiaosi\zhsong 共\hspace*{1\ccwd}\pageref{LastPage}\hspace*{1\ccwd}页\hspace*{1.5\ccwd}第\hspace*{1\ccwd}\thepage\hspace*{1\ccwd}页}}% LE,RO if twoside
+  \if@twoside
+    \fancyfoot[RO,LE]{\leavevmode\smash{\xiaosi\zhsong 共\hspace*{1\ccwd}\pageref{LastPage}\hspace*{1\ccwd}页\hspace*{1.5\ccwd}第\hspace*{1\ccwd}\thepage\hspace*{1\ccwd}页}}%
+  \else
+    \fancyfoot[R]{\leavevmode\smash{\xiaosi\zhsong 共\hspace*{1\ccwd}\pageref{LastPage}\hspace*{1\ccwd}页\hspace*{1.5\ccwd}第\hspace*{1\ccwd}\thepage\hspace*{1\ccwd}页}}%
+  \fi
 }
 \newcommand\tju@new@page@style@standard@front{%
   \fancypagestyle{front}{%
@@ -645,7 +737,6 @@
   \@nameuse{tju@set@page@numbering@\tju@style @main}
 }
 \tju@new@page@style
-\tju@option@hook{style}{\tju@new@page@style}
 
 
 
@@ -676,10 +767,17 @@
     bookmarksopenlevel = 2,
     bookmarksnumbered = true,% 将章节编号放入书签中
   }
+  \newcommand\tju@pdf@page@layout{%
+    \if@twoside
+      TwoPageRight%
+    \else
+      SinglePage%
+    \fi
+  }
   \hypersetup{% PDF默认打开视图
     pdfpagemode = UseNone,
     pdfstartview = Fit,
-    pdfpagelayout = SinglePage,
+    pdfpagelayout = \tju@pdf@page@layout,
   }
   % PDF信息
   % \tju@option@hook{title}{\hypersetup{pdftitle={\tju@title}}}
@@ -693,16 +791,107 @@
 \newcommand\tju@set@line@spread@math{\linespread{1.3}}
 \newcommand\tju@set@line@spread{\@nameuse{tju@set@line@spread@\tju@style}}
 \tju@set@line@spread
-\tju@option@hook{style}{\tju@set@line@spread}
 
 
 % 标题页
 \newcommand{\tjutitlepage}{%
   \clearpage
   \tju@titlepage
-  \clearpage
+  \cleardoublepage
 }
 \newcommand\tju@titlepage{%
+  \iftju@title@page@true
+    % TODO: geometry
+    \thispagestyle{empty}%
+    \tju@this@gutter@off%
+    \vspace*{\fill}%
+    \begin{center}
+      \includegraphics{tongji-name-bacholar-cover.pdf}%
+      \par%
+      {\xiaoer\MakeUppercase{\textbf{Tongji University}}}%
+      \vskip 30pt%
+      {\yihao{\textbf{毕业设计（论文）}}}%
+      \vskip 80pt%
+      \tju@titlepage@info%
+    \end{center}
+    \vspace*{\fill}%
+  \fi
+}
+\newcommand\tju@titlepage@info{%
+  \tju@titlepage@info@tabular{4em}{4em}{0.82cm}{18em}{%
+    \tju@info@item{课题名称}{}{\tju@title}
+    \tju@info@item{副标题}{}{\tju@subtitle}
+    \tju@info@item{学院}{}{\tju@department}
+    \tju@info@item{专业}{}{\tju@discipline}
+    \tju@info@item{学生姓名}{}{\tju@author}
+    \tju@info@item{学号}{}{\tju@id}
+    \tju@info@item{指导教师}{\tju@name@title}{\tju@supervisor}
+    \tju@info@item{日期}{}{\tju@date}
+  }
+}
+\newcommand\tju@titlepage@info@tabular[5]{%
+  \def\tju@info@item##1##2##3{%
+    \ifx##3\@empty\else
+      \tju@pad{#1}{\tju@fixed@box{#2}{##1}}%
+      \tju@pad{#3}{}%
+      \underline{\tju@par{#4}{##2{##3}}}\\
+    \fi
+  }%
+  \xiaosan
+  \begin{tabular}{l}%
+    #5%
+  \end{tabular}%
+}
+\newbox\tju@pad@box
+\newcommand\tju@pad[2]{%
+  \sbox\tju@pad@box{#2}%
+  \ifdim \wd\tju@pad@box < #1\relax
+    \makebox[#1][l]{\box\tju@pad@box}%
+  \else
+    \box\tju@pad@box
+  \fi
+}
+\newbox\tju@par@box
+\newcommand\tju@par[2]{%
+  \sbox\tju@par@box{#2}%
+  \ifdim \wd\tju@par@box < #1\relax
+    \makebox[#1][c]{\box\tju@par@box}%
+  \else
+    \box\tju@par@box
+  \fi
+}
+% 将文本分散排在固定长度的box里
+\newcommand\tju@fixed@box[2]{%
+  \begingroup
+    \def\CJKglue{\hskip 0pt plus 2filll minus 1filll}%
+    \makebox[#1][l]{#2}%
+  \endgroup
+}
+% 导师职称排版
+\newcounter{tju@csl@count}
+\newcommand\tju@name@title@process[1]{%
+  \ifcase\c@tju@csl@count  % == 0
+    \gdef\tju@@name{#1}%
+  \or  % == 1
+    \gdef\tju@@title{#1}%
+  \fi
+  \stepcounter{tju@csl@count}%
+}
+\newcommand\tju@name@title@format[2]{%
+  \ifx#2\@empty\else
+    \tju@pad{4em}
+  \fi
+  {\tju@par{4em}{#1}}%
+  \ifx#2\@empty\else
+    \tju@par{3em}{#2}%
+  \fi
+}
+\newcommand\tju@name@title[1]{%
+  \setcounter{tju@csl@count}{0}%
+  \gdef\tju@@name{}%
+  \gdef\tju@@title{}%
+  \expandafter\comma@parse\expandafter{#1}{\tju@name@title@process}%
+  \tju@name@title@format{\tju@@name}{\tju@@title}%
 }
 
 
@@ -738,7 +927,7 @@
     \tjusetup{
       keywords = {##1}
     }
-    \clearpage
+    \cleardoublepage
     \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
     \begingroup
       \centering\bf\xiaoer\zhhei\tju@title%
@@ -771,13 +960,13 @@
     \begingroup%
       \wuhao\zhsong\tju@clist@use{\tju@keywords}{，}%
     \endgroup
-    \clearpage
+    \cleardoublepage
   }
   \newenvironment{abstract*}[1]{
     \tjusetup{
       keywords* = {##1},
     }
-    \clearpage
+    \cleardoublepage
     \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
     \begingroup
       \centering\bf\xiaoer\tju@title@en%
@@ -810,7 +999,7 @@
     \begingroup%
       \wuhao\tju@clist@use{\tju@keywords@en}{, }%
     \endgroup
-    \clearpage
+    \cleardoublepage
   }
 }
 \newcommand{\tju@newenv@abstract@math}{%
@@ -892,7 +1081,7 @@
   }
 }
 \newcommand{\tju@newenv@abstract}{\@nameuse{tju@newenv@abstract@\tju@style}}
-\tju@option@hook{style}{\tju@newenv@abstract}
+\tju@newenv@abstract
 
 
 % 目录
@@ -966,7 +1155,6 @@
 }
 \newcommand\tju@format@contents{\@nameuse{tju@format@contents@\tju@style}}
 \tju@format@contents
-\tju@option@hook{style}{\tju@format@contents}
 \newcommand\tju@at@pre@toc@standard{%
   \begingroup%
   \ctexset{
@@ -1040,13 +1228,13 @@
   }
 }
 \newcommand\tju@set@section@format{\@nameuse{tju@set@section@format@\tju@style}}
-\tju@option@hook{style}{\tju@set@section@format}
+\tju@set@section@format
 \newcommand\tju@at@pre@section@standard{%
-  \clearpage% 每一个section都会从新的一页开始
+  \cleardoublepage% 每一个section都会从新的一页开始
   \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
 }
 \newcommand\tju@at@pre@section@math{%
-  \clearpage% 每一个section都会从新的一页开始
+  \cleardoublepage% 每一个section都会从新的一页开始
 }
 \newcommand\tju@at@pre@section{\@nameuse{tju@at@pre@section@\tju@style}}
 \preto\section{\tju@at@pre@section}
@@ -1109,9 +1297,10 @@
 
 % 附录
 \appto\appendix{\clearpage}
-\newif\if@appendix
-\appto\appendix{\@appendixtrue}
-\appto\backmatter{\@appendixfalse}
+\newif\iftju@appendix
+\tju@appendixfalse
+\appto\appendix{\tju@appendixtrue}
+\appto\backmatter{\tju@appendixfalse}
 
 
 % 文献著录
@@ -1125,7 +1314,7 @@
 % \newcommand{\tju@pass@option@biblatex}{%
 %   \@nameuse{tju@pass@option@biblatex@\tju@style}
 % }
-% \tju@option@hook{style}{\tju@pass@option@biblatex}
+% \tju@pass@option@biblatex
 \usepackage[%
   backend=biber,%
   style=gb7714-2015,gbpub=false,gbnamefmt=lowercase,%
