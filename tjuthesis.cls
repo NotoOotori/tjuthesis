@@ -26,7 +26,7 @@
 }
 \RequirePackage{iftex}
 \ifXeTeX\else
-  \thu@error{XeLaTeX is required to compile this document}
+  \tju@error{XeLaTeX is required to compile this document}
 \fi
 
 
@@ -183,13 +183,13 @@
     },
     default = electronic,
   },
-  title-page = {
+  cover = {
     choices = {
       true,
       false,
     },
     default = false,
-    name = title@page,
+    name = cover,
   },
 }
 
@@ -809,31 +809,39 @@
 
 
 % 标题页
-\newcommand{\tjutitlepage}{%
+\newcommand{\tjuputcover}{%
   \clearpage
-  \tju@titlepage
+  \tju@put@cover
   \cleardoublepage
 }
-\newcommand\tju@titlepage{%
-  \iftju@title@page@true
-    % TODO: geometry
+\newcommand\tju@put@cover{%
+  \iftju@cover@true
+    \newgeometry{
+      hmargin = 3.18cm,
+      vmargin = 2.54cm,
+    }
     \thispagestyle{empty}%
     \tju@this@gutter@off%
-    \vspace*{\fill}%
-    \begin{center}
-      \includegraphics{tongji-name-bacholar-cover.pdf}%
-      \par%
-      {\xiaoer\MakeUppercase{\textbf{Tongji University}}}%
-      \vskip 30pt%
-      {\yihao{\textbf{毕业设计（论文）}}}%
-      \vskip 80pt%
-      \tju@titlepage@info%
-    \end{center}
-    \vspace*{\fill}%
+    \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
+    \begingroup
+      \centering\includegraphics{tongji-name-bacholar-cover.pdf}%
+      \vskip 0.50cm
+    \endgroup
+    \begingroup
+      \centering\xiaoer\MakeUppercase{\textbf{Tongji University}}%
+      \vskip 1.00cm%
+    \endgroup
+    \begingroup
+      \centering\xiaochu\zhhei 毕业设计（论文）%
+      \vskip 2.96cm%
+    \endgroup
+    {\centering\tju@put@cover@info}%
+    \clearpage%
+    \restoregeometry
   \fi
 }
-\newcommand\tju@titlepage@info{%
-  \tju@titlepage@info@tabular{4em}{4em}{0.82cm}{18em}{%
+\newcommand\tju@put@cover@info{%
+  \tju@put@cover@info@tabular{4\ccwd}{4\ccwd}{0.64cm}{10.80cm}{%
     \tju@info@item{课题名称}{}{\tju@title}
     \tju@info@item{副标题}{}{\tju@subtitle}
     \tju@info@item{学院}{}{\tju@department}
@@ -841,22 +849,54 @@
     \tju@info@item{学生姓名}{}{\tju@author}
     \tju@info@item{学号}{}{\tju@id}
     \tju@info@item{指导教师}{\tju@name@title}{\tju@supervisor}
-    \tju@info@item{日期}{}{\tju@date}
+    \tju@info@item{日期}{}{\tju@format@date\tju@date@zh@digit{\tju@date}}
   }
 }
-\newcommand\tju@titlepage@info@tabular[5]{%
+\newcommand\tju@put@cover@info@tabular[5]{%
   \def\tju@info@item##1##2##3{%
     \ifx##3\@empty\else
       \tju@pad{#1}{\tju@fixed@box{#2}{##1}}%
       \tju@pad{#3}{}%
-      \underline{\tju@par{#4}{##2{##3}}}\\
+      \tju@CJKunderline[#4]{\tju@par{#4}{##2{##3}}}\\
     \fi
   }%
-  \xiaosan
+  \xiaoer[40bp]\zhhei
   \begin{tabular}{l}%
     #5%
   \end{tabular}%
 }
+\newcommand\tju@format@date[2]{%
+  \edef\tju@@date{#2}%
+  \def\tju@@process@date##1-##2-##3\@nil{%
+    #1{##1}{##2}{##3}%
+  }%
+  \expandafter\tju@@process@date\tju@@date\@nil
+}
+\newcommand\tju@date@zh@digit[3]{#1 年 \number#2 月 \number#3 日}
+\newcommand\tju@date@zh@digit@short[3]{#1 年 \number#2 月}
+\newcommand\tju@date@zh@short[3]{\zhdigits{#1}年\zhnumber{#2}月}
+\newcommand\tju@date@month[1]{%
+  \ifcase\number#1\or
+    January\or February\or March\or April\or May\or June\or
+    July\or August\or September\or October\or November\or December%
+  \fi
+}
+\newcommand\tju@date@en@short[3]{\tju@date@month{#2}, #1}
+\newcommand\tju@underline[2][6em]{\hskip1pt\underline{\hb@xt@ #1{\hss#2\hss}}\hskip3pt}
+\newcommand\tju@CJKunderline[2][6em]{\CJKunderline*{\hb@xt@ #1{\hss#2\hss}}}
+\newbox\tju@stretch@box
+\newcommand\tju@stretch[2]{%
+  \sbox\tju@stretch@box{#2}%
+  \ifdim \wd\tju@stretch@box < #1\relax
+    \begingroup
+      \def\CJKglue{\hskip 0pt plus 2filll}%
+      \makebox[#1][l]{#2}%
+    \endgroup
+  \else
+    \box\tju@stretch@box
+  \fi
+}
+% 如果内容小于给定宽度, 则在右侧填充空白至该宽度, 否则取自然宽度.
 \newbox\tju@pad@box
 \newcommand\tju@pad[2]{%
   \sbox\tju@pad@box{#2}%
@@ -893,10 +933,7 @@
   \stepcounter{tju@csl@count}%
 }
 \newcommand\tju@name@title@format[2]{%
-  \ifx#2\@empty\else
-    \tju@pad{4em}
-  \fi
-  {\tju@par{4em}{#1}}%
+  \tju@pad{4em}{\tju@par{4em}{#1}}%
   \ifx#2\@empty\else
     \tju@par{3em}{#2}%
   \fi

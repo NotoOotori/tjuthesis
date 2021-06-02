@@ -17,7 +17,6 @@
   %
   % output = electronic,
   %
-  %
   % 标题
   %   不可使用“\\”命令手动控制换行
   %   副标题为可选项
@@ -27,6 +26,32 @@
   title* = {An Introduction to \LaTeX\ Thesis Template of Tongji University v\version},
   % subtitle* = {}
   %
+  % 培养单位
+  %   填写所属学院的全名
+  %
+  department = {数学科学学院},
+  %
+  % 学科
+  %   本科生填写专业名称
+  %
+  discipline  = {数学与应用数学},
+  %
+  % 姓名
+  %
+  author  = {陈旭阳},
+  %
+  % 学号
+  %
+  id = {1753763},
+  %
+  % 指导教师
+  %   中文姓名和职称之间以英文逗号分开, 也可不写职称
+  %
+  supervisor  = {李灵光, 副教授},
+  % 日期
+  %   使用 ISO 格式；默认为当前时间
+  %
+  date = {2021-06-09},
   %
   % 英文字体
   %   times   Times New Roman 字体,
@@ -35,11 +60,9 @@
   %
   font = times,
   %
+  % cover
   %
-  % title-page
-  %
-  title-page = true,
-  %
+  cover = true,
   %
 }
 
@@ -124,6 +147,9 @@
 \newcommand{\pH}{\mathrm{pH}}
 \newcommand{\hydrgen}{\mathrm{H}}
 \newcommand{\hydrgenn}{\hydrgen^+}
+
+% 在log里显示更多debug信息
+\showboxdepth=3 \showboxbreadth=30
 
 % 表格中支持跨行
 % \usepackage{multirow}
