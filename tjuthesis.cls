@@ -810,9 +810,11 @@
 
 % 标题页
 \newcommand{\tjuputcover}{%
-  \clearpage
-  \tju@put@cover
-  \cleardoublepage
+  \clearpage%
+  \renewcommand\thepage{C\arabic{page}}%
+  \tju@put@cover%
+  \cleardoublepage%
+  \pagenumbering{Roman}
 }
 \newcommand\tju@put@cover{%
   \iftju@cover@true
@@ -825,7 +827,7 @@
     \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
     \begingroup
       \centering\includegraphics{tongji-name-bacholar-cover.pdf}%
-      \vskip 0.50cm
+      \vskip 0.50cm%
     \endgroup
     \begingroup
       \centering\xiaoer\MakeUppercase{\textbf{Tongji University}}%
@@ -933,9 +935,10 @@
   \stepcounter{tju@csl@count}%
 }
 \newcommand\tju@name@title@format[2]{%
-  \tju@pad{4em}{\tju@par{4em}{#1}}%
+  \tju@stretch{3em}{#1}%
   \ifx#2\@empty\else
-    \tju@par{3em}{#2}%
+    \tju@pad{0.5em}{}
+    \tju@stretch{3em}{#2}%
   \fi
 }
 \newcommand\tju@name@title[1]{%
