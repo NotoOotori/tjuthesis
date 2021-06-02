@@ -779,10 +779,25 @@
     pdfstartview = Fit,
     pdfpagelayout = \tju@pdf@page@layout,
   }
+  \hypersetup{pdftitle={\tju@title}}
+  \hypersetup{pdfauthor={\tju@author}}
   % PDF信息
-  % \tju@option@hook{title}{\hypersetup{pdftitle={\tju@title}}}
-  % \tju@option@hook{author}{\hypersetup{pdfauthor={\tju@author}}}
-  % \tju@option@hook{keywords}{\hypersetup{pdfkeywords={\tju@keywords}}}
+  % \newcommand\tju@set@pdf@meta[2]{% https://tex.stackexchange.com/a/495206
+  %   \protected@write\@auxout{}{%
+  %     \string\ifx\string\@onlypreamble\string\@notprerr
+  %     \string\else
+  %       \string\AtBeginDocument{\string\def\string\@pdf#1{#2}}%
+  %     \string\fi
+  %   }%
+  % }
+  % \AddToHook{enddocument/afterlastpage}{
+  %   % \hypersetup{pdftitle={\tju@title}}
+  %   % \hypersetup{pdfauthor={\tju@author}}
+  %   % \hypersetup{pdfkeywords={\tju@keywords}}
+  %   \tju@set@pdf@meta{title}{\tju@title}
+  %   \tju@set@pdf@meta{author}{\tju@author}
+  %   \tju@set@pdf@meta{keywords}{\tju@keywords}
+  % }
 }
 
 
