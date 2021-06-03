@@ -526,19 +526,19 @@
 
 
 % 双页
-\def\tju@emptypage{%
+\NewDocumentCommand\tju@emptypage{s}{%
   \hbox{}%
-  % \blankpage%
-  \thispagestyle{empty}
+  \IfBooleanTF{#1}{\thispagestyle{empty}\tju@this@gutter@off}{}
   \newpage%
 }%
-\def\cleardoublepage{%
+\let\cleardoublepage\relax%
+\NewDocumentCommand\cleardoublepage{s}{%
   \clearpage%
   \if@twoside%
     \ifodd\c@page%
         % do nothing
     \else%
-        \tju@emptypage%
+      \IfBooleanTF{#1}{\tju@emptypage*}{\tju@emptypage}%
     \fi%
   \fi%
 }%
@@ -838,7 +838,7 @@
       \vskip 2.96cm%
     \endgroup
     {\centering\tju@put@cover@info}%
-    \clearpage%
+    \cleardoublepage*%
     \restoregeometry
   \fi
 }
@@ -982,7 +982,7 @@
     \tjusetup{
       keywords = {##1}
     }
-    \cleardoublepage
+    \cleardoublepage*%
     \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
     \begingroup
       \centering\bf\xiaoer\zhhei\tju@title%
