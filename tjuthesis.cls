@@ -1136,6 +1136,16 @@
 \AtEveryBibitem{\clearfield{pagetotal}}
 
 %% 引用
+\let\upcite\relax
+\DeclareCiteCommand{\upcite}[\mkbibsuperscript]%利用mkbibsuperbracket添加方括号 \textsuperscript
+  {[\usebibmacro{cite:init}%]
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:comp}}
+  {}
+  {%[
+  \usebibmacro{cite:dump}]%
+   \printfield{postnote}}%\kern\p@ \kern\z@
 \let\cite\parencite
 
 %% 参考文献表
