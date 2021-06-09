@@ -6,7 +6,7 @@
 
 ### 下载与编译
 
-首先确保你的电脑中安装了较新的LaTeX发行版和较新的宏包, 推荐安装[texlive](https://www.tug.org/texlive/acquire-netinstall.html), 安装教程可以参考[知乎用户李阿玲](https://www.zhihu.com/people/li-a-ling)的TeXLive安装指南, 目前更新到[2020版](https://zhuanlan.zhihu.com/p/129789360).
+首先确保你的电脑中安装了较新的LaTeX发行版和较新的宏包, 要求 LaTeX 版本不旧于 2020-10-01 版. 推荐安装[TeX Live 2021](https://www.tug.org/texlive/acquire-netinstall.html), 安装教程可以参考[知乎用户李阿玲](https://www.zhihu.com/people/li-a-ling)的TeXLive安装指南, 目前更新到[2020 版](https://zhuanlan.zhihu.com/p/129789360), 2021 版也类似.
 
 然后将这个库下载到你的电脑中. 可以用`git clone https://github.com/NotoOotori/tjuthesis.git`命令, 也可以直接下载压缩包并解压.
 
@@ -22,7 +22,23 @@
 
 ### 选项
 
-我们将要提供一些选项, 尽情期待.
+#### 载入选项
+
+以下是这个文档类特有的选项, 只能在加载文档类时设置.
+
+- degree (学位)
+  - **bacholar** (学士): 这是目前默认的也是唯一的选项.
+- tju-style (样式)
+  - **standard**: 主要按照 [2021 届本科生毕业设计 (论文) 工作手册](./archive/2021届毕业设计（论文）工作手册-完整版.pdf) 中对于工科类及理科类专业的要求进行排版, 并模仿 [Word 模板](./archive/毕业设计（论文）模板（理工类）.pdf) 中的排版细节.
+  - math: 模仿 17 级应用数学专业被要求使用的 [TeX "模板"](./archive/应数毕业论文模板new/应数毕业论文模板new.tex) 的[排版效果](./archive/应数毕业论文模板new/应数毕业论文模板new.pdf)
+
+用户也可以设置其它 ctexart 文档类支持的选项.
+
+- twoside: 适合于双面打印.
+
+#### 其它选项
+
+待续.
 
 ### 命令
 
