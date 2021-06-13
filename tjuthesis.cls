@@ -149,7 +149,7 @@
     default = {导师姓名},
   },
   date = {
-    default = {\today},
+    default = {\the\year-\two@digits{\month}-\two@digits{\day}},
   },
 }
 %% 排版选项
