@@ -273,9 +273,9 @@
 \newcommand\tju@set@font@size@standard{%
   \renewcommand\normalsize{%
     \@setfontsize\normalsize{10.5bp}{18bp}%
-    \abovedisplayskip 0bp%
-    \abovedisplayshortskip 0bp%
-    \belowdisplayshortskip 0bp%
+    \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+    \abovedisplayshortskip \z@ \@plus3\p@
+    \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
     \belowdisplayskip \abovedisplayskip
   }
   \normalsize
@@ -824,6 +824,7 @@
     }
     \thispagestyle{empty}%
     \tju@this@gutter@off%
+    \linespread{1.0}
     \vspace*{\dimexpr-\baselineskip+1.5\tju@line@height@normal\relax}%
     \begingroup
       \centering\includegraphics{tongji-name-bacholar-cover.pdf}%
@@ -840,6 +841,7 @@
     {\centering\tju@put@cover@info}%
     \cleardoublepage*%
     \restoregeometry
+    \tju@set@line@spread
   \fi
 }
 \newcommand\tju@put@cover@info{%
@@ -1063,6 +1065,7 @@
       keywords = {##1}
     }
     \clearpage
+    \pagenumbering{arabic}
     \newgeometry{
       top = \dimexpr32mm+42.82419pt+21.41209pt-0.5mm\relax,
       bottom = \dimexpr38mm-42.82419pt+4.4mm\relax,

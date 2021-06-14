@@ -126,6 +126,10 @@
 - [ ] Overleaf.
 - [ ] TeXPages.
 
+### 杂项
+
+- [ ] 关于页面设置尤其是页码格式可能有bug.
+
 ## 致谢
 
 这个项目中的一些代码的用法和思路参考了[tuna/tjuthesis](https://github.com/tuna/thuthesis)和[SXKDZ/tongjithesis](https://github.com/SXKDZ/tongjithesis), 特别感谢他们. 感谢这个项目的两位第一批的使用者.
