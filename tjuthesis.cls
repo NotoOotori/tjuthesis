@@ -858,11 +858,11 @@
 }
 \newcommand\tju@put@cover@info@tabular[5]{%
   \def\tju@info@item##1##2##3{%
-    \ifx##3\@empty\else
+    % \ifx##3\@empty\else
       \tju@pad{#1}{\tju@fixed@box{#2}{##1}}%
       \tju@pad{#3}{}%
       \tju@CJKunderline[#4]{\tju@par{#4}{##2{##3}}}\\
-    \fi
+    % \fi
   }%
   \xiaoer[40bp]\zhhei
   \begin{tabular}{l}%
