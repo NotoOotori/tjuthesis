@@ -5,9 +5,73 @@
 附录要另起一页. 附录的一级标题我们也会换页, 请使用者注意.
 
 \subsection{附录第一子节的标题}
+\begin{mdframed}[linewidth=0]
+    \begin{longcode}
+        \caption{神经网络初值训练,保存和调用}
+        \inputminted[numbers=left,
+                    frame=single,
+                    fontsize=\scriptsize,
+                    python3 = true,
+                    breaklines=true]
+                    {python}{./data/code/deepritz_2.py}
+    \end{longcode}
+\end{mdframed}
 
-\zhlipsum
-
+\newpage
+\section{两水平区域分解预条件Jacobi-Davidson方法的实现}
+\matlabinputlisting[caption={主函数}]{code/test.m}
+\matlabinputlisting[caption={Jacobi-Davidson迭代法}]{code/jacobi_davidson.m}
+\matlabinputlisting[caption={两水平区域分解算子}]{code/twolevel_precondition.m}
 \subsection{附录第二子节的标题}
-
+    
+    %%% Code from Dr. Christian ------ for not using headers.----------------------
+    \pgfkeysifdefined{/pgfplots/table/output empty row/.@cmd}{
+        % upcoming releases offer this more convenient option:
+        \pgfplotstableset{
+            empty header/.style={
+              every head row/.style={output empty row},
+            }
+        }
+    }{
+        % versions up to and including 1.5.1 need this:
+        \pgfplotstableset{
+            empty header/.style={
+                typeset cell/.append code={%
+                    \ifnum\pgfplotstablerow=-1 %
+                        \pgfkeyssetvalue{/pgfplots/table/@cell content}{}%
+                    \fi
+                }
+            }
+        }
+    }
+    %%%-----------------------------------------------
+    
+    \pgfplotstabletypeset[
+        empty header,
+        begin table=\begin{longtable},
+        every first row/.append style={before row={%
+        \caption{This is a Table with Data}%
+        \label{tab:DataTable}\\\toprule
+        \textbf{column 1} &\textbf{column 2} \\ \toprule    
+        \endfirsthead
+        %
+        \multicolumn{2}{c}%
+        {{\bfseries Table \thetable\ Continued from previous page}} \\
+        \toprule 
+        %
+        \textbf{column 1} &\textbf{column 2} \\ \toprule  
+        \endhead
+        %
+        \midrule \multicolumn{2}{r}{{Continued on next page}} \\ \bottomrule
+        \endfoot
+        %
+        \midrule
+        \multicolumn{2}{r}{{Concluded}} \\ \bottomrule
+        \endlastfoot
+        }},%
+        %
+        end table=\end{longtable},
+        col sep=comma,
+        string type,
+        ]{data.csv}
 \zhlipsum

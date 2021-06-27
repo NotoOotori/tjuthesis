@@ -4,5 +4,36 @@
 %   应使用\hspace*{0.5\ccwd}插入半个汉字宽度的空白
 \section{绪论}
 % \section{绪\hspace*{0.5\ccwd}论}
+\begin{algorithm}[H]
+	\caption{两水平加性Schwarz预条件处理的Jacobi-Davidson迭代法}\label{alg:twolevel}
+	\begin{algorithmic}
+		\State{给定初值$u^{1}$,终止准则$\varepsilon$,
+		$\lambda^{1} = Rq(u^{1})$, $W^{1} = \mathrm{span}\{u^{1}\}$.设
+		$\lambda^{1}_h \leq \lambda^{1} \leq \lambda^{1}_H$.}
+		\While{$\vert \lambda^{k+1}-\lambda^{k}\vert \geq \varepsilon$}
+			\Loop 
+			\State{
+				计算$t^{k+1}\in \mathrm{span}\{u^{k}\}^{\bot}$
+				\begin{equation}
+					(Bt^{k+1},v) = (r^k,v), \quad \forall v \in \mathrm{span}\{u^{k}\}^{\bot}
+				\end{equation}
+				并写为预条件子形式
+				\begin{equation}
+					t^{k+1} = (B^{k})^{-1} r^{k} + \beta (B^{k})^{-1} u^{k}
+				\end{equation}
+				其中$\beta$是保证正交的系数.
+			}
+			\State{
+				将搜索空间扩展为$W^{k+1} = \mathrm{span} \{ W^{k},t^{k+1}\}$.并更新$u^{k+1}$
+				\begin{equation}
+					u^{k+1} = \arg\min_{\norm{u^{k+1}}=1} Rq(v),v\in W^{k+1}
+				\end{equation}
+			}
+			\State{
+				$\lambda^{k+1} \gets Rq(u^{k+1})$
+			}
+			\EndLoop
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
 
-\zhlipsum

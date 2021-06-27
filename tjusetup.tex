@@ -1,6 +1,6 @@
 % !TeX root = ./tjuthesis-example.tex
 
-% 论文基本信息配置
+% 论文基本信息及配置
 
 \tjusetup{
   %******************************
@@ -17,14 +17,6 @@
   %
   % output = electronic,
   %
-  %
-  % 样式
-  %   standard  按照学校手册要求进行排版 (默认)
-  %   math      模仿应数专业下发的"应数毕业论文模板new.tex"的排版
-  %
-  style = standard,
-  %
-  %
   % 标题
   %   不可使用“\\”命令手动控制换行
   %   副标题为可选项
@@ -34,6 +26,32 @@
   title* = {An Introduction to \LaTeX\ Thesis Template of Tongji University v\version},
   % subtitle* = {}
   %
+  % 培养单位
+  %   填写所属学院的全名
+  %
+  department = {数学科学学院},
+  %
+  % 学科
+  %   本科生填写专业名称
+  %
+  discipline  = {数学与应用数学},
+  %
+  % 姓名
+  %
+  author  = {陈旭阳},
+  %
+  % 学号
+  %
+  id = {1753763},
+  %
+  % 指导教师
+  %   中文姓名和职称之间以英文逗号分开, 也可不写职称
+  %
+  supervisor  = {李灵光, 副教授},
+  % 日期
+  %   使用 ISO 格式；默认为当前时间
+  %
+  % date = {2021-06-09},
   %
   % 英文字体
   %   times   Times New Roman 字体,
@@ -42,6 +60,9 @@
   %
   font = times,
   %
+  % cover
+  %
+  cover = true,
   %
 }
 
@@ -116,6 +137,8 @@
 \usepackage{lipsum}
 \usepackage{zhlipsum}
 
+\XeTeXcharclass`┊=1
+
 % 设置提到包与程序名字时候所用的字体
 \newcommand{\pckg}[1]{\textsc{#1}}
 
@@ -125,9 +148,97 @@
 \newcommand{\hydrgen}{\mathrm{H}}
 \newcommand{\hydrgenn}{\hydrgen^+}
 
+% 在log里显示更多debug信息
+\showboxdepth=3 \showboxbreadth=30
+
 % 表格中支持跨行
 % \usepackage{multirow}
+% 表格中支持跨行
+\usepackage{multirow}
 
+% 跨页表格
+\usepackage{longtable}
+
+% 固定宽度的表格。放在 hyperref 之前的话，tabularx 里的 footnote 显示不出来。
+% \usepackage{tabularx}
+
+% 表格加脚注
+% \usepackage{threeparttable}
+% \pretocmd{\TPTnoteSettings}{\footnotesize}{}{}
+
+% 确定浮动对象的位置，可以使用 H，强制将浮动对象放到这里（可能效果很差）
+\usepackage{float}
+
+% 浮动图形控制宏包。
+% 允许上一个 section 的浮动图形出现在下一个 section 的开始部分
+% 该宏包提供处理浮动对象的 \FloatBarrier 命令，使所有未处
+% 理的浮动图形立即被处理。这三个宏包仅供参考，未必使用：
+% \usepackage[below]{placeins}
+% \usepackage{floatflt} % 图文混排用宏包
+% \usepackage{rotating} % 图形和表格的控制旋转
+
+% 定理类环境宏包
+% \usepackage{amsthm}
+% 也可以使用 ntheorem
+% 但不可以同时使用
+\usepackage[amsmath,thmmarks,hyperref,thref]{ntheorem}
+% change counter, including the macro counterwithin and counterwithout 
+\usepackage{chngcntr}
+\counterwithin{equation}{section}
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+
+\RequirePackage{listings}
+\newcommand{\LstlistingLang}{代码}
+\newcommand{\LstlistingLabel}[1]{\LstlistingLang#1}
+\labelformat{lstlisting}{\LstlistingLabel{#1}}
+\renewcommand\lstlistingname{\LstlistingLang}
+
+\RequirePackage[numbered,framed]{matlab-prettifier} % for matlab code 
+\RequirePackage{mdframed}
+\lstset{
+    breaklines=true,
+    %backgroundcolor=\color{lightgray},
+    basicstyle=\scriptsize,
+    inputpath=data/,
+    numbers=left,
+    numberstyle={\color{black!33}\scriptsize\sffamily},
+    xleftmargin=2em,
+    xrightmargin=2em
+}
+\newcommand{\matlabinline}[1]{
+    \lstinline[style=MATLAB-editor, basicstyle=\ttfamily]{#1}
+}
+\newcommand{\minputlisting}[2][]{ % #1: caption or label
+    \lstinputlisting[
+        style=MATLAB-editor,
+        basicstyle=\ttfamily\scriptsize,
+        %basicstyle = \scriptsize,
+        #1
+    ]{#2}
+}
+
+\newcommand{\matlabinputlisting}[2][]{
+  \begin{mdframed}[linewidth=0]
+    \minputlisting[#1]{#2}
+  \end{mdframed}
+}
+\RequirePackage{caption}
+\RequirePackage[newfloat]{minted}
+\newenvironment{longcode}{\captionsetup{type=listing,name={代码}}}{}
+\RequirePackage{xcolor} % the above four options and packages are used for code highlighted, together with caption positioned on top.
+
+\RequirePackage{diagbox} % draw diagonal line in a cell of tabular
+
+\RequirePackage{algorithm}
+\RequirePackage{algorithmicx}
+\RequirePackage{algpseudocode} % algorithm and pseudocode package
+
+\usepackage{filecontents}
+\usepackage{pgfplotstable}
+\usepackage{longtable}
+\usepackage{booktabs}
 % 跨页表格
 % \usepackage{longtable}
 
@@ -139,7 +250,7 @@
 % \pretocmd{\TPTnoteSettings}{\footnotesize}{}{}
 
 % 确定浮动对象的位置，可以使用 H，强制将浮动对象放到这里（可能效果很差）
-% \usepackage{float}
+\usepackage{float}
 
 % 浮动图形控制宏包。
 % 允许上一个 section 的浮动图形出现在下一个 section 的开始部分
@@ -148,3 +259,65 @@
 % \usepackage[below]{placeins}
 % \usepackage{floatflt} % 图文混排用宏包
 % \usepackage{rotating} % 图形和表格的控制旋转
+
+
+\begin{filecontents}{data.csv}
+  column1,column2
+  5001,102
+  5002,75
+  5003,115
+  5004,45
+  5005,97
+  5036,110
+  5037,77
+  5038,147
+  5039,89
+  5040,62
+  5041,160
+  5042,102
+  5043,56
+  5044,86
+  5100,74
+  5101,65
+  5102,131
+  5103,90
+  5104,99
+  5001,102
+  5002,75
+  5003,115
+  5004,45
+  5005,97
+  5036,110
+  5037,77
+  5038,147
+  5039,89
+  5040,62
+  5041,160
+  5042,102
+  5043,56
+  5044,86
+  5100,74
+  5101,65
+  5102,131
+  5103,90
+  5104,99
+  5001,102
+  5002,75
+  5003,115
+  5004,45
+  5005,97
+  5036,110
+  5037,77
+  5038,147
+  5039,89
+  5040,62
+  5041,160
+  5042,102
+  5043,56
+  5044,86
+  5100,74
+  5101,65
+  5102,131
+  5103,90
+  5104,99
+  \end{filecontents}%
