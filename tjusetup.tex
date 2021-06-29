@@ -69,6 +69,27 @@
 
 % Put any packages you would like to use here
 
+% 定义自己常用的东西
+% \def\myname{陈旭阳}
+
+% 数学命令
+% unicode-math does many jobs at begin document, so we need to declare operator after that.
+% 算子
+% \AtBeginDocument{%https://tex.stackexchange.com/a/117995
+%   \let\dim\relax
+%   \DeclareMathOperator{\dim}{dim}
+%   \DeclareMathOperator{\codim}{codim}
+%   %https://tex.stackexchange.com/questions/175251/how-to-redefine-a-command-using-declaremathoperator
+% }
+% 实用工具宏
+% \newcommand*{\lr}[3]{\left#1#3\right#2}
+% \newcommand*{\powerset}[1]{2^{#1}}
+% \newcommand*{\norm}[1]{\Vert #1 \Vert}
+% 简写
+% \newcommand*{\CC}{\symbb{C}}
+% \newcommand*{\ZZ}{\symbb{Z}}
+% \newcommand*{\NN}{\symbb{N}}
+
 % 定理类环境宏包
 % \usepackage[amsmath,thmmarks,hyperref,thref]{ntheorem}
 
@@ -97,35 +118,18 @@
 %   % TODO: theorem style
 % }
 
-% 给自定义的宏后面自动加空白
-% \usepackage{xspace}
-
-% 定义所有的图片文件在 figures 子目录下
-% \graphicspath{{figures/}}
-
 % 配置enumitem宏包
 % \setlist*[enumerate,1]{left = \parindent .. 2\parindent} % 设置enumerate环境一级分项的缩进, 用star version以添加设置而不是覆盖之前的设置
 
-% 定义自己常用的东西
-% \def\myname{陈旭阳}
+% 代码段排版宏包
+% 推荐使用minted, 我们已经配置了针对各种情况进行了配置, 使用方法与基本用法相同:
+% \begin{listing}
+%   \caption{<caption>}\label{<label>}
+%   \inputminted{<language>}{<filename>}
+% \end{listing}
+% 可以用\setminted命令进行进一步配置(可能会覆盖本文档类给出的配置)
+\usepackage{minted}
 
-% 数学命令
-% unicode-math does many jobs at begin document, so we need to declare operator after that.
-% 算子
-% \AtBeginDocument{%https://tex.stackexchange.com/a/117995
-%   \let\dim\relax
-%   \DeclareMathOperator{\dim}{dim}
-%   \DeclareMathOperator{\codim}{codim}
-%   %https://tex.stackexchange.com/questions/175251/how-to-redefine-a-command-using-declaremathoperator
-% }
-% 实用工具宏
-% \newcommand*{\lr}[3]{\left#1#3\right#2}
-% \newcommand*{\powerset}[1]{2^{#1}}
-\newcommand*{\norm}[1]{\Vert #1 \Vert}
-% 简写
-% \newcommand*{\CC}{\symbb{C}}
-% \newcommand*{\ZZ}{\symbb{Z}}
-% \newcommand*{\NN}{\symbb{N}}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %
 % 从这开始的代码是专门为了示例用的, 使用者可以全部注释掉
@@ -176,54 +180,8 @@
 % \usepackage{floatflt} % 图文混排用宏包
 % \usepackage{rotating} % 图形和表格的控制旋转
 
-\RequirePackage{listings}
-% \newcommand{\LstlistingLang}{代码}
-% \newcommand{\LstlistingLabel}[1]{\LstlistingLang#1}
-% \labelformat{lstlisting}{\LstlistingLabel{#1}}
-% BeginDocument
-% \renewcommand\lstlistingname{\LstlistingLang}
-
-\RequirePackage[numbered,framed]{matlab-prettifier} % for matlab code
-\RequirePackage{mdframed}
-\lstset{
-	breaklines=true,
-	%backgroundcolor=\color{lightgray},
-	basicstyle=\scriptsize,
-	% inputpath=data/,
-	numbers=left,
-	numberstyle={\color{black!33}\scriptsize\sffamily},
-	xleftmargin=2em,
-	xrightmargin=2em
-}
-\newcommand{\matlabinline}[1]{
-	\lstinline[style=MATLAB-editor, basicstyle=\ttfamily]{#1}
-}
-\newcommand{\minputlisting}[2][]{ % #1: caption or label
-	\lstinputlisting[
-		style=MATLAB-editor,
-		basicstyle=\ttfamily\scriptsize,
-		%basicstyle = \scriptsize,
-		#1
-	]{#2}
-}
-
-\newcommand{\matlabinputlisting}[2][]{
-  \begin{mdframed}[linewidth=0]
-	\minputlisting[#1]{#2}
-  \end{mdframed}
-}
-\RequirePackage[newfloat]{minted}
-\newenvironment{longcode}{\captionsetup{type=listing,name={代码}}}{}
-\RequirePackage{xcolor} % the above four options and packages are used for code highlighted, together with caption positioned on top.
-
-\RequirePackage{diagbox} % draw diagonal line in a cell of tabular
-
-\RequirePackage{algorithm}
-\RequirePackage{algorithmicx}
-\RequirePackage{algpseudocode} % algorithm and pseudocode package
-
-\usepackage{pgfplotstable}
-\pgfplotsset{compat=1.18}
-
-\usepackage{longtable}
-\usepackage{booktabs}
+% verbatim
+\makeatletter
+\newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
+\verbatimfont{\xiaowu}
+\makeatother

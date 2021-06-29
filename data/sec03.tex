@@ -108,3 +108,29 @@
 \end{table}
 
 \zhlipsum[1]
+
+\subsection{代码}
+
+有时论文中需要附上代码, 一般来说代码高亮可以采用 \pckg{listing} 包或者 \pckg{minted} 包, 在文档类中这两个包都没有引用, 用户可以选用自己习惯的方式. 在这里推荐使用 \pckg{minted} 包, 文档类中也对此进行了配置, 使得宏包的标准接口就可以满足大部分排版要求.
+
+使用 \pckg{minted} 包进行代码高亮需要首先安装 \href{https://wiki.python.org/moin/BeginnersGuide/Download}{Python}, 以及 Python 中的 \href{https://pygments.org/download/}{Pygments} 包, 并在 \LaTeX 编译时添加 \verb|--shell-escape| 选项以启用外部程序.
+
+安装完成过后, \pckg{minted} 的使用方法就比较简单了, 只需要
+\begin{verbatim}
+  \begin{listing}
+    \caption{<caption>}\label{<label>}
+    \inputminted{<language>}{<filename>}
+  \end{listing}
+\end{verbatim}
+就可以了, 跨页代码块也可以如此排版. 可以进行高亮的语言可以通过在命令行中输入
+\begin{verbatim}
+  pygmentize -L lexers
+\end{verbatim}
+进行查询. 如果用户对文档类中配置的代码块样式不满意, 可以使用 \verb|\setminted| 命令自行修改, 具体参考 \pckg{minted} 宏包的文档. \ref{code:JD-iter} 是一个较短 Matlab 代码块的例子, 而 \ref{code:NN-init} 是一个较长 Python 代码块的例子, 放入附录.
+
+\begin{listing}
+  \caption{Jacobi-Davidson 迭代法}\label{code:JD-iter}
+  \inputminted{matlab}{codes/jacobi_davidson.m}
+\end{listing}
+
+要注意文档类中引用了 \pckg{mdframed} 包. 还要注意因为通常代码块中会含有大量的字符, 使用 MikTeX 发行版的用户可能会得到 TeX 容量超出限制的报错, 此时需要先查看 log 找到是哪些容量不够了, 然后按照\href{https://tex.stackexchange.com/a/548335/}{这个回答}中的方法来扩充可用容量. 如果代码块里有过长的行可能无法排版, 建议不要出现超过 80 个字符的行. 如果用户还遇到了其它错误, 可以先考虑删除所有的临时文件以及 \pckg{minted} 生成的缓存文件夹 (以 ``\_minted" 打头) 再重新进行编译.
