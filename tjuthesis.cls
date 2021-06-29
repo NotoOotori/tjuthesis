@@ -230,6 +230,7 @@
 \RequirePackage{unicode-math}
 \RequirePackage{graphicx}
 \RequirePackage{subcaption}
+\RequirePackage[dvipsnames]{xcolor}
 \RequirePackage{pdfpages}
 \includepdfset{fitpaper=true}
 \RequirePackage{enumitem}
@@ -419,6 +420,8 @@
     ItalicFont = \tju@font@name@it,
     BoldItalicFont = \tju@font@name@bfit,
   ]
+  \setsansfont{Arial}%
+  \setmonofont{Courier New}[Scale = MatchLowercase]%
 }
 \tju@load@font
 \tju@option@hook{font}{%
@@ -502,7 +505,10 @@
     BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
   ]%
   \setCJKsansfont{SimHei}[AutoFakeBold]%
-  \setCJKmonofont{FangSong}[AutoFakeBold]%
+  \setCJKmonofont{FangSong}[
+    AutoFakeBold = true,
+    ItalicFont = KaiTi,
+  ]%
   \newCJKfontfamily\zhsong{SimSun}[
     AutoFakeBold = true,
     ItalicFont   = KaiTi,
@@ -516,7 +522,10 @@
     BoldFeatures = { FakeBold = \tju@cjk@embolden@factor },
   ]%
   \newCJKfontfamily\zhkai{KaiTi}[AutoFakeBold]%
-  \newCJKfontfamily\zhfs{FangSong}[AutoFakeBold]%
+  \newCJKfontfamily\zhfs{FangSong}[
+    AutoFakeBold = true,
+    ItalicFont = KaiTi,
+  ]%
 }
 \newcommand\tju@load@cjk@font{%
   \@nameuse{tju@load@cjk@font@\tju@cjk@font}%
@@ -1323,6 +1332,7 @@
 
 % 图表代码算法之类的环境
 \RequirePackage{caption}% 来配置caption格式
+% \xapptocmd{\caption}{\nopagebreak}{}{} % \nopagebreak failed! FXXK!!!!
 \newcommand\tju@caption@font{\xiaowu[18bp]\selectfont}% 小五 18磅行距
 \DeclareCaptionFont{tju}{\tju@caption@font}
 \DeclareCaptionLabelSeparator{tju}{\hspace*{0.5\ccwd}}
@@ -1352,6 +1362,40 @@
 \AtBeginEnvironment{tabular*}{\xiaowu[18bp]}
 \AtBeginEnvironment{tabularx}{\xiaowu[18bp]}
 
+%% 代码
+% https://tex.stackexchange.com/a/53540
+\RequirePackage{mdframed}
+\PassOptionsToPackage{newfloat}{minted}
+\AtEndOfPackageFile*{minted}{
+  \captionsetup[listing]{%
+    name = {代码},%
+    position = above,%
+  }
+  \counterwithin{listing}{section}
+  \renewenvironment{listing}{
+    \begin{mdframed}[
+      innerleftmargin = 0pt,%
+      innerrightmargin = 0pt,%
+      innertopmargin = 0pt,%
+      innerbottommargin = 0pt,%
+      linewidth = 0pt,%
+    ]
+      \captionsetup{type=listing}
+  }{\end{mdframed}}
+  \renewcommand{\theFancyVerbLine}{\xiaowu\rmfamily\color{gray}\arabic{FancyVerbLine}}
+  \setminted{
+    breaklines = true,%
+    breakanywhere = true,%
+    fontsize = \xiaowu,%
+    frame = single,%
+    numbers = left,%
+    xleftmargin = 2em,%
+    xrightmargin = 0em,%
+  }
+  \setminted[python]{
+    python3 = true,%
+  }
+}
 
 % 附录
 \appto\appendix{\clearpage}
