@@ -231,6 +231,7 @@
 \RequirePackage{graphicx}
 \RequirePackage{subcaption}
 \RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{newfloat}
 \RequirePackage{pdfpages}
 \includepdfset{fitpaper=true}
 \RequirePackage{enumitem}
@@ -1396,6 +1397,12 @@
     python3 = true,%
   }
 }
+
+%% 算法
+\PassOptionsToPackage{section, 算法}{algorithm}
+% \AtEndOfPackageFile*{algorithm}{
+% }
+
 
 % 附录
 \appto\appendix{\clearpage}

@@ -84,7 +84,6 @@
 % 实用工具宏
 % \newcommand*{\lr}[3]{\left#1#3\right#2}
 % \newcommand*{\powerset}[1]{2^{#1}}
-% \newcommand*{\norm}[1]{\Vert #1 \Vert}
 % 简写
 % \newcommand*{\CC}{\symbb{C}}
 % \newcommand*{\ZZ}{\symbb{Z}}
@@ -185,3 +184,17 @@
 \newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
 \verbatimfont{\xiaowu}
 \makeatother
+
+\AtBeginDocument{%https://tex.stackexchange.com/a/117995
+  \let\span\relax
+  \DeclareMathOperator{\span}{span}
+  \DeclareMathOperator{\Rq}{Rq}
+  \DeclareMathOperator{\argmin}{argmin}
+}
+\newcommand*{\norm}[1]{\Vert #1 \Vert}
+
+\RequirePackage{mdframed}
+% \DeclareFloatingEnvironment{algorithm}
+\RequirePackage[boxed]{algorithm}
+% \RequirePackage{algorithmicx}
+\RequirePackage{algpseudocode} % algorithm and pseudocode package

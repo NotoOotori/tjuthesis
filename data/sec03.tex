@@ -134,3 +134,37 @@
 \end{listing}
 
 要注意文档类中引用了 \pckg{mdframed} 包. 还要注意因为通常代码块中会含有大量的字符, 使用 MikTeX 发行版的用户可能会得到 TeX 容量超出限制的报错, 此时需要先查看 log 找到是哪些容量不够了, 然后按照\href{https://tex.stackexchange.com/a/548335/}{这个回答}中的方法来扩充可用容量. 如果代码块里有过长的行可能无法排版, 建议不要出现超过 80 个字符的行. 如果用户还遇到了其它错误, 可以先考虑删除所有的临时文件以及 \pckg{minted} 生成的缓存文件夹 (以 ``\_minted" 打头) 再重新进行编译.
+\subsection{算法}
+
+有时论文中需要附上算法, 一般来说算法排版可以采用 \pckg{algorithmicx} 包或者 \pckg{algorithm2e} 包.
+
+\begin{algorithm}[htbp]
+	\caption{两水平加性Schwarz预条件处理的Jacobi-Davidson迭代法}\label{alg:twolevel}
+	\begin{algorithmic}[1]
+    \Require{$u^{1}$, $\varepsilon$}
+    \Comment{初值和终止准则}
+	  \State{$\lambda^{1} = \Rq(u^{1})$, $W^{1} = \span \{u^{1}\}$}
+    % 设$\lambda^{1}_h \leq \lambda^{1} \leq \lambda^{1}_H$.
+	  \While{$\vert \lambda^{k+1}-\lambda^{k}\vert \geq \varepsilon$}
+      \State{$t^{k+1}=\textup{CorrectionEquationSolver}(u^k)\in\span \{u^{k}\}^{\perp}$}
+      \Comment{利用校正方程求解$t^{k+1}$}
+      % \State{
+      %   计算$t^{k+1}\in \span \{u^{k}\}^{\bot}$
+      %   \begin{equation}
+      %   (Bt^{k+1},v) = (r^k,v), \quad \forall v \in \span \{u^{k}\}^{\bot}
+      %   \end{equation}
+      %   并写为预条件子形式
+      %   \begin{equation}
+      %   t^{k+1} = (B^{k})^{-1} r^{k} + \beta (B^{k})^{-1} u^{k}
+      %   \end{equation}
+      %   其中$\beta$是保证正交的系数.
+      % }
+      \State{$W^{k+1} = \span \{ W^{k},t^{k+1}\}$}
+      \Comment{扩展搜索空间}
+      \State{$u^{k+1} = \argmin_{\norm{u^{k+1}}=1} \Rq(v), v\in W^{k+1}$}
+      \Comment{更新$u^{k+1}$}
+      \State{$\lambda^{k+1} = \Rq(u^{k+1})$}
+      \State{$k \gets k+1$}
+	  \EndWhile
+	\end{algorithmic}
+\end{algorithm}
