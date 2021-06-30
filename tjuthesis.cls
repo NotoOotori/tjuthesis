@@ -230,6 +230,7 @@
 \RequirePackage{unicode-math}
 \RequirePackage{graphicx}
 \RequirePackage{subcaption}
+\RequirePackage{newfloat}
 \RequirePackage{pdfpages}
 \includepdfset{fitpaper=true}
 \RequirePackage{enumitem}
@@ -1352,6 +1353,10 @@
 \AtBeginEnvironment{tabular*}{\xiaowu[18bp]}
 \AtBeginEnvironment{tabularx}{\xiaowu[18bp]}
 
+%% 算法
+\PassOptionsToPackage{section, 算法}{algorithm}
+% \AtEndOfPackageFile*{algorithm}{
+% }
 
 % 附录
 \appto\appendix{\clearpage}
