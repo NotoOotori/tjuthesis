@@ -1366,37 +1366,64 @@
 %% 代码
 % https://tex.stackexchange.com/a/53540
 \RequirePackage{mdframed}
-\PassOptionsToPackage{newfloat}{minted}
-\AtEndOfPackageFile*{minted}{
-  \captionsetup[listing]{%
-    name = {代码},%
-    position = above,%
-  }
-  \counterwithin{listing}{section}
-  \renewenvironment{listing}{
-    \begin{mdframed}[
-      innerleftmargin = 0pt,%
-      innerrightmargin = 0pt,%
-      innertopmargin = 0pt,%
-      innerbottommargin = 0pt,%
-      linewidth = 0pt,%
-    ]
-      \captionsetup{type=listing}
-  }{\end{mdframed}}
-  \renewcommand{\theFancyVerbLine}{\xiaowu\rmfamily\color{gray}\arabic{FancyVerbLine}}
-  \setminted{
+\RequirePackage[newfloat]{minted}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbuselibrary{raster}
+\tcbuselibrary{minted}
+\captionsetup[listing]{%
+  name = {代码},%
+  position = above,%
+}
+\counterwithin{listing}{section}
+
+\newtcbinputlisting{tcbinputminted}[3][]{%
+  before skip balanced = 0pt,%
+  after skip balanced = \tju@line@height@normal,%
+  % compress page = all,
+  % height fill = maximum,
+  height fixed for = first and middle,
+  breakable,%
+  listing only,%
+  colback = white,%
+  arc = 0mm,%
+  boxsep = 0mm,%
+  toprule = 0.4pt,%
+  bottomrule = 0.4pt,%
+  leftrule = 0.4pt,%
+  rightrule = 0.4pt,%
+  top = \fboxsep,%
+  bottom = \fboxsep,%
+  % left = \dimexpr12pt\relax,% set lineno position
+  left = 0pt,%
+  listing file = {#3},%
+  minted language = #2,%
+  minted options = {%
     breaklines = true,%
     breakanywhere = true,%
     fontsize = \xiaowu,%
-    frame = single,%
-    numbers = left,%
-    xleftmargin = 2em,%
+    frame = none,%
+    % numbers = left,%
+    % numbersep = 12pt,
+    xleftmargin = 0em,%
     xrightmargin = 0em,%
-  }
-  \setminted[python]{
     python3 = true,%
+    #1%
   }
 }
+% \renewcommand{\theFancyVerbLine}{\oldstylenums{\arabic{FancyVerbLine}}}
+\renewenvironment{listing}{%
+  % \begin{tcbraster}[
+  %   raster columns=1,
+  %   raster equal skip=\tju@line@height@normal
+  % ]
+    \vskip \dimexpr\tju@line@height@normal+9bp\relax
+    \captionsetup{type=listing}%
+}{}
+% }{\end{tcbraster}}
+\newenvironment{longlisting}{%
+  \begin{listing}
+}{\end{listing}}
 
 %% 算法
 \PassOptionsToPackage{section, 算法}{algorithm}

@@ -7,10 +7,10 @@ function [lambda,u,lambda_list] = jacobi_davidson(A,M,freenode,u0,node,elem,NODE
     end
     u = u0/norm(u0);
     U = u;
-    A_free = A(freenode,freenode); 
+    A_free = A(freenode,freenode);
     % 原矩阵由于边界条件的存在是半正定的,需要
     % 取内部自由度才是正定矩阵
-    M_free = M(freenode,freenode); 
+    M_free = M(freenode,freenode);
     lambda = dot(A_free*u,u)/dot(M_free*u,u);
     lambda_old = 1e5;
     err = abs(lambda-lambda_old);
@@ -23,7 +23,7 @@ function [lambda,u,lambda_list] = jacobi_davidson(A,M,freenode,u0,node,elem,NODE
         t = twolevel_precondition(A,M,r,u,lambda,node,elem,NODE,ELEM,freenode);
         % 校正方程
         t = t/norm(t);
-        U = [U t]; 
+        U = [U t];
         % 扩展搜索空间
         A_tilde = U'*A_free*U;
         M_tilde = U'*M_free*U;
