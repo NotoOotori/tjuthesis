@@ -1365,65 +1365,54 @@
 
 %% 代码
 % https://tex.stackexchange.com/a/53540
-\RequirePackage{mdframed}
-\RequirePackage[newfloat]{minted}
 \RequirePackage{tcolorbox}
 \tcbuselibrary{breakable}
-\tcbuselibrary{raster}
-\tcbuselibrary{minted}
-\captionsetup[listing]{%
-  name = {代码},%
-  position = above,%
-}
-\counterwithin{listing}{section}
-
-\newtcbinputlisting{tcbinputminted}[3][]{%
-  before skip balanced = 0pt,%
-  after skip balanced = \tju@line@height@normal,%
-  % compress page = all,
-  % height fill = maximum,
-  height fixed for = first and middle,
-  breakable,%
-  listing only,%
-  colback = white,%
-  arc = 0mm,%
-  boxsep = 0mm,%
-  toprule = 0.4pt,%
-  bottomrule = 0.4pt,%
-  leftrule = 0.4pt,%
-  rightrule = 0.4pt,%
-  top = \fboxsep,%
-  bottom = \fboxsep,%
-  % left = \dimexpr12pt\relax,% set lineno position
-  left = 0pt,%
-  listing file = {#3},%
-  minted language = #2,%
-  minted options = {%
-    breaklines = true,%
-    breakanywhere = true,%
-    fontsize = \xiaowu,%
-    frame = none,%
-    % numbers = left,%
-    % numbersep = 12pt,
-    xleftmargin = 0em,%
-    xrightmargin = 0em,%
-    python3 = true,%
-    #1%
+\PassOptionsToPackage{newfloat}{minted}
+\AtEndOfPackageFile*{minted}{%
+  \tcbuselibrary{minted}
+  \captionsetup[listing]{%
+    name = {代码},%
+    position = above,%
   }
-}
-% \renewcommand{\theFancyVerbLine}{\oldstylenums{\arabic{FancyVerbLine}}}
-\renewenvironment{listing}{%
-  % \begin{tcbraster}[
-  %   raster columns=1,
-  %   raster equal skip=\tju@line@height@normal
-  % ]
+  \counterwithin{listing}{section}
+  \newtcbinputlisting{tcbinputminted}[3][]{%
+    before skip balanced = 0pt,%
+    after skip balanced = \tju@line@height@normal,%
+    height fixed for = first and middle,
+    breakable,%
+    listing only,%
+    colback = white,%
+    arc = 0mm,%
+    boxsep = 0mm,%
+    toprule = 0.4pt,%
+    bottomrule = 0.4pt,%
+    leftrule = 0.4pt,%
+    rightrule = 0.4pt,%
+    top = \fboxsep,%
+    bottom = \fboxsep,%
+    % left = \dimexpr12pt\relax,% set lineno position
+    left = 0pt,%
+    listing file = {#3},%
+    minted language = #2,%
+    minted options = {%
+      breaklines = true,%
+      breakanywhere = true,%
+      fontsize = \xiaowu,%
+      frame = none,%
+      xleftmargin = 0em,%
+      xrightmargin = 0em,%
+      python3 = true,%
+      #1%
+    }
+  }
+  \renewenvironment{listing}{%
     \vskip \dimexpr\tju@line@height@normal+9bp\relax
     \captionsetup{type=listing}%
-}{}
-% }{\end{tcbraster}}
-\newenvironment{longlisting}{%
-  \begin{listing}
-}{\end{listing}}
+  }{}
+  \newenvironment{longlisting}{%
+    \begin{listing}
+  }{\end{listing}}
+}
 
 %% 算法
 \PassOptionsToPackage{section, 算法}{algorithm}

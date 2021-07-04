@@ -121,12 +121,12 @@
 % \setlist*[enumerate,1]{left = \parindent .. 2\parindent} % 设置enumerate环境一级分项的缩进, 用star version以添加设置而不是覆盖之前的设置
 
 % 代码段排版宏包
-% 推荐使用minted, 我们已经配置了针对各种情况进行了配置, 使用方法与基本用法相同:
+% 推荐使用minted, 我们已经配置了针对各种情况进行了配置, 使用方法为:
 % \begin{listing}
 %   \caption{<caption>}\label{<label>}
-%   \inputminted{<language>}{<filename>}
+%   \tcbinputminted{<language>}{<filename>}
 % \end{listing}
-% 可以用\setminted命令进行进一步配置(可能会覆盖本文档类给出的配置)
+% 如果想做进一步配置可以在 \tcbinputminted 的可选参数中传入 minted-options.
 \usepackage{minted}
 
 
