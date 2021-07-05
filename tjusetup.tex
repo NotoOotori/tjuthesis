@@ -120,7 +120,7 @@
 % 配置enumitem宏包
 % \setlist*[enumerate,1]{left = \parindent .. 2\parindent} % 设置enumerate环境一级分项的缩进, 用star version以添加设置而不是覆盖之前的设置
 
-% 代码段排版宏包
+% 代码块排版宏包
 % 推荐使用minted, 我们已经配置了针对各种情况进行了配置, 使用方法为:
 % \begin{listing}
 %   \caption{<caption>}\label{<label>}
@@ -128,6 +128,17 @@
 % \end{listing}
 % 如果想做进一步配置可以在 \tcbinputminted 的可选参数中传入 minted-options.
 \usepackage{minted}
+
+% 算法块排版宏包
+% 我们针对 algorithmicx 包进行了配置, 对 algpseudocode 样式进行了测试
+% 使用方法为:
+% \begin{algorithm}[htbp]
+% 	\caption{<caption>}\label{<label>}
+% 	\begin{algorithmic}
+%     <content>
+% 	\end{algorithmic}
+% \end{algorithm}
+\usepackage{algpseudocode} % algorithmicx package with algpseudocode style
 
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %
@@ -154,6 +165,7 @@
 
 % 在log里显示更多debug信息
 \showboxdepth=3 \showboxbreadth=30
+% \overfullrule=1mm
 
 % 表格中支持跨行
 % \usepackage{multirow}
@@ -184,6 +196,8 @@
 \newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
 \verbatimfont{\xiaowu}
 \makeatother
+% \BeforeBeginEnvironment{verbatim}{\begin{tcolorbox}[breakable]}
+% \AfterEndEnvironment{verbatim}{\end{tcolorbox}}
 
 \AtBeginDocument{%https://tex.stackexchange.com/a/117995
   \let\span\relax
@@ -192,9 +206,3 @@
   \DeclareMathOperator{\argmin}{argmin}
 }
 \newcommand*{\norm}[1]{\Vert #1 \Vert}
-
-\RequirePackage{mdframed}
-% \DeclareFloatingEnvironment{algorithm}
-\RequirePackage[boxed]{algorithm}
-% \RequirePackage{algorithmicx}
-\RequirePackage{algpseudocode} % algorithm and pseudocode package

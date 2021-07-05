@@ -243,7 +243,7 @@
 \RequirePackage{filehook}
 \newcommand\tju@package@conflict[2]{
   \AtBeginOfPackageFile*{#2}{
-    \tju@error{The "#2" package is incompatible with required "#1"}
+    \tju@error{The "#2" package is incompatible with required "#1".}
   }
 }
 \tju@package@conflict{unicode-math}{amscd}
@@ -1367,6 +1367,22 @@
 % https://tex.stackexchange.com/a/53540
 \RequirePackage{tcolorbox}
 \tcbuselibrary{breakable}
+\tcbset{%
+  before skip balanced = 0pt,%
+  after skip balanced = \tju@line@height@normal,%
+  height fixed for = first and middle,
+  colback = white,%
+  arc = 0mm,%
+  boxsep = 0mm,%
+  toprule = 0.4pt,%
+  bottomrule = 0.4pt,%
+  leftrule = 0.4pt,%
+  rightrule = 0.4pt,%
+  top = \fboxsep,%
+  bottom = \fboxsep,%
+  % left = \dimexpr12pt\relax,% set lineno position
+  left = 0pt,%
+}
 \PassOptionsToPackage{newfloat}{minted}
 \AtEndOfPackageFile*{minted}{%
   \tcbuselibrary{minted}
@@ -1376,22 +1392,8 @@
   }
   \counterwithin{listing}{section}
   \newtcbinputlisting{tcbinputminted}[3][]{%
-    before skip balanced = 0pt,%
-    after skip balanced = \tju@line@height@normal,%
-    height fixed for = first and middle,
     breakable,%
     listing only,%
-    colback = white,%
-    arc = 0mm,%
-    boxsep = 0mm,%
-    toprule = 0.4pt,%
-    bottomrule = 0.4pt,%
-    leftrule = 0.4pt,%
-    rightrule = 0.4pt,%
-    top = \fboxsep,%
-    bottom = \fboxsep,%
-    % left = \dimexpr12pt\relax,% set lineno position
-    left = 0pt,%
     listing file = {#3},%
     minted language = #2,%
     minted options = {%
@@ -1415,10 +1417,19 @@
 }
 
 %% 算法
-\PassOptionsToPackage{section, 算法}{algorithm}
-% \AtEndOfPackageFile*{algorithm}{
-% }
-
+\AtBeginOfPackageFile*{algorithm}{
+  \tju@error{Please don't load package "algorithm" since we are creating the float on our own.}
+}
+\DeclareFloatingEnvironment{algorithm}{}
+\captionsetup[algorithm]{%
+  name = {算法},%
+  position = above,%
+}
+\counterwithin{algorithm}{section}
+\AtEndOfPackageFile*{algorithmicx}{%
+  \BeforeBeginEnvironment{algorithmic}{\begin{tcolorbox}[after skip balanced = 0pt]\xiaowu[18bp]}
+  \AfterEndEnvironment{algorithmic}{\end{tcolorbox}}
+}
 
 % 附录
 \appto\appendix{\clearpage}

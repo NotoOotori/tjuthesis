@@ -105,6 +105,9 @@
     - [x] 跨页代码块.
   - [ ] listing 包.
 - [ ] 算法.
+  - [x] algorithmicx 包.
+  - [ ] algorithm2e 包.
+  - [ ] algpseudocodex 包.
 - [ ] 文献引用.
 
 ### 其它排版细节
