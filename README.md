@@ -12,7 +12,13 @@
 
 然后将这个库下载到你的电脑中. 可以用`git clone https://github.com/NotoOotori/tjuthesis.git`命令, 也可以直接下载压缩包并解压.
 
-请使用 `XeLaTeX` 与 `Biber` 进行编译. 推荐采用 `LaTeXmk` 一键编译, 需要安装 [Perl](https://www.perl.org/). 编译命令在 `.vscode/settings.json` 中给出了, 就算不用 VSCode 的话也可以去参考一下.
+请使用 `XeLaTeX` 与 `Biber` 进行编译. 推荐采用 `LaTeXmk` 一键编译, 需要安装 [Perl](https://www.perl.org/). 编译命令为
+
+```bash
+  latexmk -synctex=1 -interaction=nonstopmode -file-line-error --shell-escape -xelatex <filename>
+```
+
+在 `.vscode/settings.json` 中我们也对 VSCode 配置了编译命令.
 
 如果读者想要像示例中那样使用 `minted` 包进行代码块的排版, 则需要按照 [Python](https://wiki.python.org/moin/BeginnersGuide/Download) 和其中的 [Pygments](https://pygments.org/download/) 包.
 
@@ -119,6 +125,7 @@
 ### 其它说明
 
 - [ ] 字体.
+- [ ] 概述.
 
 ### 接口调整
 
@@ -126,11 +133,11 @@
 
 - [ ] 关键词采取某种键值对的方式输入.
 - [ ] 将文献著录相关的定制移出文档类, 给用户提供选择的自由.
-- [ ] 将目前的 style 选项调整为只能在导入文档类时设置, 能减少很多工作量.
 
 ### 编译环境设置
 
 - [ ] latexmkrc文件.
+- [ ] 编译脚本.
 
 ### 在线编辑器支持
 
@@ -140,11 +147,9 @@
 ### 杂项
 
 - [ ] 关于页面设置尤其是页码格式可能有bug.
-- [ ] 当 `\section` 和 `\subsection` 中间没有别的内容的时候, 可能会有 Underfull \vbox 的信息, 目前没有成功在极小例子中复现这个问题, 也不太清楚为什么会有.
-- [ ] 使用 minted 排版代码块时可能会出现 caption 之后被插入换行的情况, 添加 `\nopagebreak` 不能解决这个问题.
 - [ ] 统一代码环境与算法环境的边框的排版.
 - [ ] 表格代码后空一行可能空得不够多.
 
 ## 致谢
 
-这个项目中的一些代码的用法和思路参考了 [tuna/tjuthesis](https://github.com/tuna/thuthesis) 和 [SXKDZ/tongjithesis](https://github.com/SXKDZ/tongjithesis), 特别感谢他们. 感谢这个项目的两位第一批的使用者.
+这个项目中的一些代码的用法和思路参考了 [tuna/tjuthesis](https://github.com/tuna/thuthesis) 和 [SXKDZ/tongjithesis](https://github.com/SXKDZ/tongjithesis), 特别感谢他们. 感谢这个项目的两位第一批的使用者. 感谢单海英老师的指导.

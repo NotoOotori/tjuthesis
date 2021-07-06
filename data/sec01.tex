@@ -5,4 +5,21 @@
 \section{绪论}
 % \section{绪\hspace*{0.5\ccwd}论}
 
-\zhlipsum
+\subsection{概述}
+
+% 这是什么 为什么有这个
+% 示例 而非文档
+% 文档结构
+
+\zhlipsum[1]
+
+\subsection{模板使用与更新}
+
+目前模板只能通过本地免安装的方法使用, 使用方法为从 GitHub 下载最新版, 原则上只需要将 tjuthesis.cls 放入工作目录中即可使用, 用户也可以将包含示例的整个文件夹作为工作目录, 通过修改示例来使用.
+
+更新时读者只需要重新下载最新版的 tjuthesis.cls 文件并替换旧的文件, 如果大版本号有更新的话可能其它 tex 文件也有更改的必要, 届时我会在更新中说明应如何更改.
+
+本模板的编译需要 2020-10-01 及以后版本的 LaTeX 内核, 并使用 XeLaTeX 引擎, 建议用户安装 2021 及以后版本的 TeXLive 发行版. 建议使用 LaTeXmk 进行编译, 需要安装好 \href{https://www.perl.org/get.html}{Perl}. 如果选用 \pckg{minted} 宏包排版代码块, 则需要安装好 \href{https://wiki.python.org/moin/BeginnersGuide/Download}{Python} 以及 Python 中的 \href{https://pygments.org/download/}{Pygments} 包, 并在编译时添加 --shell-escape 选项. 完整的编译命令示例如下:
+\begin{verbatim}
+  latexmk -synctex=1 -interaction=nonstopmode -file-line-error --shell-escape -xelatex <filename>
+\end{verbatim}
