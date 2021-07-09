@@ -120,6 +120,18 @@
 % 配置enumitem宏包
 % \setlist*[enumerate,1]{left = \parindent .. 2\parindent} % 设置enumerate环境一级分项的缩进, 用star version以添加设置而不是覆盖之前的设置
 
+% 浮动体控制宏包
+% 确定浮动对象的位置, 可以使用 H, 强制将浮动对象放到这里 (很可能效果很差, 不推荐使用)
+% 提供 \newfloat 命令建立新的浮动体环境 (与 captions 系列宏包相合性不好, 不推荐使用)
+% \usepackage{float}
+% 浮动图形控制宏包.
+% 允许上一个 section 的浮动图形出现在下一个 section 的开始部分
+% 该宏包提供处理浮动对象的 \FloatBarrier 命令，使所有未处
+% 理的浮动图形立即被处理。这三个宏包仅供参考，未必使用：
+\usepackage{placeins}
+% \usepackage{floatflt} % 图文混排用宏包
+% \usepackage{rotating} % 图形和表格的控制旋转
+
 % 代码块排版宏包
 % 推荐使用minted, 我们已经配置了针对各种情况进行了配置, 使用方法为:
 % \begin{listing}
@@ -165,7 +177,7 @@
 
 % 在log里显示更多debug信息
 \showboxdepth=3 \showboxbreadth=30
-% \overfullrule=1mm
+\overfullrule=1mm
 
 % 表格中支持跨行
 % \usepackage{multirow}
@@ -180,24 +192,13 @@
 % \usepackage{threeparttable}
 % \pretocmd{\TPTnoteSettings}{\footnotesize}{}{}
 
-% 确定浮动对象的位置，可以使用 H，强制将浮动对象放到这里（可能效果很差）
-\usepackage{float}
-
-% 浮动图形控制宏包。
-% 允许上一个 section 的浮动图形出现在下一个 section 的开始部分
-% 该宏包提供处理浮动对象的 \FloatBarrier 命令，使所有未处
-% 理的浮动图形立即被处理。这三个宏包仅供参考，未必使用：
-% \usepackage[below]{placeins}
-% \usepackage{floatflt} % 图文混排用宏包
-% \usepackage{rotating} % 图形和表格的控制旋转
-
 % verbatim
 \makeatletter
 \newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
 \verbatimfont{\xiaowu}
 \makeatother
-% \BeforeBeginEnvironment{verbatim}{\begin{tcolorbox}[breakable]}
-% \AfterEndEnvironment{verbatim}{\end{tcolorbox}}
+\BeforeBeginEnvironment{verbatim}{\begin{tcolorbox}[breakable, nobeforeafter, before = {\vskip 9bp}, after = {\leavevmode\newline}]}
+\AfterEndEnvironment{verbatim}{\end{tcolorbox}}
 
 \AtBeginDocument{%https://tex.stackexchange.com/a/117995
   \let\span\relax
@@ -206,3 +207,5 @@
   \DeclareMathOperator{\argmin}{argmin}
 }
 \newcommand*{\norm}[1]{\Vert #1 \Vert}
+
+\AtBeginEnvironment{quote}{\itshape}
