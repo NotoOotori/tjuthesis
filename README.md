@@ -8,7 +8,7 @@
 
 ### 下载与编译
 
-首先确保你的电脑中安装了较新的LaTeX发行版和较新的宏包, 要求 LaTeX 版本不旧于 2020-10-01 版. 推荐安装[TeX Live 2021](https://www.tug.org/texlive/acquire-netinstall.html), 安装教程可以参考 [知乎用户李阿玲](https://www.zhihu.com/people/li-a-ling) 的 TeXLive 安装指南, 目前更新到 [2020 版](https://zhuanlan.zhihu.com/p/129789360), 2021 版也类似.
+首先确保你的电脑中安装了较新的LaTeX发行版和较新的宏包, 要求 LaTeX 版本不旧于 2020-10-01 版. 推荐安装[TeX Live 2021](https://www.tug.org/texlive/acquire-netinstall.html), 安装教程可以参考 [一份简短的关于 LaTeX 安装的介绍](http://mirrors.ctan.org/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf) (比较详细, 主要用命令行) 和 [TeX Live 2020不安装指南](https://zhuanlan.zhihu.com/p/129789360) (Step by step, 有图, 使用 GUI 安装).
 
 然后将这个库下载到你的电脑中. 可以用`git clone https://github.com/NotoOotori/tjuthesis.git`命令, 也可以直接下载压缩包并解压.
 
