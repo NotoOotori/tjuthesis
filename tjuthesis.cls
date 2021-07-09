@@ -517,7 +517,10 @@
     BoldItalicFont   = KaiTi,
     BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
   ]%
-  \newfontfamily\songti{SimSun}
+  \newfontfamily\songti{SimSun}[
+    AutoFakeBold = true,
+    ItalicFont   = SimSun,
+  ]
   \newCJKfontfamily\zhhei{SimHei}[
     BoldFont = SimHei,
     BoldFeatures = { FakeBold = \tju@cjk@embolden@factor },
@@ -1407,6 +1410,21 @@
       #1%
     }
   }
+  \newtcblisting{tcbminted}[2][]{%
+    breakable,%
+    listing only,%
+    minted language = #2,%
+    minted options = {%
+      breaklines = true,%
+      breakanywhere = true,%
+      fontsize = \xiaowu,%
+      frame = none,%
+      xleftmargin = 0em,%
+      xrightmargin = 0em,%
+      python3 = true,%
+      #1%
+    }
+}
   \renewenvironment{listing}{%
     \vskip \dimexpr\tju@line@height@normal+9bp\relax
     \captionsetup{type=listing}%
