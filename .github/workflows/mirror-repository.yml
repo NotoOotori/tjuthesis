@@ -1,6 +1,6 @@
 name: Mirror Repository
 
-on: [push, delete]
+on: [push, delete, workflow_dispatch]
 
 jobs:
   to_gitlab:
