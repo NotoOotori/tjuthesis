@@ -1393,6 +1393,7 @@
     \def\tju@lowlevel@colname{\@gobble}
     \pgfplotstableread[col sep = comma]{#4}{\tju@loaded@table}
     \pgfplotstablegetcolsof{\tju@loaded@table}
+    \let\tju@table@cols\pgfplotsretval
     % https://tex.stackexchange.com/a/357580
     \pgfplotstableforeachcolumn\tju@loaded@table\as\tju@col@temp{%
       \expandafter\g@addto@macro\expandafter\tju@lowlevel@colname\expandafter{\expandafter&\tju@col@temp}
@@ -1414,7 +1415,7 @@
         after row = {%
           \midrule%
           \endfirsthead%
-          \multicolumn{2}{r}{{续表 \thetable}}\\% 当心太长了把列宽拉长
+          \multicolumn{\tju@table@cols}{r}{{续表 \thetable}}\\% 当心太长了把列宽拉长
           \toprule
           \tju@lowlevel@colname%
           \midrule
@@ -1425,11 +1426,11 @@
       },
       column type = c,
       every first column/.style = {%
-        column type/.add = {@{\extracolsep{\fill}}}{}
+        column type/.add = {}{@{\extracolsep{\fill}}}
       },
-      every last column/.style = {%
-        column type/.add = {}{@{}}
-      },
+      % every last column/.style = {%
+      %   column type/.add = {}{}
+      % },
       end table = \end{longtable},
       #1%
     ]{\tju@loaded@table}
