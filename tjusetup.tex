@@ -176,54 +176,8 @@
 % \usepackage{floatflt} % 图文混排用宏包
 % \usepackage{rotating} % 图形和表格的控制旋转
 
-\RequirePackage{listings}
-% \newcommand{\LstlistingLang}{代码}
-% \newcommand{\LstlistingLabel}[1]{\LstlistingLang#1}
-% \labelformat{lstlisting}{\LstlistingLabel{#1}}
-% BeginDocument
-% \renewcommand\lstlistingname{\LstlistingLang}
-
-\RequirePackage[numbered,framed]{matlab-prettifier} % for matlab code
-\RequirePackage{mdframed}
-\lstset{
-	breaklines=true,
-	%backgroundcolor=\color{lightgray},
-	basicstyle=\scriptsize,
-	% inputpath=data/,
-	numbers=left,
-	numberstyle={\color{black!33}\scriptsize\sffamily},
-	xleftmargin=2em,
-	xrightmargin=2em
-}
-\newcommand{\matlabinline}[1]{
-	\lstinline[style=MATLAB-editor, basicstyle=\ttfamily]{#1}
-}
-\newcommand{\minputlisting}[2][]{ % #1: caption or label
-	\lstinputlisting[
-		style=MATLAB-editor,
-		basicstyle=\ttfamily\scriptsize,
-		%basicstyle = \scriptsize,
-		#1
-	]{#2}
-}
-
-\newcommand{\matlabinputlisting}[2][]{
-  \begin{mdframed}[linewidth=0]
-	\minputlisting[#1]{#2}
-  \end{mdframed}
-}
-\RequirePackage[newfloat]{minted}
-\newenvironment{longcode}{\captionsetup{type=listing,name={代码}}}{}
-\RequirePackage{xcolor} % the above four options and packages are used for code highlighted, together with caption positioned on top.
-
 \RequirePackage{diagbox} % draw diagonal line in a cell of tabular
 
-\RequirePackage{algorithm}
-\RequirePackage{algorithmicx}
-\RequirePackage{algpseudocode} % algorithm and pseudocode package
-
 \usepackage{pgfplotstable}
-\pgfplotsset{compat=1.18}
 
 \usepackage{longtable}
-\usepackage{booktabs}
