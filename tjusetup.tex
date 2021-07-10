@@ -132,6 +132,10 @@
 % \usepackage{floatflt} % 图文混排用宏包
 % \usepackage{rotating} % 图形和表格的控制旋转
 
+% 表格排版宏包
+\usepackage{longtable}% 非浮动体表格与跨页表格
+\usepackage{pgfplotstable}% 文档类中设置了 \pgfplotsset{compat=1.18}
+
 % 代码块排版宏包
 % 推荐使用minted, 我们已经配置了针对各种情况进行了配置, 使用方法为:
 % \begin{listing}
@@ -201,8 +205,7 @@
 \AfterEndEnvironment{verbatim}{\end{tcolorbox}}
 
 \AtBeginDocument{%https://tex.stackexchange.com/a/117995
-  \let\span\relax
-  \DeclareMathOperator{\span}{span}
+  \DeclareMathOperator{\mspan}{span}
   \DeclareMathOperator{\Rq}{Rq}
   \DeclareMathOperator{\argmin}{argmin}
 }

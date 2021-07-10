@@ -1365,6 +1365,61 @@
 \counterwithin{table}{section}
 \AtBeginEnvironment{tabular*}{\xiaowu[18bp]}
 \AtBeginEnvironment{tabularx}{\xiaowu[18bp]}
+\AtEndOfPackageFile*{pgfplots}{%
+  \pgfplotsset{compat=1.18}
+}
+\AtEndOfPackageFile*{pgfplotstable}{%
+  \pgfplotstableset{
+    empty header/.style={
+      every head row/.style={output empty row},
+    }
+  }
+  \newcommand\typesetlongtable[4][]{%
+    \def\tju@lowlevel@colname{\@gobble}
+    \pgfplotstableread[col sep = comma]{#4}{\tju@loaded@table}
+    \pgfplotstablegetcolsof{\tju@loaded@table}
+    % https://tex.stackexchange.com/a/357580
+    \pgfplotstableforeachcolumn\tju@loaded@table\as\tju@col@temp{%
+      \expandafter\g@addto@macro\expandafter\tju@lowlevel@colname\expandafter{\expandafter&\tju@col@temp}
+    }
+    \g@addto@macro\tju@lowlevel@colname{\\}
+    % https://tex.stackexchange.com/a/246001
+    \setlength\LTleft{0pt plus \textwidth}
+    \setlength\LTright{0pt plus \textwidth}
+    % https://tex.stackexchange.com/a/309823
+    \pgfplotstabletypeset[
+      begin table = \begin{longtable},
+      begin table/.add = {\xiaowu[18bp]}{},
+      every head row/.append style = {%
+        before row = {%
+          \caption{#2}\label{#3}\\%
+          \toprule%
+          %
+        },
+        after row = {%
+          \midrule%
+          \endfirsthead%
+          \multicolumn{2}{r}{{续表 \thetable}}\\% 当心太长了把列宽拉长
+          \toprule
+          \tju@lowlevel@colname%
+          \midrule
+          \endhead
+          \bottomrule
+          \endfoot
+        },
+      },
+      column type = c,
+      every first column/.style = {%
+        column type/.add = {@{\extracolsep{\fill}}}{}
+      },
+      every last column/.style = {%
+        column type/.add = {}{@{}}
+      },
+      end table = \end{longtable},
+      #1%
+    ]{\tju@loaded@table}
+  }
+}
 
 %% 代码
 % https://tex.stackexchange.com/a/53540
