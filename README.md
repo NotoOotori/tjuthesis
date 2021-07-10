@@ -1,16 +1,20 @@
 # tjuthesis
 
-这个库旨在提供同济大学本科生毕业论文的模板, 包括一个文档类, 一些示例以及完整的使用文档, 目前仅有文档类及简单示例, 之后希望可以逐步完善.
+这个库旨在提供同济大学本科生毕业论文 (设计) 的模板, 目前包括一个文档类和一份使用示例, 之后可能也很难做出一份完整的文档了.
 
-请用户在使用之前先阅读完 [如何使用](#如何使用) 部分.
+这个库发布在 [GitHub](https://github.com/NotoOotori/tjuthesis) 上, 并在 [Gitee](https://gitee.com/NotoOotori/tjuthesis) 上有镜像. 目前还没有发布版本.
+
+这份模板是学生自制的, 未经学校相关部门的授权与审核, 尽管 2021 届的总共 3 位使用者都顺利完成毕业论文并毕业, 不过用户还是应当了解其中的风险: 从 2021 届开始, 学校采用了新的教务系统来提交论文并采用了新的知网查重系统进行查重, 其中教务系统至今 (作者毕业证书和学位证书已经拿到近一周了) 仍未支持 PDF 文件的提交, 而新的查重系统对于 PDF 文件的支持也很糟糕 (有 80000 字符的上限, 可是它统计出来的 PDF 文件的字符数要远高于将 PDF 文件中全部字符复制粘贴进 Word 之后统计出的字符数, 因此有些同学可能最后还需要降字数才能查重, 而我们知道给论文降字数可能是比降重还要痛苦的一件事).
+
+<!-- 推荐用户阅读完 [如何使用](#如何使用) 部分. -->
 
 ## 如何使用
 
 ### 下载与编译
 
-首先确保你的电脑中安装了较新的LaTeX发行版和较新的宏包, 要求 LaTeX 版本不旧于 2020-10-01 版. 推荐安装[TeX Live 2021](https://www.tug.org/texlive/acquire-netinstall.html), 安装教程可以参考 [一份简短的关于 LaTeX 安装的介绍](http://mirrors.ctan.org/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf) (比较详细, 主要用命令行) 和 [TeX Live 2020不安装指南](https://zhuanlan.zhihu.com/p/129789360) (Step by step, 有图, 使用 GUI 安装).
+首先确保你的电脑中安装了较新的LaTeX发行版和较新的宏包, 要求 LaTeX 版本不旧于 2020-10-01 版. 推荐安装[TeX Live 2021](https://www.tug.org/texlive/acquire-netinstall.html), 安装教程可以参考 [一份简短的关于 LaTeX 安装的介绍](http://mirrors.ctan.org/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf) (比较全面, 主要用命令行进行配置安装) 和 [TeX Live 2020 不安装指南](https://zhuanlan.zhihu.com/p/129789360) (使用 GUI 安装的图文教程).
 
-然后将这个库下载到你的电脑中. 可以用`git clone https://github.com/NotoOotori/tjuthesis.git`命令, 也可以直接下载压缩包并解压.
+然后将这个库下载到你的电脑中. 可以用 `git clone https://github.com/NotoOotori/tjuthesis.git` 命令, 也可以直接下载压缩包并解压.
 
 请使用 `XeLaTeX` 与 `Biber` 进行编译. 推荐采用 `LaTeXmk` 一键编译, 需要安装 [Perl](https://www.perl.org/). 编译命令为
 
@@ -24,7 +28,7 @@
 
 ### 开始撰写
 
-首先来看 tjusetup.tex 这个文件. 先根据注释的指示在 `\tjusetup` 命令中完善论文的基本信息, 然后再在其后引用你习惯使用的宏包, 做相应的配置, 并定义自己常用的东西.
+首先来看 tjusetup.tex 这个文件. 先根据注释的指示在 `\tjusetup` 命令中完善论文的基本信息, 然后再在其后引用自己习惯使用的宏包, 做相应的配置, 并定义自己常用的东西.
 
 然后是文章内容的书写. 在 `data/` 目录下有摘要和致谢对应的文件, 根据注释的指示填写其内容即可. 再在 `data/` 目录下按照个人习惯建立正文及附录的 `.tex` 文件, 并像 `tjuthesis-example.tex` 将这些文件包含在主文件中.
 
@@ -119,8 +123,9 @@
 ### 其它排版细节
 
 - [ ] 脚注.
-- [ ] autoref.
+- [ ] cleveref.
 - [ ] breakurl 说明.
+- [ ] floatbarrier.
 
 ### 其它说明
 
@@ -150,6 +155,14 @@
 - [ ] 统一代码环境与算法环境的边框的排版.
 - [ ] 表格代码后空一行可能空得不够多.
 
+## 提问与贡献
+
+如果有任何改进意见或者功能需求, 欢迎提交 [issue](https://github.com/NotoOotori/tjuthesis/issues) 或 [pull request](https://github.com/NotoOotori/tjuthesis/pulls).
+
+## 许可证
+
+本模板 (tjuthesis.cls) 的发布遵守 [LaTeX Project Public License](https://www.latex-project.org/lppl.txt) (版本 1.3c 或更高). 文件 tjusetup.tex 可以自由分发. 不允许在未经授权的情况下分发本库中的其余文件.
+
 ## 致谢
 
-这个项目中的一些代码的用法和思路参考了 [tuna/tjuthesis](https://github.com/tuna/thuthesis) 和 [SXKDZ/tongjithesis](https://github.com/SXKDZ/tongjithesis), 特别感谢他们. 感谢这个项目的两位第一批的使用者. 感谢单海英老师的指导.
+这个项目中的一些代码的用法和思路参考了 [tuna/tjuthesis](https://github.com/tuna/thuthesis) 和 [SXKDZ/tongjithesis](https://github.com/SXKDZ/tongjithesis), 特别感谢他们. 感谢这个项目的两位第一批的使用者. 感谢单海英老师的指导. 感谢为这个库的发展和推广做出贡献的你们.
