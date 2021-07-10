@@ -2,8 +2,34 @@
 
 \section{排版示例}
 
-这一章中我们给出一些排版示例, 以便一些对\LaTeX 不熟悉的同学来学习参考.
-% TODO: 列举
+这一章中我们给出一些排版示例, 以便一些对 {\LaTeX} 不熟悉的同学来学习参考.
+
+\subsection{文献引用}\label{sec:exm-bib}
+
+采用 \verb|\upcite| 宏和 \verb|\parencite| 宏来引用文献, 具体效果见 \ref{tab:cite-cmd}. \verb|\cite| 宏被定义为
+\begin{verbatim}
+  \let\cite\upcite
+\end{verbatim}
+即与 \verb|\upcite| 宏相同.
+
+对于数学与应用数学专业的同学, 文献引用可以采用数学常用的格式. 目前来说仍应该按照引用顺序编号, 引用时不需要上标, 外文文献的作者名字也不用按照国标示例全大写. 如果一本图书只引用同一处内容, 则可以在参考文献表中标注页码; 如果图书广泛引用, 则不需要多次重复著录和标注页码. 我们也定义了 \verb|\thmcite| 宏来引用文献中的定理. 为了参考文献示例的需要, 我们来多搞点文献, 使得一共有十个及以上的文献 \cite{atiyah_introduction_1969, herrlich_axiom_2006, jacobson_basic_1985, jacobson_basic_1989, zariski_commutative_1958, zariski_commutative_1960, ciarlet_linear_2013, flaherty_riemannian_1992, munkres_topology_2000, ahlfors_complex_1978, milne_algebraic_2017}.
+
+\begin{table}[htbp]
+  \caption{文献引用常用命令示例}\label{tab:cite-cmd}
+  \begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} ll}
+    \toprule
+    命令 & 效果\\
+    \midrule
+    \verb|\upcite{atiyah_introduction_1969}| & \upcite{atiyah_introduction_1969}\\
+    \verb|\parencite{atiyah_introduction_1969}| & \parencite{atiyah_introduction_1969}\\
+    \verb|\thmcite[Theorem 1.5.9]{riehl_category_2017}| & \thmcite[Theorem 1.5.9]{riehl_category_2017}\\
+    \verb|\thmcites[Theorem 11.3]{altman_term_2017}| & \thmcites[Theorem 11.3]{altman_term_2017}[Proposition 3.1]{atiyah_introduction_1969}\\
+    \verb|  [Proposition 3.1]{atiyah_introduction_1969}| & ~\\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+测试一下翻译成外文的外文文献的著录 \cite{sally_history_1985}. 不太正式的参考资料\footfullcite{andrew_how_2016}我们在脚注里引用, 并且不著录进参考文献表中. 目前这个引用的著录格式与参考文献表中要求的格式不太相同, 不过短时间没有解决这个问题的动力.
 
 \subsection{插图}
 

@@ -1561,7 +1561,18 @@
   {%[
   \usebibmacro{cite:dump}]%
    \printfield{postnote}}%\kern\p@ \kern\z@
-\let\cite\parencite
+\let\cite\upcite
+\DeclareCiteCommand{\thmcite}[\normalfont\mkbibbrackets]
+  {\normalfont\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}%
+  {\normalfont\usebibmacro{citeindex}%
+   \usebibmacro{cite:comp}%
+   \usebibmacro{cite:dump}%
+   \usebibmacro{postnote}}%
+  {}
+  {%
+}
+\DeclareMultiCiteCommand{\thmcites}[\normalfont\mkbibbrackets]{\thmcite}{; }
 
 %% 参考文献表
 \newcommand\tju@bibliography{%
