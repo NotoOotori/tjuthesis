@@ -12,7 +12,7 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 %
-% The Current Maintainers of this work are Chen Xuyang and Zheng Bowen.
+% The Current Maintainer of this work are Chen Xuyang.
 %
 % This work consists only of the file tjuthesis.cls
 
@@ -1415,6 +1415,7 @@
         after row = {%
           \midrule%
           \endfirsthead%
+          % https://tex.stackexchange.com/a/276468
           \multicolumn{\tju@table@cols}{r}{{续表 \thetable}}\\% 当心太长了把列宽拉长
           \toprule
           \tju@lowlevel@colname%
