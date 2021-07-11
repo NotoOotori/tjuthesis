@@ -2,13 +2,7 @@
 
 \section{附录第一节}
 
-附录要另起一页. 附录的一级标题我们也会换页, 请使用者注意.
-
-\subsection{附录第一子节的标题}
-
-\zhlipsum
-
-\subsection{附录第二子节的标题}
+附录要另起一页. 附录的一级标题我们也会换页, 请用户注意.
 
 \zhlipsum
 
@@ -18,10 +12,16 @@
 
 \section{代码}
 
+\subsection{短代码}
+
+这里代码块的高度比较尴尬, 甚至可能影响章节标题的位置, 我们正在想办法解决这一问题, 一种解决方式就是让每个代码块都撑到页面底部.
+
 \begin{listing}
   \caption{Jacobi-Davidson 迭代法}\label{code:JD-iter}
   \tcbinputminted{matlab}{codes/jacobi-davidson.m}
 \end{listing}
+
+\subsection{长代码}
 
 \begin{longlisting}
 	\caption{神经网络初值训练, 保存和调用}\label{code:NN-init}

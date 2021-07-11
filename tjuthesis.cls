@@ -1372,6 +1372,9 @@
   position = below,%
 }
 \counterwithin{figure}{section}
+\captionsetup[subfigure]{%
+  position= below,%
+}
 
 %% 表格
 \captionsetup[table]{%
