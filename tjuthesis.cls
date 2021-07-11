@@ -19,7 +19,7 @@
 % -------------------- Identification --------------------
 
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{tjuthesis}[2021/06/01 0.0.0 Tongji University Thesis Template]
+\ProvidesClass{tjuthesis}[2021/07/11 0.0.0 Tongji University Thesis Template]
 
 % -------------------- Preliminary Declarations --------------------
 

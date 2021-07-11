@@ -47,11 +47,11 @@
   % 指导教师
   %   中文姓名和职称之间以英文逗号分开, 也可不写职称
   %
-  supervisor  = {李灵光, 副教授},
+  supervisor  = {单海英, 教授},
   % 日期
-  %   使用 ISO 格式；默认为当前时间
+  %   使用 ISO 格式; 默认为当前时间
   %
-  % date = {2021-06-09},
+  date = {2021-07-11},
   %
   % 英文字体
   %   times   Times New Roman 字体,
@@ -133,7 +133,12 @@
 % \usepackage{rotating} % 图形和表格的控制旋转
 
 % 表格排版宏包
-\usepackage{longtable}% 非浮动体表格与跨页表格
+% 固定宽度的表格. 放在 hyperref 之前的话, tabularx 里的 footnote 显示不出来
+% 也可以不使用额外的宏包而使用 {... @{\extracolsep{\fill}} ...} 对齐设置
+% \usepackage{tabularx}
+% 非浮动体表格与跨页表格
+\usepackage{longtable}
+% 从文件中读取并排版表格
 \usepackage{pgfplotstable}% 文档类中设置了 \pgfplotsset{compat=1.18}
 
 % 代码块排版宏包
@@ -185,12 +190,6 @@
 
 % 表格中支持跨行
 % \usepackage{multirow}
-
-% 跨页表格
-% \usepackage{longtable}
-
-% 固定宽度的表格。放在 hyperref 之前的话，tabularx 里的 footnote 显示不出来。
-% \usepackage{tabularx}
 
 % 表格加脚注
 % \usepackage{threeparttable}
