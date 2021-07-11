@@ -128,7 +128,7 @@
   - [x] algorithmicx 包.
   - [ ] algorithm2e 包.
   - [ ] algpseudocodex 包.
-- [ ] 文献引用.
+- [x] 文献引用.
 
 ### 其它排版细节
 
