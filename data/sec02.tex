@@ -5,12 +5,7 @@
 \subsection{页面格式}
 
 \subsubsection{装订线}
-\begin{figure}
-	\begin{center}
-	\includegraphics[]{data/fig/Schwarz_Alternating.png}
-	\caption{Schwarz交替法的重叠划分示意图}
-	\end{center}
-\end{figure}
+\input{data/trytikz.tex}
 装订线由 ``装订线" 三字与unicode字符 U+250A ``┊" 构成, 其中汉字两两之间间隔五个 ``┊" 字符, 而汉字外侧还有十三个 ``┊" 字符. 经过测量, 我们发现装订线整体距离页上边框约为5.89厘米, 距离页下边框约5.02厘米, 而装订线水平中心距离页左边框约1.88厘米, 装订线的行间距约为0.48厘米.
 
 旧版本中我们采用 \pckg{fancybox} 进行装订线的排版. 根据文档我们知道参数中默认页面上有1英寸的边缘, 经过测量我们发现页面左边的边缘约为2.74厘米, 于是我们可以采用
