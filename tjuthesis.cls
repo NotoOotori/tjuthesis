@@ -19,7 +19,7 @@
 % -------------------- Identification --------------------
 
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{tjuthesis}[2021/07/11 0.0.0 Tongji University Thesis Template]
+\ProvidesClass{tjuthesis}[2021/12/16 0.1.1 Tongji University Thesis Template]
 
 % -------------------- Preliminary Declarations --------------------
 
@@ -45,7 +45,7 @@
 \fi
 
 
-\newcommand\version{0.0.0}
+\newcommand\version{0.1.1}
 \newcommand\DocumentClass{article}
 
 
@@ -1384,7 +1384,7 @@
 \AtBeginEnvironment{tabular*}{\xiaowu[18bp]}
 \AtBeginEnvironment{tabularx}{\xiaowu[18bp]}
 \AtEndOfPackageFile*{pgfplots}{%
-  \pgfplotsset{compat=1.18}
+  \pgfplotsset{compat=1.17}
 }
 \AtEndOfPackageFile*{pgfplotstable}{%
   \pgfplotstableset{

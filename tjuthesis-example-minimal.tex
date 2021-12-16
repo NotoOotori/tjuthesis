@@ -1,0 +1,53 @@
+% !TeX encoding = UTF-8
+
+\documentclass[degree=bachelor,tju-style=standard,twoside]{tjuthesis}
+  % 学位 degree:
+  %   bachelor
+  % 样式 tju-style:
+  %   standard  按照学校手册要求进行排版 (默认)
+  %   math      模仿应数专业下发的"应数毕业论文模板new.tex"的排版
+
+
+% 论文基本配置，加载宏包等全局配置
+\input{tjusetup-minimal.tex}
+
+
+\begin{document}
+
+
+\frontmatter
+
+% 封面
+\tjuputcover
+
+% 摘要
+\input{data/abstract.tex}
+
+% 目录
+\tableofcontents
+
+
+% 正文部分
+\mainmatter
+\input{data/sec01.tex}
+\input{data/sec02.tex}
+% \input{data/sec03.tex}
+% \input{data/sec04.tex}
+\input{data/sec05.tex}
+
+% 参考文献 ref/refs.tex
+\tjubibliography
+
+% 附录
+\appendix
+% \input{data/appendix.tex}
+
+
+% 其它部分
+\backmatter
+
+% 致谢
+\input{data/acknowledgements.tex}
+
+
+\end{document}
