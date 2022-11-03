@@ -149,7 +149,12 @@
 \begin{verbatim}
   pygmentize -L lexers
 \end{verbatim}
-进行查询. \ref{code:JD-iter} 是一个较短 Matlab 代码块的例子, 而 \ref{code:NN-init} 是一个较长 Python 代码块的例子, 放入附录中.
+进行查询. 因为大部分同学的环境中并不满足所需的依赖, 所以这个示例中就不展示用 \pckg{minted} 排版的效果了. 如果有安装完 Pygments 的同学想看示例, 可以将 tjuthesis.tex 中的
+\begin{verbatim}
+  \usepackage{minted}
+\end{verbatim}
+结束注释,
+% \ref{code:JD-iter} 是一个较短 Matlab 代码块的例子, 而 \ref{code:NN-init} 是一个较长 Python 代码块的例子, 放入附录中.
 
 目前我们提供了完全相同的 listing 环境和 longlisting 环境, 它们都不是浮动体, 将来我们会把 listing 环境设置为浮动体, 把 longlisting 环境设置为可以换页的环境.
 
