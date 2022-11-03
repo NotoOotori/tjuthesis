@@ -127,7 +127,7 @@
 
 \emph{要注意手册的示例中``{\songti 续表 XX}" 的中英文及阿拉伯数字均为宋体, 与示例旁边的叙述 (英文 Times New Roman) 矛盾了, 因此我们没有模仿这一行为.}
 
-\subsection{代码}
+\subsection{代码}\label{sec:exm-code}
 
 手册对论文中所附代码块的排版没有具体要求, 不过一般代码块应该在附录中使用, 除非很有必要的情况不推荐在正文中放入代码块. 文档类中代码块采用 1.3 倍行距, 中文为仿宋字体, 中文的斜体采用楷体, 字号均为小五; 英文为 Courier New 字体, 字体大小经过缩放使得小写字母的高度与小五的 Times New Roman 字体的小写字母的高度相匹配. 代码块由 0.4pt 粗的边框包围, 代码块的标题与表题排版相同, 放在代码块上方, 字号小五, 行距 18bp.
 
@@ -149,11 +149,7 @@
 \begin{verbatim}
   pygmentize -L lexers
 \end{verbatim}
-进行查询. 因为大部分同学的环境中并不满足所需的依赖, 所以这个示例中就不展示用 \pckg{minted} 排版的效果了. 如果有安装完 Pygments 的同学想看示例, 可以将 tjuthesis.tex 中的
-\begin{verbatim}
-  \usepackage{minted}
-\end{verbatim}
-结束注释,
+进行查询. 因为大部分同学的环境中并不满足所需的依赖, 所以这个示例中就不展示用 \pckg{minted} 排版的效果了. 如果有安装完 Pygments 的同学想看示例, 可以将配置文件 \verb|tjusetup.tex| 中的 \verb|\usepackage{minted}| 解除注释, 并将附录中的代码块例子解除注释
 % \ref{code:JD-iter} 是一个较短 Matlab 代码块的例子, 而 \ref{code:NN-init} 是一个较长 Python 代码块的例子, 放入附录中.
 
 目前我们提供了完全相同的 listing 环境和 longlisting 环境, 它们都不是浮动体, 将来我们会把 listing 环境设置为浮动体, 把 longlisting 环境设置为可以换页的环境.
@@ -238,3 +234,15 @@
 \end{table}
 
 测试一下翻译成外文的外文文献的著录 \cite{sally_history_1985}. 不太正式的参考资料\footfullcite{andrew_how_2016}我们在脚注里引用, 并且不著录进参考文献表中. 目前这个引用的著录格式与参考文献表中要求的格式不太相同, 不过短时间没有解决这个问题的动力.
+
+\subsection{标题中的特殊字符 \texorpdfstring{$\lambda$}{lambda}}
+
+在标题中如果直接添加特殊字符的话, 会因为书签中不允许有特殊字符而报错, 这时候我们就需要用宏
+\begin{verbatim}
+  \texorpdfstring{<special_characters>}{<ascii_text>}
+\end{verbatim}
+将书签中记录的字符设置为通常字符 \verb|<ascii_text>|. 比如说这一第三级标题是由如下命令生成的.
+\begin{verbatim}
+  \subsection{标题中的特殊字符 \texorpdfstring{$\lambda$}{lambda}}
+\end{verbatim}
+

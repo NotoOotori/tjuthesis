@@ -19,7 +19,7 @@
 % -------------------- Identification --------------------
 
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{tjuthesis}[2021/12/16 0.1.1 Tongji University Thesis Template]
+\ProvidesClass{tjuthesis}[2022/11/03 0.1.2 Tongji University Thesis Template]
 
 % -------------------- Preliminary Declarations --------------------
 
@@ -45,7 +45,7 @@
 \fi
 
 
-\newcommand\version{0.1.1}
+\newcommand\version{0.1.2}
 \newcommand\DocumentClass{article}
 
 
