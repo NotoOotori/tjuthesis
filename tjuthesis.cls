@@ -19,7 +19,7 @@
 % -------------------- Identification --------------------
 
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{tjuthesis}[2022/11/03 0.1.2 Tongji University Thesis Template]
+\ProvidesClass{tjuthesis}[2023/04/16 0.1.3 Tongji University Thesis Template]
 
 % -------------------- Preliminary Declarations --------------------
 
@@ -45,7 +45,7 @@
 \fi
 
 
-\newcommand\version{0.1.2}
+\newcommand\version{0.1.3}
 \newcommand\DocumentClass{article}
 
 
@@ -436,8 +436,9 @@
     ItalicFont = \tju@font@name@it,
     BoldItalicFont = \tju@font@name@bfit,
   ]
-  \setsansfont{Arial}%
-  \setmonofont{Courier New}[Scale = MatchLowercase]%
+  %\setsansfont{Helvetica}%
+  %\setsansfont{texgyreheros-regular.otf}[Scale=MatchLowercase]
+  %\setmonofont{Courier New}[Scale = MatchLowercase]%
 }
 \tju@load@font
 \tju@option@hook{font}{%
@@ -513,38 +514,77 @@
 \newcommand\tju@cjk@embolden@factor{4}
 \newcommand\tju@load@cjk@font@windows{%
   \xeCJKsetup{EmboldenFactor = \tju@cjk@embolden@factor}
-  \setCJKmainfont{SimSun}[
-    BoldFont = SimHei,
-    ItalicFont   = KaiTi,
-    % ItalicFeatures = { AutoFakeBold = true },
-    BoldItalicFont   = KaiTi,
-    BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
-  ]%
-  \setCJKsansfont{SimHei}[AutoFakeBold]%
-  \setCJKmonofont{FangSong}[
-    AutoFakeBold = true,
-    ItalicFont = KaiTi,
-  ]%
-  \newCJKfontfamily\zhsong{SimSun}[
-    AutoFakeBold = true,
-    ItalicFont   = KaiTi,
-    % ItalicFeatures = { AutoFakeBold = true },
-    BoldItalicFont   = KaiTi,
-    BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
-  ]%
-  \newfontfamily\songti{SimSun}[
-    AutoFakeBold = true,
-    ItalicFont   = SimSun,
-  ]
-  \newCJKfontfamily\zhhei{SimHei}[
-    BoldFont = SimHei,
-    BoldFeatures = { FakeBold = \tju@cjk@embolden@factor },
-  ]%
-  \newCJKfontfamily\zhkai{KaiTi}[AutoFakeBold]%
-  \newCJKfontfamily\zhfs{FangSong}[
-    AutoFakeBold = true,
-    ItalicFont = KaiTi,
-  ]%
+  \IfFontExistsTF{SimSun}{%
+    \setCJKmainfont{SimSun}[
+      BoldFont = SimHei,
+      ItalicFont   = KaiTi,
+      % ItalicFeatures = { AutoFakeBold = true },
+      BoldItalicFont   = KaiTi,
+      BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
+    ]%
+    \setCJKsansfont{SimHei}[AutoFakeBold]%
+    \setCJKmonofont{FangSong}[
+      AutoFakeBold = true,
+      ItalicFont = KaiTi,
+    ]%
+    \newCJKfontfamily\zhsong{SimSun}[
+      AutoFakeBold = true,
+      ItalicFont   = KaiTi,
+      % ItalicFeatures = { AutoFakeBold = true },
+      BoldItalicFont   = KaiTi,
+      BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
+    ]%
+    \newfontfamily\songti{SimSun}[
+      AutoFakeBold = true,
+      ItalicFont   = SimSun,
+    ]
+    \newCJKfontfamily\zhhei{SimHei}[
+      BoldFont = SimHei,
+      BoldFeatures = { FakeBold = \tju@cjk@embolden@factor },
+    ]%
+    \newCJKfontfamily\zhkai{KaiTi}[AutoFakeBold]%
+    \newCJKfontfamily\zhfs{FangSong}[
+      AutoFakeBold = true,
+      ItalicFont = KaiTi,
+    ]%
+  }{%
+    \setCJKmainfont{FandolSong-Regular}[
+      Extension = .otf,
+      BoldFont = FandolSong-Bold,
+      ItalicFont   = FandolKai-Regular,
+      % ItalicFeatures = { AutoFakeBold = true },
+      BoldItalicFont   = FandolKai-Regular,
+      BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
+    ]%
+    \setCJKsansfont{FandolHei-Regular.otf}[AutoFakeBold]%
+    \setCJKmonofont{FandolFang-Regular.otf}[
+      AutoFakeBold = true,
+      ItalicFont = FandolKai-Regular.otf,
+    ]%
+    \newCJKfontfamily\zhsong{FandolSong-Regular}[
+      Extension = .otf,
+      AutoFakeBold = true,
+      ItalicFont   = FandolKai-Regular,
+      % ItalicFeatures = { AutoFakeBold = true },
+      BoldItalicFont   = FandolKai-Regular,
+      BoldItalicFeatures = { FakeBold = \tju@cjk@embolden@factor },
+    ]%
+    \newfontfamily\songti{FandolSong-Regular}[
+      Extension = .otf,
+      AutoFakeBold = true,
+      ItalicFont   = FandolKai-Regular,
+    ]
+    \newCJKfontfamily\zhhei{FandolHei-Regular}[
+      Extension = .otf,
+      BoldFont = FandolHei-Regular,
+      BoldFeatures = { FakeBold = \tju@cjk@embolden@factor },
+    ]%
+    \newCJKfontfamily\zhkai{FandolKai-Regular.otf}[AutoFakeBold]%
+    \newCJKfontfamily\zhfs{FandolFang-Regular.otf}[
+      AutoFakeBold = true,
+      ItalicFont = FandolKai-Regular.otf,
+    ]%
+  }%
 }
 \newcommand\tju@load@cjk@font{%
   \@nameuse{tju@load@cjk@font@\tju@cjk@font}%
